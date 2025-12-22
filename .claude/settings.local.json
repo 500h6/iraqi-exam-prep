@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"C:\\apps\\iraqi_exam_prep_app\")",
+      "Bash(dir \"C:\\apps\\iraqi_exam_prep_app\\android\\app\\src\\main\")",
+      "Bash(dir \"C:\\apps\\iraqi_exam_prep_app\\android\\app\\src\\main\\java\" /s /b)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(npm run create-users:*)",
+      "Bash(curl:*)",
+      "Bash(node -e:*)",
+      "Bash(node src/utils/testPassword.js:*)",
+      "Bash(npm run create-codes:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

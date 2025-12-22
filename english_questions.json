@@ -1,0 +1,27 @@
+[
+  {
+    "text": "ما ترجمة كلمة 'Book' إلى العربية؟",
+    "options": ["كتاب", "قلم", "سيارة", "بيت"],
+    "correctAnswer": "كتاب"
+  },
+  {
+    "text": "ما هو الزمن الصحيح لجملة 'I eat apple'؟",
+    "options": ["Present Simple", "Past Simple", "Future", "Present Continuous"],
+    "correctAnswer": "Present Simple"
+  },
+  {
+    "text": "اختر الفعل الصحيح: He _____ to school every day.",
+    "options": ["go", "goes", "going", "went"],
+    "correctAnswer": "goes"
+  },
+  {
+    "text": "ما معنى 'Hello'؟",
+    "options": ["مرحبا", "وداعا", "شكرا", "نعم"],
+    "correctAnswer": "مرحبا"
+  },
+  {
+    "text": "أي من هذه صفة؟",
+    "options": ["Run", "Beautiful", "Eat", "Quickly"],
+    "correctAnswer": "Beautiful"
+  }
+]

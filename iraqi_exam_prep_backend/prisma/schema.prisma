@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+}
+
+enum Subject {
+  ARABIC
+  ENGLISH
+  COMPUTER
+}
+
+model User {
+  id                String         @id @default(uuid())
+  email             String         @unique
+  passwordHash      String
+  name              String
+  phone             String?
+  role              Role           @default(STUDENT)
+  isPremium         Boolean        @default(false)
+  premiumUntil      DateTime?
+  unlockedSubjects  Subject[]
+  freeAttempts      Json           @default("{}")
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  activationCodes   ActivationCode[] @relation("Creator")
+  redeemedCodes     ActivationCode[] @relation("Redeemer")
+  examAttempts      ExamAttempt[]
+  examResults       ExamResult[]
+  refreshTokens     RefreshToken[]
+  auditLogs         AuditLog[]
+}
+
+model ActivationCode {
+  id           String   @id @default(uuid())
+  code         String   @unique
+  unlockAll    Boolean  @default(false)
+  subjects     Subject[]
+  maxUses      Int      @default(1)
+  uses         Int      @default(0)
+  expiresAt    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  createdById  String?
+  redeemedById String?
+  status       String   @default("active")
+
+  createdBy  User? @relation("Creator", fields: [createdById], references: [id])
+  redeemedBy User? @relation("Redeemer", fields: [redeemedById], references: [id])
+}
+
+model ExamQuestion {
+  id            String   @id @default(uuid())
+  subject       Subject
+  questionText  String
+  options       String[]
+  correctAnswer Int
+  explanation   String?
+  difficulty    Int       @default(1)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model ExamAttempt {
+  id              String      @id @default(uuid())
+  userId          String
+  subject         Subject
+  answers         Json
+  startedAt       DateTime    @default(now())
+  completedAt     DateTime?
+  isFreeAttempt   Boolean     @default(false)
+  createdAt       DateTime    @default(now())
+
+  user            User        @relation(fields: [userId], references: [id])
+  result          ExamResult?
+}
+
+model ExamResult {
+  id              String      @id @default(uuid())
+  attemptId       String      @unique
+  userId          String
+  subject         Subject
+  score           Int
+  totalQuestions  Int
+  correctAnswers  Int
+  wrongAnswers    Int
+  percentage      Float
+  passed          Boolean
+  completedAt     DateTime
+  metadata        Json?
+
+  attempt         ExamAttempt @relation(fields: [attemptId], references: [id])
+  user            User        @relation(fields: [userId], references: [id])
+}
+
+model RefreshToken {
+  id         String   @id @default(uuid())
+  tokenHash  String   @unique
+  userId     String
+  device     String?
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  revoked    Boolean  @default(false)
+
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actorId   String?
+  action    String
+  payload   Json?
+  createdAt DateTime @default(now())
+
+  actor     User?    @relation(fields: [actorId], references: [id])
+}

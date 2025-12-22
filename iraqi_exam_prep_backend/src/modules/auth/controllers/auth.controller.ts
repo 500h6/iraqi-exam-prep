@@ -1,0 +1,67 @@
+import { Request, Response } from "express";
+import { authService } from "../services/auth.service";
+import { sendSuccess } from "../../../utils/response";
+import { AuthenticatedRequest } from "../../../middlewares/authMiddleware";
+import { AppError } from "../../../utils/appError";
+import {
+  clearRefreshTokenCookie,
+  getRefreshTokenFromCookies,
+  setRefreshTokenCookie,
+} from "../utils/tokenCookie";
+
+const selectRefreshToken = (req: Request) =>
+  req.body.refreshToken ?? getRefreshTokenFromCookies(req.cookies);
+
+export const registerHandler = async (req: Request, res: Response) => {
+  const { name, email, password, phone } = req.body;
+  const result = await authService.register({ name, email, password, phone });
+  setRefreshTokenCookie(res, result.refreshToken);
+  return sendSuccess(res, {
+    data: {
+      token: result.accessToken,
+      refreshToken: result.refreshToken,
+      user: result.user,
+    },
+  }, 201);
+};
+
+export const loginHandler = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const result = await authService.login({ email, password });
+  setRefreshTokenCookie(res, result.refreshToken);
+  return sendSuccess(res, {
+    data: {
+      token: result.accessToken,
+      refreshToken: result.refreshToken,
+      user: result.user,
+    },
+  });
+};
+
+export const refreshHandler = async (req: Request, res: Response) => {
+  const refreshToken = selectRefreshToken(req);
+  if (!refreshToken) {
+    throw new AppError("Refresh token missing", 401, "UNAUTHORIZED");
+  }
+  const result = await authService.refresh(refreshToken);
+  setRefreshTokenCookie(res, result.refreshToken);
+  return sendSuccess(res, {
+    data: {
+      token: result.accessToken,
+      refreshToken: result.refreshToken,
+      user: result.user,
+    },
+  });
+};
+
+export const meHandler = async (req: AuthenticatedRequest, res: Response) => {
+  const user = await authService.getProfile(req.user!.id);
+  return sendSuccess(res, { data: { user } });
+};
+
+export const logoutHandler = async (req: Request, res: Response) => {
+  const refreshToken = selectRefreshToken(req);
+  await authService.logout(refreshToken);
+  clearRefreshTokenCookie(res);
+  return sendSuccess(res, { data: { loggedOut: true } });
+};
