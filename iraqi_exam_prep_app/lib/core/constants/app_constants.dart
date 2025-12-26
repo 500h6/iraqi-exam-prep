@@ -14,16 +14,20 @@ class AppConstants {
       return 'https://iraqi-exam-prep.onrender.com/api/v1';
     }
     
+    // Unified Production Environment: All platforms point to Render by default
+    // so they share the same live database (Neon).
+    return 'https://iraqi-exam-prep.onrender.com/api/v1';
+
+    /* 
+    // Commented out for now to ensure all platforms are linked to Live Backend
     if (kIsWeb) {
-      // Use LAN IP for Web so it works on iPhone/Remote devices too
-      // was: return 'http://localhost:3000/api/v1';
-      return 'http://192.168.0.100:3000/api/v1';
+      return 'http://192.168.0.108:3000/api/v1';
     } else if (defaultTargetPlatform == TargetPlatform.android) {
-      return 'http://127.0.0.1:3000/api/v1';
+      return 'http://10.0.2.2:3000/api/v1';
     } else {
-      // للآيفون والأجهزة الحقيقية عبر الشبكة المحلية
-      return 'http://192.168.0.100:3000/api/v1';
+      return 'http://192.168.0.108:3000/api/v1';
     }
+    */
   }
   static const int connectionTimeout = 30000;
   static const int receiveTimeout = 30000;
