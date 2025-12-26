@@ -40,10 +40,13 @@ class _ActivationPageState extends State<ActivationPage> {
         body: BlocConsumer<ActivationBloc, ActivationState>(
           listener: (context, state) async {
             if (state is ActivationSuccess) {
-              // 1. Sync User state immediately IF data is available
+              // 1. Sync User state immediately
+              final authBloc = context.read<AuthBloc>();
               if (state.user != null) {
-                final authBloc = context.read<AuthBloc>();
                 authBloc.add(UpdateUserEvent(state.user!));
+              } else {
+                // Fallback: if validation didn't return user, fetch latest profile from server
+                authBloc.add(CheckAuthStatusEvent());
               }
               
               // 2. Show beautiful animation

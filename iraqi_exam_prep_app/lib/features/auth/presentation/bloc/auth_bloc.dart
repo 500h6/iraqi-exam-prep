@@ -11,12 +11,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final RegisterUseCase registerUseCase;
   final LogoutUseCase logoutUseCase;
   final CheckAuthStatusUseCase checkAuthStatusUseCase;
+  final GetCurrentUserUseCase getCurrentUserUseCase;
 
   AuthBloc({
     required this.loginUseCase,
     required this.registerUseCase,
     required this.logoutUseCase,
     required this.checkAuthStatusUseCase,
+    required this.getCurrentUserUseCase,
   }) : super(AuthInitial()) {
     on<LoginEvent>(_onLogin);
     on<RegisterEvent>(_onRegister);
@@ -65,13 +67,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     emit(AuthLoading());
-    final result = await checkAuthStatusUseCase();
-    result.fold(
-      (failure) => emit(AuthUnauthenticated()),
-      (isAuthenticated) {
+    
+    // 1. Check if we have a token
+    final statusResult = await checkAuthStatusUseCase();
+    
+    await statusResult.fold(
+      (failure) async {
+        emit(AuthUnauthenticated());
+      },
+      (isAuthenticated) async {
         if (isAuthenticated) {
-          // In a real app, you'd fetch the current user here
-          emit(AuthUnauthenticated()); // Will be handled by splash screen
+          // 2. We have a token, now fetch the full profile
+          final userResult = await getCurrentUserUseCase();
+          userResult.fold(
+            (failure) => emit(AuthUnauthenticated()),
+            (user) => emit(AuthAuthenticated(user)),
+          );
         } else {
           emit(AuthUnauthenticated());
         }

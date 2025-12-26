@@ -16,31 +16,27 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    _navigate();
-  }
-
-  void _navigate() {
-    Future.delayed(const Duration(seconds: 2), () {
+    // Safety fallback: if no event reaches the listener within 5 seconds, check current state
+    Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
-        final authState = context.read<AuthBloc>().state;
-        if (authState is AuthAuthenticated) {
-          context.go('/home');
-        } else {
-          context.go('/login');
-        }
+        _handleNavigation(context.read<AuthBloc>().state);
       }
     });
+  }
+
+  void _handleNavigation(AuthState state) {
+    if (state is AuthAuthenticated) {
+      context.go('/home');
+    } else if (state is AuthUnauthenticated) {
+      context.go('/login');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthAuthenticated) {
-          context.go('/home');
-        } else if (state is AuthUnauthenticated) {
-          context.go('/login');
-        }
+        _handleNavigation(state);
       },
       child: Scaffold(
         backgroundColor: AppColors.primary,

@@ -9,6 +9,7 @@ import '../../features/auth/domain/usecases/login_usecase.dart';
 import '../../features/auth/domain/usecases/register_usecase.dart';
 import '../../features/auth/domain/usecases/logout_usecase.dart';
 import '../../features/auth/domain/usecases/check_auth_status_usecase.dart';
+import '../../features/auth/domain/usecases/get_current_user_usecase.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/exams/data/datasources/exam_remote_datasource.dart';
 import '../../features/exams/data/repositories/exam_repository_impl.dart';
@@ -54,12 +55,14 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<RegisterUseCase>(RegisterUseCase(getIt()));
   getIt.registerSingleton<LogoutUseCase>(LogoutUseCase(getIt()));
   getIt.registerSingleton<CheckAuthStatusUseCase>(CheckAuthStatusUseCase(getIt()));
+  getIt.registerSingleton<GetCurrentUserUseCase>(GetCurrentUserUseCase(getIt()));
   getIt.registerFactory<AuthBloc>(
     () => AuthBloc(
       loginUseCase: getIt(),
       registerUseCase: getIt(),
       logoutUseCase: getIt(),
       checkAuthStatusUseCase: getIt(),
+      getCurrentUserUseCase: getIt(),
     ),
   );
 
