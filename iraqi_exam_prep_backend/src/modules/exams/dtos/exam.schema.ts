@@ -5,6 +5,6 @@ export const submitExamSchema = z.object({
     subject: z.string(),
   }),
   body: z.object({
-    answers: z.record(z.string(), z.number().int().min(0).max(3)),
+    answers: z.record(z.string(), z.number().int().min(0).max(9)),
   }),
 });

@@ -6,9 +6,9 @@ import { hashPassword } from "../utils/password";
 import { logger } from "../config/logger";
 
 const createTestUser = async () => {
-    const email = "test@example.com";
-    const password = "password123";
-    const name = "Test Student";
+    const email = "admin@iraqi-exam.app";
+    const password = "Admin@123456";
+    const name = "Admin";
 
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) {

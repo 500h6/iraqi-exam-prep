@@ -12,6 +12,13 @@ export const getQuestionsHandler = async (
   if (!subject) {
     throw new AppError("Subject is required", 400, "SUBJECT_REQUIRED");
   }
+
+  // Prevent caching for exam questions to ensure randomization works
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.set("Pragma", "no-cache");
+  res.set("Expires", "0");
+  res.set("Surrogate-Control", "no-store");
+
   const questions = await examService.getQuestions(req.user!.id, subject);
   return sendSuccess(res, {
     data: { questions },
