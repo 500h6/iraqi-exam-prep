@@ -13,8 +13,9 @@ export class ExamService {
     }
 
     async getQuestions(userId: string, subject: string): Promise<ExamQuestion[]> {
-        // 1. Validate subject
-        if (!Object.values(Subject).includes(subject as Subject)) {
+        // 1. Validate subject (convert to uppercase to match enum)
+        const normalizedSubject = subject.toUpperCase();
+        if (!Object.values(Subject).includes(normalizedSubject as Subject)) {
             throw new AppError("Invalid subject", 400, "INVALID_SUBJECT");
         }
 
@@ -23,7 +24,7 @@ export class ExamService {
         // to not fetch everything. For < 1k, fetching all ID/Status is acceptable for accurate history checks.
         const allQuestions = await prisma.examQuestion.findMany({
             where: {
-                subject: subject as Subject,
+                subject: normalizedSubject as Subject,
                 isActive: true,
             },
         });
@@ -36,7 +37,7 @@ export class ExamService {
         const pastAttempts = await prisma.examAttempt.findMany({
             where: {
                 userId,
-                subject: subject as Subject,
+                subject: normalizedSubject as Subject,
             },
             select: {
                 answers: true,
@@ -116,8 +117,9 @@ export class ExamService {
         subject: string,
         answers: Record<string, number>
     ) {
-        // 1. Validate subject
-        if (!Object.values(Subject).includes(subject as Subject)) {
+        // 1. Validate subject (convert to uppercase to match enum)
+        const normalizedSubject = subject.toUpperCase();
+        if (!Object.values(Subject).includes(normalizedSubject as Subject)) {
             throw new AppError("Invalid subject", 400, "INVALID_SUBJECT");
         }
 
@@ -151,7 +153,7 @@ export class ExamService {
             const attempt = await tx.examAttempt.create({
                 data: {
                     userId,
-                    subject: subject as Subject,
+                    subject: normalizedSubject as Subject,
                     answers,
                     completedAt: new Date(),
                 },
@@ -161,7 +163,7 @@ export class ExamService {
                 data: {
                     attemptId: attempt.id,
                     userId,
-                    subject: subject as Subject,
+                    subject: normalizedSubject as Subject,
                     score,
                     totalQuestions,
                     correctAnswers,
