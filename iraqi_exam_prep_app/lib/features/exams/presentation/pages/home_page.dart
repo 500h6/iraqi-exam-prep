@@ -118,6 +118,18 @@ class HomePage extends StatelessWidget {
                             onTap: () => context.push('/admin/questions'),
                           ),
                         ),
+                        const SizedBox(height: 8),
+                        Card(
+                          child: ListTile(
+                            leading: const Icon(Icons.vpn_key, color: AppColors.primary),
+                            title: const Text('إدارة أكواد التفعيل'),
+                            subtitle: const Text(
+                              'توليد أكواد جديدة وعرض الأكواد الموجودة',
+                            ),
+                            trailing: const Icon(Icons.arrow_forward_ios, size: 18),
+                            onTap: () => context.push('/admin/codes'),
+                          ),
+                        ),
                         const SizedBox(height: 32),
                       ],
                     );

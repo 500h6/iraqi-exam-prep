@@ -58,6 +58,8 @@ class _ExamPageState extends State<ExamPage> {
                 'score': state.result.score,
                 'totalQuestions': state.result.totalQuestions,
                 'subject': widget.subject,
+                'questions': _questions,
+                'answers': _answers,
               });
             } else if (state is ExamError) {
               Fluttertoast.showToast(
@@ -179,6 +181,54 @@ class _ExamPageState extends State<ExamPage> {
                     ),
                   ),
                 ],
+              );
+            }
+
+            if (state is ExamError) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.error_outline,
+                        size: 80,
+                        color: AppColors.error,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        'حدث خطأ',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        state.message,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 32),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 54,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            context.read<ExamBloc>().add(
+                                  LoadExamQuestionsEvent(widget.subject),
+                                );
+                          },
+                          icon: const Icon(Icons.refresh),
+                          label: const Text('إعادة المحاولة'),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      TextButton(
+                        onPressed: () => context.go('/home'),
+                        child: const Text('العودة للرئيسية'),
+                      ),
+                    ],
+                  ),
+                ),
               );
             }
 

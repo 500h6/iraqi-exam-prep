@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         ],
         routerConfig: AppRouter.router,
         builder: (context, child) {
-          final mediaQuery = MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0));
+          final mediaQuery = MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0));
           return MediaQuery(
             data: mediaQuery,
             child: Directionality(

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../constants/app_constants.dart';
 import '../services/storage_service.dart';
@@ -87,6 +86,16 @@ class DioClient {
     Options? options,
   }) async {
     return _dio.put(path, data: data, queryParameters: queryParameters, options: options);
+  }
+
+  // PATCH
+  Future<Response> patch(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
+    return _dio.patch(path, data: data, queryParameters: queryParameters, options: options);
   }
 
   // DELETE

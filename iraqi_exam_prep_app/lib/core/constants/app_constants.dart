@@ -4,16 +4,16 @@ class AppConstants {
   // إعدادات واجهة البرمجة
   // استخدم 127.0.0.1 للمحاكي (مع adb reverse) و localhost للويب
   static String get baseUrl {
-    // In production (release mode), use the production URL
-    if (kReleaseMode) {
-      // You can pass this via --dart-define=BACKEND_URL=... or just edit it here
-      const String prodUrl = String.fromEnvironment(
-        'BACKEND_URL',
-        defaultValue: 'https://your-backend-app.onrender.com/api/v1',
-      );
-      return prodUrl;
+    // Allows setting URL at build time: flutter build web --dart-define=BASE_URL=https://...
+    const String envUrl = String.fromEnvironment('BASE_URL');
+    if (envUrl.isNotEmpty) {
+      return envUrl;
     }
 
+    if (kReleaseMode) {
+      return 'https://iraqi-exam-prep.onrender.com/api/v1';
+    }
+    
     if (kIsWeb) {
       // Use LAN IP for Web so it works on iPhone/Remote devices too
       // was: return 'http://localhost:3000/api/v1';

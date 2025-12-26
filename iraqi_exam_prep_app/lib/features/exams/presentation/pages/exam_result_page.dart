@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../domain/entities/question_entity.dart';
 
 class ExamResultPage extends StatelessWidget {
   final int score;
   final int totalQuestions;
   final String subject;
+  final List<QuestionEntity> questions;
+  final Map<String, int> userAnswers;
 
   const ExamResultPage({
     super.key,
     required this.score,
     required this.totalQuestions,
     required this.subject,
+    required this.questions,
+    required this.userAnswers,
   });
 
   @override
@@ -146,6 +151,29 @@ class ExamResultPage extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: 40),
+              
+              // Review Answers Button
+              SizedBox(
+                width: double.infinity,
+                height: 54,
+                child: FilledButton.icon(
+                  onPressed: () {
+                    context.push('/review-answers', extra: {
+                      'questions': questions,
+                      'userAnswers': userAnswers,
+                    });
+                  },
+                  icon: const Icon(Icons.rate_review_outlined),
+                  label: const Text('مراجعة إجابتك'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppColors.secondary,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+
               // Action Buttons
               SizedBox(
                 width: double.infinity,
@@ -155,20 +183,17 @@ class ExamResultPage extends StatelessWidget {
                   child: const Text('العودة للرئيسية'),
                 ),
               ),
-              if (!passed) ...[
-                const SizedBox(height: 12),
-                SizedBox(
-                  width: double.infinity,
-                  height: 54,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      context.pop();
-                      context.push('/exam/$subject');
-                    },
-                    child: const Text('إعادة المحاولة'),
-                  ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                height: 54,
+                child: OutlinedButton(
+                  onPressed: () {
+                    context.go('/exam/$subject');
+                  },
+                  child: const Text('إعادة المحاولة'),
                 ),
-              ],
+              ),
             ],
           ),
         ),

@@ -9,6 +9,11 @@ import '../../features/activation/presentation/pages/subscription_page.dart';
 import '../../features/activation/presentation/pages/activation_page.dart';
 import '../../features/registration/presentation/pages/national_exam_page.dart';
 import '../../features/admin/presentation/pages/admin_question_page.dart';
+import '../../features/admin/presentation/pages/admin_code_page.dart';
+import '../../features/admin/data/datasources/admin_remote_datasource.dart';
+import '../../features/exams/domain/entities/question_entity.dart';
+import '../../features/exams/presentation/pages/review_answers_page.dart';
+import '../../core/di/injection_container.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -42,6 +47,8 @@ class AppRouter {
           return ExamPage(subject: subject);
         },
       ),
+
+
       GoRoute(
         path: '/exam-result',
         name: 'نتيجة الامتحان',
@@ -51,6 +58,19 @@ class AppRouter {
             score: extra['score'] as int,
             totalQuestions: extra['totalQuestions'] as int,
             subject: extra['subject'] as String,
+            questions: extra['questions'] as List<QuestionEntity>,
+            userAnswers: extra['answers'] as Map<String, int>,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/review-answers',
+        name: 'مراجعة الإجابات',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          return ReviewAnswersPage(
+            questions: extra['questions'] as List<QuestionEntity>,
+            userAnswers: extra['userAnswers'] as Map<String, int>,
           );
         },
       ),
@@ -76,6 +96,13 @@ class AppRouter {
         path: '/admin/questions',
         name: 'إدارة الأسئلة',
         builder: (context, state) => const AdminQuestionPage(),
+      ),
+      GoRoute(
+        path: '/admin/codes',
+        name: 'إدارة الأكواد',
+        builder: (context, state) => AdminCodePage(
+          dataSource: getIt<AdminRemoteDataSource>(),
+        ),
       ),
     ],
   );
