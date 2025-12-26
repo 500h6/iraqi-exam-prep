@@ -14,7 +14,7 @@ class ActivationLoading extends ActivationState {}
 
 class ActivationSuccess extends ActivationState {
   final String message;
-  final UserEntity user;
+  final UserEntity? user;
 
   const ActivationSuccess(this.message, this.user);
 

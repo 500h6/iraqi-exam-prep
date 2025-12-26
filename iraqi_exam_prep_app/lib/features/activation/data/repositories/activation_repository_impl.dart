@@ -10,7 +10,7 @@ class ActivationRepositoryImpl implements ActivationRepository {
   ActivationRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<Either<Failure, UserEntity>> validateCode(String code) async {
+  Future<Either<Failure, UserEntity?>> validateCode(String code) async {
     try {
       final result = await remoteDataSource.validateCode(code);
       return Right(result);

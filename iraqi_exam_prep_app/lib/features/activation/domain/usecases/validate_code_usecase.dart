@@ -8,7 +8,7 @@ class ValidateCodeUseCase {
 
   ValidateCodeUseCase(this.repository);
 
-  Future<Either<Failure, UserEntity>> call(String code) async {
+  Future<Either<Failure, UserEntity?>> call(String code) async {
     return await repository.validateCode(code);
   }
 }
