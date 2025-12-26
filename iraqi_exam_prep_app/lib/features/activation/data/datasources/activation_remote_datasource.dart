@@ -30,7 +30,7 @@ class ActivationRemoteDataSourceImpl implements ActivationRemoteDataSource {
   Future<bool> checkSubscription() async {
     try {
       final response = await dioClient.get('/activation/status');
-      return response.data['isPremium'] == true;
+      return response.data['data']['isPremium'] == true;
     } on DioException catch (e) {
       throw Exception(
           e.response?.data['message'] ?? 'Failed to check subscription');
