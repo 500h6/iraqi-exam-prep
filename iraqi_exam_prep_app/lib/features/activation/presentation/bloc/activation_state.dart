@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../../auth/domain/entities/user_entity.dart';
 
 abstract class ActivationState extends Equatable {
   const ActivationState();
@@ -13,11 +14,12 @@ class ActivationLoading extends ActivationState {}
 
 class ActivationSuccess extends ActivationState {
   final String message;
+  final UserEntity user;
 
-  const ActivationSuccess(this.message);
+  const ActivationSuccess(this.message, this.user);
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, user];
 }
 
 class ActivationError extends ActivationState {

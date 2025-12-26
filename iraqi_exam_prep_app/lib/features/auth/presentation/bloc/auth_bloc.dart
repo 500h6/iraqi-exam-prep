@@ -22,6 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<RegisterEvent>(_onRegister);
     on<LogoutEvent>(_onLogout);
     on<CheckAuthStatusEvent>(_onCheckAuthStatus);
+    on<UpdateUserEvent>((event, emit) => emit(AuthAuthenticated(event.user)));
   }
 
   Future<void> _onLogin(LoginEvent event, Emitter<AuthState> emit) async {

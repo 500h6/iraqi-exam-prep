@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/repositories/activation_repository.dart';
 import '../datasources/activation_remote_datasource.dart';
+import '../../../auth/domain/entities/user_entity.dart';
 
 class ActivationRepositoryImpl implements ActivationRepository {
   final ActivationRemoteDataSource remoteDataSource;
@@ -9,7 +10,7 @@ class ActivationRepositoryImpl implements ActivationRepository {
   ActivationRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<Either<Failure, bool>> validateCode(String code) async {
+  Future<Either<Failure, UserEntity>> validateCode(String code) async {
     try {
       final result = await remoteDataSource.validateCode(code);
       return Right(result);

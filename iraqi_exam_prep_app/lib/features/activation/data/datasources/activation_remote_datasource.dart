@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import '../../../../core/network/dio_client.dart';
+import '../../../auth/data/models/user_model.dart';
 
 abstract class ActivationRemoteDataSource {
-  Future<bool> validateCode(String code);
+  Future<UserModel> validateCode(String code);
   Future<bool> checkSubscription();
 }
 
@@ -12,13 +13,13 @@ class ActivationRemoteDataSourceImpl implements ActivationRemoteDataSource {
   ActivationRemoteDataSourceImpl(this.dioClient);
 
   @override
-  Future<bool> validateCode(String code) async {
+  Future<UserModel> validateCode(String code) async {
     try {
       final response = await dioClient.post(
         '/activation/validate',
         data: {'code': code},
       );
-      return response.data['success'] == true;
+      return UserModel.fromJson(response.data['data']);
     } on DioException catch (e) {
       throw Exception(
           e.response?.data['message'] ?? 'Failed to validate code');

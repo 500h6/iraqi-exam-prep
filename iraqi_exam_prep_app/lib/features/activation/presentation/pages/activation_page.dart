@@ -7,6 +7,9 @@ import '../../../../core/di/injection_container.dart';
 import '../bloc/activation_bloc.dart';
 import '../bloc/activation_event.dart';
 import '../bloc/activation_state.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_event.dart';
+import '../widgets/activation_success_dialog.dart';
 
 class ActivationPage extends StatefulWidget {
   const ActivationPage({super.key});
@@ -35,14 +38,23 @@ class _ActivationPageState extends State<ActivationPage> {
           title: const Text('تفعيل الاشتراك المميز'),
         ),
         body: BlocConsumer<ActivationBloc, ActivationState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is ActivationSuccess) {
-              Fluttertoast.showToast(
-                msg: state.message,
-                backgroundColor: AppColors.success,
+              // 1. Sync User state immediately
+              final authBloc = context.read<AuthBloc>();
+              authBloc.add(UpdateUserEvent(state.user));
+              
+              // 2. Show beautiful animation
+              await showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => const ActivationSuccessDialog(),
               );
-              // Navigate back to home and refresh
-              context.go('/home');
+              
+              // 3. Navigate back
+              if (context.mounted) {
+                context.go('/home');
+              }
             } else if (state is ActivationError) {
               Fluttertoast.showToast(
                 msg: state.message,
@@ -64,7 +76,7 @@ class _ActivationPageState extends State<ActivationPage> {
                         width: 100,
                         height: 100,
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.1),
+                          color: AppColors.primary.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -138,7 +150,7 @@ class _ActivationPageState extends State<ActivationPage> {
                     const SizedBox(height: 24),
                     // Info Card
                     Card(
-                      color: AppColors.info.withOpacity(0.05),
+                      color: AppColors.info.withValues(alpha: 0.05),
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Column(

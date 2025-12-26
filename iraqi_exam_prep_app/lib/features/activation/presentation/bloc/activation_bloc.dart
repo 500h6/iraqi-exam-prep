@@ -24,13 +24,11 @@ class ActivationBloc extends Bloc<ActivationEvent, ActivationState> {
     final result = await validateCodeUseCase(event.code);
     result.fold(
       (failure) => emit(ActivationError(failure.message)),
-      (success) {
-        if (success) {
-          emit(const ActivationSuccess(
-              'Activation successful! Premium features unlocked.'));
-        } else {
-          emit(const ActivationError('Invalid or expired activation code'));
-        }
+      (user) {
+        emit(ActivationSuccess(
+          'Activation successful! Premium features unlocked.',
+          user,
+        ));
       },
     );
   }
