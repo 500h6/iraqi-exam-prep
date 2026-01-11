@@ -5,11 +5,13 @@ import {
   sign,
   verify,
 } from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
 import { env } from "../config/env";
 
 export interface JwtPayload {
   sub: string;
   role: string;
+  jti?: string;
 }
 
 const accessSecret: Secret = env.jwtAccessSecret;
@@ -22,7 +24,7 @@ export const signAccessToken = (payload: JwtPayload) => {
 };
 
 export const signRefreshToken = (payload: JwtPayload) => {
-  return sign(payload, refreshSecret, {
+  return sign({ ...payload, jti: uuidv4() }, refreshSecret, {
     expiresIn: env.refreshTokenTtl,
   } as SignOptions);
 };
