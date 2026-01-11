@@ -4,6 +4,7 @@ class QuestionInput {
   final List<String> options;
   final int correctAnswer;
   final String? explanation;
+  final String? imageUrl;
 
   const QuestionInput({
     required this.subject,
@@ -11,6 +12,7 @@ class QuestionInput {
     required this.options,
     required this.correctAnswer,
     this.explanation,
+    this.imageUrl,
   });
 
   Map<String, dynamic> toJson() => {
@@ -20,5 +22,7 @@ class QuestionInput {
         'correctAnswer': correctAnswer,
         if (explanation != null && explanation!.isNotEmpty)
           'explanation': explanation,
+        if (imageUrl != null && imageUrl!.isNotEmpty)
+          'imageUrl': imageUrl,
       };
 }

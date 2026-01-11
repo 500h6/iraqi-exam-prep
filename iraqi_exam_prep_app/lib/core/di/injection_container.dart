@@ -27,6 +27,9 @@ import '../../features/admin/data/datasources/admin_remote_datasource.dart';
 import '../../features/admin/data/repositories/admin_repository_impl.dart';
 import '../../features/admin/domain/repositories/admin_repository.dart';
 import '../../features/admin/domain/usecases/add_question_usecase.dart';
+import '../../features/admin/domain/usecases/update_question_usecase.dart';
+import '../../features/admin/domain/usecases/delete_question_usecase.dart';
+import '../../features/admin/domain/usecases/search_questions_usecase.dart';
 import '../../features/admin/presentation/bloc/admin_question_bloc.dart';
 import '../network/dio_client.dart';
 
@@ -106,7 +109,15 @@ Future<void> initializeDependencies() async {
     AdminRepositoryImpl(getIt()),
   );
   getIt.registerSingleton<AddQuestionUseCase>(AddQuestionUseCase(getIt()));
+  getIt.registerSingleton<UpdateQuestionUseCase>(UpdateQuestionUseCase(getIt()));
+  getIt.registerSingleton<DeleteQuestionUseCase>(DeleteQuestionUseCase(getIt()));
+  getIt.registerSingleton<SearchQuestionsUseCase>(SearchQuestionsUseCase(getIt()));
   getIt.registerFactory<AdminQuestionBloc>(
-    () => AdminQuestionBloc(addQuestionUseCase: getIt()),
+    () => AdminQuestionBloc(
+      addQuestionUseCase: getIt(),
+      updateQuestionUseCase: getIt(),
+      deleteQuestionUseCase: getIt(),
+      searchQuestionsUseCase: getIt(),
+    ),
   );
 }

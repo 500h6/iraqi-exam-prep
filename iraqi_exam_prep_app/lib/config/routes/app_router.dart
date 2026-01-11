@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
@@ -10,6 +11,8 @@ import '../../features/activation/presentation/pages/activation_page.dart';
 import '../../features/registration/presentation/pages/national_exam_page.dart';
 import '../../features/admin/presentation/pages/admin_question_page.dart';
 import '../../features/admin/presentation/pages/admin_code_page.dart';
+import '../../features/admin/presentation/pages/question_management_page.dart';
+import '../../features/admin/presentation/bloc/admin_question_bloc.dart';
 import '../../features/admin/data/datasources/admin_remote_datasource.dart';
 import '../../features/exams/domain/entities/question_entity.dart';
 import '../../features/exams/presentation/pages/review_answers_page.dart';
@@ -95,7 +98,10 @@ class AppRouter {
       GoRoute(
         path: '/admin/questions',
         name: 'إدارة الأسئلة',
-        builder: (context, state) => const AdminQuestionPage(),
+        builder: (context, state) => BlocProvider(
+          create: (_) => getIt<AdminQuestionBloc>(),
+          child: const QuestionManagementPage(),
+        ),
       ),
       GoRoute(
         path: '/admin/codes',

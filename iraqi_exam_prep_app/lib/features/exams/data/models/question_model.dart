@@ -12,6 +12,7 @@ class QuestionModel extends QuestionEntity {
     required super.options,
     required super.correctAnswer,
     super.explanation,
+    super.imageUrl,
   });
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) =>

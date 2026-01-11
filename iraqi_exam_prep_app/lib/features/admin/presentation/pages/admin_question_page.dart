@@ -6,12 +6,14 @@ import '../../../../core/di/injection_container.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
+import '../../../exams/domain/entities/question_entity.dart';
 import '../../presentation/bloc/admin_question_bloc.dart';
 import '../../presentation/bloc/admin_question_event.dart';
 import '../../presentation/bloc/admin_question_state.dart';
 
 class AdminQuestionPage extends StatefulWidget {
-  const AdminQuestionPage({super.key});
+  final QuestionEntity? question;
+  const AdminQuestionPage({super.key, this.question});
 
   @override
   State<AdminQuestionPage> createState() => _AdminQuestionPageState();
@@ -19,23 +21,49 @@ class AdminQuestionPage extends StatefulWidget {
 
 class _AdminQuestionPageState extends State<AdminQuestionPage> {
   final _formKey = GlobalKey<FormState>();
-  final _questionController = TextEditingController();
-  final _explanationController = TextEditingController();
-  final List<TextEditingController> _optionControllers =
-      List.generate(4, (_) => TextEditingController());
+  late final TextEditingController _questionController;
+  late final TextEditingController _explanationController;
+  late final TextEditingController _imageUrlController;
+  late final List<TextEditingController> _optionControllers;
+  
   final List<Map<String, String>> _subjects = const [
     {'value': 'ARABIC', 'label': 'اللغة العربية'},
     {'value': 'ENGLISH', 'label': 'اللغة الإنجليزية'},
     {'value': 'COMPUTER', 'label': 'مهارات الحاسوب'},
+    {'value': 'MATH', 'label': 'الرياضيات'},
+    {'value': 'SCIENCE', 'label': 'العلوم'},
+    {'value': 'SOCIAL_STUDIES', 'label': 'الاجتماعيات'},
+    {'value': 'ISLAMIC', 'label': 'التربية الإسلامية'},
   ];
 
-  String _selectedSubject = 'ARABIC';
-  int _correctAnswerIndex = 0;
+  late String _selectedSubject;
+  late int _correctAnswerIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _questionController = TextEditingController(text: widget.question?.questionText);
+    _explanationController = TextEditingController(text: widget.question?.explanation);
+    _imageUrlController = TextEditingController(text: widget.question?.imageUrl);
+    
+    if (widget.question != null) {
+      _optionControllers = widget.question!.options
+          .map((o) => TextEditingController(text: o))
+          .toList();
+      _selectedSubject = widget.question!.subject;
+      _correctAnswerIndex = widget.question!.correctAnswer;
+    } else {
+      _optionControllers = List.generate(4, (_) => TextEditingController());
+      _selectedSubject = 'ARABIC';
+      _correctAnswerIndex = 0;
+    }
+  }
 
   @override
   void dispose() {
     _questionController.dispose();
     _explanationController.dispose();
+    _imageUrlController.dispose();
     for (final controller in _optionControllers) {
       controller.dispose();
     }
@@ -60,9 +88,14 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
   }
 
   void _resetForm() {
+    if (widget.question != null) {
+      Navigator.pop(context);
+      return;
+    }
     _formKey.currentState?.reset();
     _questionController.clear();
     _explanationController.clear();
+    _imageUrlController.clear();
     for (final controller in _optionControllers) {
       controller.clear();
     }
@@ -90,17 +123,38 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
       return;
     }
 
-    context.read<AdminQuestionBloc>().add(
-          SubmitQuestionEvent(
-            subject: _selectedSubject,
-            questionText: _questionController.text.trim(),
-            options: options,
-            correctAnswer: _correctAnswerIndex,
-            explanation: _explanationController.text.trim().isEmpty
-                ? null
-                : _explanationController.text.trim(),
-          ),
-        );
+    if (widget.question != null) {
+      context.read<AdminQuestionBloc>().add(
+            UpdateAdminQuestionEvent(
+              id: widget.question!.id,
+              subject: _selectedSubject,
+              questionText: _questionController.text.trim(),
+              options: options,
+              correctAnswer: _correctAnswerIndex,
+              explanation: _explanationController.text.trim().isEmpty
+                  ? null
+                  : _explanationController.text.trim(),
+              imageUrl: _imageUrlController.text.trim().isEmpty
+                  ? null
+                  : _imageUrlController.text.trim(),
+            ),
+          );
+    } else {
+      context.read<AdminQuestionBloc>().add(
+            SubmitQuestionEvent(
+              subject: _selectedSubject,
+              questionText: _questionController.text.trim(),
+              options: options,
+              correctAnswer: _correctAnswerIndex,
+              explanation: _explanationController.text.trim().isEmpty
+                  ? null
+                  : _explanationController.text.trim(),
+              imageUrl: _imageUrlController.text.trim().isEmpty
+                  ? null
+                  : _imageUrlController.text.trim(),
+            ),
+          );
+    }
   }
 
   @override
@@ -124,20 +178,22 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
       create: (_) => getIt<AdminQuestionBloc>(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('إضافة أسئلة الامتحانات'),
+          title: Text(widget.question == null ? 'إضافة سؤال جديد' : 'تعديل السؤال'),
         ),
         body: BlocConsumer<AdminQuestionBloc, AdminQuestionState>(
           listener: (context, state) {
             if (state is AdminQuestionSuccess) {
               Fluttertoast.showToast(
-                msg: 'تم حفظ السؤال بنجاح',
+                msg: state.message ?? 'تم حفظ السؤال بنجاح',
                 backgroundColor: AppColors.success,
                 textColor: Colors.white,
               );
-              _resetForm();
-              context
-                  .read<AdminQuestionBloc>()
-                  .add(ResetAdminQuestionEvent());
+              if (widget.question != null) {
+                Navigator.pop(context);
+              } else {
+                _resetForm();
+                context.read<AdminQuestionBloc>().add(ResetAdminQuestionEvent());
+              }
             } else if (state is AdminQuestionFailure) {
               Fluttertoast.showToast(
                 msg: state.message,
@@ -157,12 +213,12 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'إضافة سؤال جديد',
+                        widget.question == null ? 'إضافة سؤال جديد' : 'تعديل السؤال',
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 16),
                       DropdownButtonFormField<String>(
-                        initialValue: _selectedSubject,
+                        value: _selectedSubject,
                         decoration: const InputDecoration(
                           labelText: 'المادة',
                         ),
@@ -189,12 +245,35 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
                           labelText: 'نص السؤال',
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().length < 10) {
-                          return 'يجب ألا يقل السؤال عن 10 أحرف';
+                          if (value == null || value.trim().length < 5) {
+                            return 'يجب ألا يقل السؤال عن 5 أحرف';
                           }
                           return null;
                         },
                       ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _imageUrlController,
+                        decoration: const InputDecoration(
+                          labelText: 'رابط الصورة (اختياري)',
+                          hintText: 'https://example.com/image.jpg',
+                        ),
+                        onChanged: (_) => setState(() {}),
+                      ),
+                      if (_imageUrlController.text.isNotEmpty) ...[
+                        const SizedBox(height: 8),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            _imageUrlController.text,
+                            height: 150,
+                            width: double.infinity,
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Center(child: Text('خطأ في تحميل الصورة')),
+                          ),
+                        ),
+                      ],
                       const SizedBox(height: 24),
                       Text(
                         'الخيارات',
@@ -217,8 +296,7 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
                                       labelText: 'الخيار ${index + 1}',
                                     ),
                                     validator: (value) {
-                                      if (value == null ||
-                                          value.trim().isEmpty) {
+                                      if (value == null || value.trim().isEmpty) {
                                         return 'لا يمكن ترك الخيار فارغاً';
                                       }
                                       return null;
@@ -272,9 +350,7 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
                         width: double.infinity,
                         height: 52,
                         child: ElevatedButton(
-                          onPressed: isLoading
-                              ? null
-                              : () => _submit(context),
+                          onPressed: isLoading ? null : () => _submit(context),
                           child: isLoading
                               ? const SizedBox(
                                   width: 20,
@@ -284,7 +360,7 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
                                     color: Colors.white,
                                   ),
                                 )
-                              : const Text('حفظ السؤال'),
+                              : Text(widget.question == null ? 'إضافة السؤال' : 'تحديث السؤال'),
                         ),
                       ),
                     ],

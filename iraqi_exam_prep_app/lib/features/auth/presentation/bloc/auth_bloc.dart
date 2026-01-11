@@ -3,6 +3,7 @@ import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/register_usecase.dart';
 import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/check_auth_status_usecase.dart';
+import '../../domain/usecases/get_current_user_usecase.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 

@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
 
 import '../../../../core/network/dio_client.dart';
+import '../../../exams/data/models/question_model.dart';
 import '../../domain/entities/question_input.dart';
 import '../models/activation_code_model.dart';
 
 abstract class AdminRemoteDataSource {
   Future<void> addQuestion(QuestionInput input);
+  Future<List<QuestionModel>> searchQuestions({String? subject, String? query});
+  Future<void> updateQuestion(String id, QuestionInput input);
+  Future<void> deleteQuestion(String id);
   Future<List<ActivationCodeModel>> generateCodes(GenerateCodeInput input);
   Future<List<ActivationCodeModel>> listCodes({String? status, int? limit});
   Future<void> revokeCode(String codeId);
@@ -37,7 +41,62 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
       throw Exception('Failed to create question');
     }
   }
+  @override
+  Future<List<QuestionModel>> searchQuestions({String? subject, String? query}) async {
+    try {
+      final queryParams = <String, dynamic>{};
+      if (subject != null) queryParams['subject'] = subject;
+      if (query != null) queryParams['search'] = query;
 
+      final response = await dioClient.get(
+        '/admin/questions',
+        queryParameters: queryParams,
+      );
+      final data = response.data as Map<String, dynamic>;
+      final questionsList = data['data']['questions'] as List<dynamic>;
+      return questionsList
+          .map((e) => QuestionModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
+      throw Exception('Failed to fetch questions');
+    }
+  }
+
+  @override
+  Future<void> updateQuestion(String id, QuestionInput input) async {
+    try {
+      await dioClient.patch(
+        '/admin/questions/$id',
+        data: input.toJson(),
+      );
+    } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
+      throw Exception('Failed to update question');
+    }
+  }
+
+  @override
+  Future<void> deleteQuestion(String id) async {
+    try {
+      await dioClient.delete('/admin/questions/$id');
+    } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
+      throw Exception('Failed to delete question');
+    }
+  }
   @override
   Future<List<ActivationCodeModel>> generateCodes(GenerateCodeInput input) async {
     try {
