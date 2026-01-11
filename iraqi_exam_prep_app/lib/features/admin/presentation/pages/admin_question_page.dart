@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -38,6 +40,50 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
 
   late String _selectedSubject;
   late int _correctAnswerIndex;
+  bool _isUploadingImage = false;
+
+  Future<void> _pickAndUploadImage() async {
+    final picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image == null) return;
+
+    setState(() {
+      _isUploadingImage = true;
+    });
+
+    try {
+      final storageRef = FirebaseStorage.instance.ref();
+      final fileName = '${DateTime.now().millisecondsSinceEpoch}_${image.name}';
+      final imageRef = storageRef.child('questions/$fileName');
+
+      final metadata = SettableMetadata(contentType: image.mimeType);
+      final uploadTask = imageRef.putData(await image.readAsBytes(), metadata);
+
+      final snapshot = await uploadTask;
+      final downloadUrl = await snapshot.ref.getDownloadURL();
+
+      setState(() {
+        _imageUrlController.text = downloadUrl;
+        _isUploadingImage = false;
+      });
+      
+      Fluttertoast.showToast(
+        msg: 'تم رفع الصورة بنجاح',
+        backgroundColor: AppColors.success,
+        textColor: Colors.white,
+      );
+    } catch (e) {
+      setState(() {
+        _isUploadingImage = false;
+      });
+      Fluttertoast.showToast(
+        msg: 'فشل رفع الصورة: $e',
+        backgroundColor: AppColors.error,
+        textColor: Colors.white,
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -252,14 +298,38 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      TextFormField(
-                        controller: _imageUrlController,
-                        decoration: const InputDecoration(
-                          labelText: 'رابط الصورة (اختياري)',
-                          hintText: 'https://example.com/image.jpg',
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: _imageUrlController,
+                                decoration: const InputDecoration(
+                                  labelText: 'رابط الصورة (اختياري)',
+                                  hintText: 'https://example.com/image.jpg',
+                                ),
+                                onChanged: (_) => setState(() {}),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            _isUploadingImage
+                                ? const SizedBox(
+                                    width: 48,
+                                    height: 48,
+                                    child: Center(
+                                      child: SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(strokeWidth: 2),
+                                      ),
+                                    ),
+                                  )
+                                : IconButton(
+                                    onPressed: _pickAndUploadImage,
+                                    icon: const Icon(Icons.cloud_upload_outlined),
+                                    tooltip: 'رفع صورة',
+                                  ),
+                          ],
                         ),
-                        onChanged: (_) => setState(() {}),
-                      ),
                       if (_imageUrlController.text.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         ClipRRect(
