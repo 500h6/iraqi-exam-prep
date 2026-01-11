@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/auth/presentation/pages/onboarding_page.dart';
+import '../../features/auth/presentation/pages/login_page.dart';  // Modified
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/exams/presentation/pages/home_page.dart';
 import '../../features/exams/presentation/pages/exam_page.dart';
@@ -27,9 +27,9 @@ class AppRouter {
         builder: (context, state) => const SplashPage(),
       ),
       GoRoute(
-        path: '/onboarding',
-        name: 'التسجيل',
-        builder: (context, state) => const OnboardingPage(),
+        path: '/login',
+        name: 'Login',
+        builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
         path: '/home',
