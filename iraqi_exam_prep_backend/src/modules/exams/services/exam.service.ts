@@ -86,26 +86,64 @@ export class ExamService {
         });
 
         // 6. Selection Logic (Target 25)
-        // Priority: Wrong -> New -> Correct
-        const result: ExamQuestion[] = [];
         const TARGET_COUNT = 25;
+        let result: ExamQuestion[] = [];
 
-        // Add Wrong (Shuffled)
-        const shuffledWrong = this.shuffle(wrongQuestions);
-        result.push(...shuffledWrong);
+        if (normalizedSubject === Subject.ENGLISH) {
+            // English Specific Distribution: 45% Grammar, 30% Functions, 25% Reading
+            // For 25 questions: 11.25 -> 11 Grammar, 7.5 -> 8 Functions, 6.25 -> 6 Reading
+            const quotas = [
+                { category: 'grammar', count: 11 },
+                { category: 'functions', count: 8 },
+                { category: 'reading', count: 6 }
+            ];
 
-        // Fill with New (Shuffled)
-        if (result.length < TARGET_COUNT) {
-            const needed = TARGET_COUNT - result.length;
-            const shuffledNew = this.shuffle(newQuestions);
-            result.push(...shuffledNew.slice(0, needed));
-        }
+            quotas.forEach(quota => {
+                const categoryWrong = this.shuffle(wrongQuestions.filter(q => q.category === quota.category));
+                const categoryNew = this.shuffle(newQuestions.filter(q => q.category === quota.category));
+                const categoryCorrect = this.shuffle(correctQuestions.filter(q => q.category === quota.category));
 
-        // Fill with Correct (Shuffled) - Review
-        if (result.length < TARGET_COUNT) {
-            const needed = TARGET_COUNT - result.length;
-            const shuffledCorrect = this.shuffle(correctQuestions);
-            result.push(...shuffledCorrect.slice(0, needed));
+                let categorySelected: ExamQuestion[] = [];
+
+                // Add Wrong
+                categorySelected.push(...categoryWrong);
+
+                // Fill with New
+                if (categorySelected.length < quota.count) {
+                    const needed = quota.count - categorySelected.length;
+                    categorySelected.push(...categoryNew.slice(0, needed));
+                }
+
+                // Fill with Correct
+                if (categorySelected.length < quota.count) {
+                    const needed = quota.count - categorySelected.length;
+                    categorySelected.push(...categoryCorrect.slice(0, needed));
+                }
+
+                result.push(...categorySelected.slice(0, quota.count));
+            });
+
+        } else {
+            // Default Selection Logic
+            // Priority: Wrong -> New -> Correct
+
+            // Add Wrong (Shuffled)
+            const shuffledWrong = this.shuffle(wrongQuestions);
+            result.push(...shuffledWrong);
+
+            // Fill with New (Shuffled)
+            if (result.length < TARGET_COUNT) {
+                const needed = TARGET_COUNT - result.length;
+                const shuffledNew = this.shuffle(newQuestions);
+                result.push(...shuffledNew.slice(0, needed));
+            }
+
+            // Fill with Correct (Shuffled) - Review
+            if (result.length < TARGET_COUNT) {
+                const needed = TARGET_COUNT - result.length;
+                const shuffledCorrect = this.shuffle(correctQuestions);
+                result.push(...shuffledCorrect.slice(0, needed));
+            }
         }
 
         // 7. Final Shuffle of the selected set
