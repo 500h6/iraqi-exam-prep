@@ -56,7 +56,6 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<LoginUseCase>(LoginUseCase(getIt()));
   getIt.registerSingleton<RegisterUseCase>(RegisterUseCase(getIt()));
-  getIt.registerSingleton<IdentifyUseCase>(IdentifyUseCase(getIt()));
   getIt.registerSingleton<LogoutUseCase>(LogoutUseCase(getIt()));
   getIt.registerSingleton<CheckAuthStatusUseCase>(CheckAuthStatusUseCase(getIt()));
   getIt.registerSingleton<GetCurrentUserUseCase>(GetCurrentUserUseCase(getIt()));
@@ -64,7 +63,6 @@ Future<void> initializeDependencies() async {
     () => AuthBloc(
       loginUseCase: getIt(),
       registerUseCase: getIt(),
-      identifyUseCase: getIt(),
       logoutUseCase: getIt(),
       checkAuthStatusUseCase: getIt(),
       getCurrentUserUseCase: getIt(),
