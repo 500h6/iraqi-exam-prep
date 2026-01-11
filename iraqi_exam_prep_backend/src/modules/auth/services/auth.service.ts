@@ -68,8 +68,8 @@ export const authService = {
         data: {
           name: data.name,
           phone: data.phone,
-          branch: data.branch,
-          city: data.city,
+          branch: data.branch ?? null,
+          city: data.city ?? null,
           unlockedSubjects: [Subject.ARABIC],
         },
       });
