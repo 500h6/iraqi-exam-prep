@@ -232,18 +232,44 @@ export class ExamService {
     async createQuestion(data: any) {
         return prisma.examQuestion.create({
             data
-        })
+        });
     }
 
-    async listQuestions(subject?: string, limit: number = 25) {
+    async updateQuestion(id: string, data: any) {
+        return prisma.examQuestion.update({
+            where: { id },
+            data
+        });
+    }
+
+    async deleteQuestion(id: string) {
+        return prisma.examQuestion.delete({
+            where: { id }
+        });
+    }
+
+    async getQuestionById(id: string) {
+        return prisma.examQuestion.findUnique({
+            where: { id }
+        });
+    }
+
+    async listQuestions(subject?: string, limit: number = 25, search?: string) {
         const where: any = {};
         if (subject) {
             where.subject = subject as Subject;
         }
+        if (search) {
+            where.questionText = {
+                contains: search,
+                mode: 'insensitive'
+            };
+        }
         return prisma.examQuestion.findMany({
             where,
-            take: limit
-        })
+            take: limit,
+            orderBy: { createdAt: 'desc' }
+        });
     }
 }
 

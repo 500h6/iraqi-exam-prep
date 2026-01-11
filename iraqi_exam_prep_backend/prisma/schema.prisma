@@ -53,6 +53,7 @@ model ExamQuestion {
   correctAnswer Int
   explanation   String?
   category      String?
+  imageUrl      String?
   difficulty    Int      @default(1)
   isActive      Boolean  @default(true)
   createdAt     DateTime @default(now())

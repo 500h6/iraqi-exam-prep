@@ -27,7 +27,7 @@ const buildTokens = async (userId: string, role: Role) => {
   return { accessToken, refreshToken };
 };
 
-const toUserResponse = (user: User) => ({
+export const toUserResponse = (user: User) => ({
   id: user.id,
   email: user.email,
   name: user.name,

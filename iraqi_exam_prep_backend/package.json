@@ -12,7 +12,8 @@
     "format": "prettier \"src/**/*.{ts,tsx,json}\" --write",
     "test": "echo \"No tests yet\"",
     "seed:admin": "ts-node -r tsconfig-paths/register src/scripts/createAdmin.ts",
-    "seed:questions": "ts-node -r tsconfig-paths/register src/scripts/importQuestions.ts"
+    "seed:questions": "ts-node -r tsconfig-paths/register src/scripts/importQuestions.ts",
+    "update:computer-questions": "ts-node -r tsconfig-paths/register src/scripts/updateComputerQuestions.ts"
   },
   "keywords": [],
   "author": "",

@@ -10,6 +10,9 @@ import {
 import {
   createQuestionHandler,
   listQuestionsHandler,
+  updateQuestionHandler,
+  deleteQuestionHandler,
+  getQuestionHandler,
 } from "../controllers/question.controller";
 import {
   generateCodeSchema,
@@ -40,6 +43,27 @@ adminRouter.get(
   requireRole([Role.ADMIN]),
   validateResource(listQuestionsSchema),
   listQuestionsHandler,
+);
+
+adminRouter.get(
+  "/questions/:id",
+  authenticate(),
+  requireRole([Role.ADMIN]),
+  getQuestionHandler,
+);
+
+adminRouter.patch(
+  "/questions/:id",
+  authenticate(),
+  requireRole([Role.ADMIN]),
+  updateQuestionHandler,
+);
+
+adminRouter.delete(
+  "/questions/:id",
+  authenticate(),
+  requireRole([Role.ADMIN]),
+  deleteQuestionHandler,
 );
 
 // Activation Code Management

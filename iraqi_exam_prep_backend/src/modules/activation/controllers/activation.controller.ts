@@ -2,6 +2,7 @@ import { Response } from "express";
 import { activationService } from "../services/activation.service";
 import { AuthenticatedRequest } from "../../../middlewares/authMiddleware";
 import { sendSuccess } from "../../../utils/response";
+import { toUserResponse } from "../../auth/services/auth.service";
 
 export const activationStatusHandler = async (
   req: AuthenticatedRequest,
@@ -22,11 +23,7 @@ export const activationValidateHandler = async (
   return sendSuccess(
     res,
     {
-      data: {
-        isPremium: updated.isPremium,
-        unlockedSubjects: updated.unlockedSubjects,
-        premiumUntil: updated.premiumUntil,
-      },
+      data: toUserResponse(updated),
       message: "Activation successful",
     },
   );
