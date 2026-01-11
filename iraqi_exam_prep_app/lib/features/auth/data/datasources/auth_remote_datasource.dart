@@ -12,6 +12,12 @@ abstract class AuthRemoteDataSource {
     required String name,
     String? phone,
   });
+  Future<UserModel> identify({
+    required String name,
+    required String phone,
+    String? branch,
+    String? city,
+  });
   Future<void> logout();
   Future<bool> checkAuthStatus();
   Future<UserModel> getCurrentUser();
@@ -104,6 +110,50 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return user;
     } on DioException catch (e) {
       throw Exception(_extractErrorMessage(e) ?? 'Registration failed');
+    }
+  }
+
+  @override
+  Future<UserModel> identify({
+    required String name,
+    required String phone,
+    String? branch,
+    String? city,
+  }) async {
+    try {
+      final response = await dioClient.post(
+        '/auth/identify',
+        data: {
+          'name': name,
+          'phone': phone,
+          if (branch != null) 'branch': branch,
+          if (city != null) 'city': city,
+        },
+      );
+
+      final data = response.data['data'] as Map<String, dynamic>? ?? {};
+      final token = data['token'] as String?;
+      final userJson = data['user'] as Map<String, dynamic>?;
+
+      if (token == null || userJson == null) {
+        throw Exception('Invalid response from server');
+      }
+
+      final user = UserModel.fromJson(userJson);
+
+      // Store token
+      await secureStorage.write(
+        key: AppConstants.accessTokenKey,
+        value: token,
+      );
+      await secureStorage.write(
+        key: AppConstants.userIdKey,
+        value: user.id,
+      );
+
+      return user;
+    } on DioException catch (e) {
+      throw Exception(_extractErrorMessage(e) ?? 'Identification failed');
     }
   }
 

@@ -46,6 +46,26 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<Failure, UserEntity>> identify({
+    required String name,
+    required String phone,
+    String? branch,
+    String? city,
+  }) async {
+    try {
+      final user = await remoteDataSource.identify(
+        name: name,
+        phone: phone,
+        branch: branch,
+        city: city,
+      );
+      return Right(user);
+    } catch (e) {
+      return Left(AuthenticationFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> logout() async {
     try {
       await remoteDataSource.logout();

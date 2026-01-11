@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/register_usecase.dart';
+import '../../domain/usecases/identify_usecase.dart';
 import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/check_auth_status_usecase.dart';
 import '../../domain/usecases/get_current_user_usecase.dart';
@@ -10,6 +11,7 @@ import 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
   final RegisterUseCase registerUseCase;
+  final IdentifyUseCase identifyUseCase;
   final LogoutUseCase logoutUseCase;
   final CheckAuthStatusUseCase checkAuthStatusUseCase;
   final GetCurrentUserUseCase getCurrentUserUseCase;
@@ -17,15 +19,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required this.loginUseCase,
     required this.registerUseCase,
+    required this.identifyUseCase,
     required this.logoutUseCase,
     required this.checkAuthStatusUseCase,
     required this.getCurrentUserUseCase,
   }) : super(AuthInitial()) {
     on<LoginEvent>(_onLogin);
     on<RegisterEvent>(_onRegister);
+    on<IdentifyEvent>(_onIdentify);
     on<LogoutEvent>(_onLogout);
     on<CheckAuthStatusEvent>(_onCheckAuthStatus);
     on<UpdateUserEvent>((event, emit) => emit(AuthAuthenticated(event.user)));
+  }
+
+  Future<void> _onIdentify(IdentifyEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    final result = await identifyUseCase(
+      name: event.name,
+      phone: event.phone,
+      branch: event.branch,
+      city: event.city,
+    );
+    result.fold(
+      (failure) => emit(AuthError(failure.message)),
+      (user) => emit(AuthAuthenticated(user)),
+    );
   }
 
   Future<void> _onLogin(LoginEvent event, Emitter<AuthState> emit) async {

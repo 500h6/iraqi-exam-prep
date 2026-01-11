@@ -15,6 +15,13 @@ abstract class AuthRepository {
     String? phone,
   });
 
+  Future<Either<Failure, UserEntity>> identify({
+    required String name,
+    required String phone,
+    String? branch,
+    String? city,
+  });
+
   Future<Either<Failure, void>> logout();
 
   Future<Either<Failure, bool>> checkAuthStatus();

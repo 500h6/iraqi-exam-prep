@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/auth/presentation/pages/login_page.dart';
-import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/auth/presentation/pages/onboarding_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/exams/presentation/pages/home_page.dart';
 import '../../features/exams/presentation/pages/exam_page.dart';
@@ -28,14 +27,9 @@ class AppRouter {
         builder: (context, state) => const SplashPage(),
       ),
       GoRoute(
-        path: '/login',
-        name: 'تسجيل الدخول',
-        builder: (context, state) => const LoginPage(),
-      ),
-      GoRoute(
-        path: '/register',
-        name: 'إنشاء حساب',
-        builder: (context, state) => const RegisterPage(),
+        path: '/onboarding',
+        name: 'التسجيل',
+        builder: (context, state) => const OnboardingPage(),
       ),
       GoRoute(
         path: '/home',
