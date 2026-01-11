@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  identifyHandler,
   loginHandler,
   meHandler,
   refreshHandler,
@@ -7,6 +8,7 @@ import {
   logoutHandler,
 } from "../controllers/auth.controller";
 import {
+  identifySchema,
   loginSchema,
   refreshSchema,
   registerSchema,
@@ -16,6 +18,13 @@ import { authenticate } from "../../../middlewares/authMiddleware";
 import { authRateLimiter } from "../../../middlewares/rateLimiter";
 
 export const authRouter = Router();
+
+authRouter.post(
+  "/identify",
+  authRateLimiter,
+  validateResource(identifySchema),
+  identifyHandler,
+);
 
 authRouter.post(
   "/register",

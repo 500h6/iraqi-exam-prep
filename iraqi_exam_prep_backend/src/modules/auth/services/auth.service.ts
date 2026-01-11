@@ -32,6 +32,8 @@ export const toUserResponse = (user: User) => ({
   email: user.email,
   name: user.name,
   phone: user.phone,
+  branch: user.branch,
+  city: user.city,
   role: user.role,
   isPremium: user.isPremium,
   unlockedSubjects: user.unlockedSubjects,
@@ -39,26 +41,65 @@ export const toUserResponse = (user: User) => ({
 });
 
 export const authService = {
-  register: async (data: {
-    email: string;
-    password: string;
+  identify: async (data: {
     name: string;
-    phone?: string;
+    phone: string;
+    branch?: string;
+    city?: string;
+  }) => {
+    // Check if user exists by phone
+    let user = await prisma.user.findUnique({
+      where: { phone: data.phone },
+    });
+
+    if (user) {
+      // Update name or other info if provided
+      user = await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          name: data.name,
+          branch: data.branch ?? user.branch,
+          city: data.city ?? user.city,
+        },
+      });
+    } else {
+      // Create new user
+      user = await prisma.user.create({
+        data: {
+          name: data.name,
+          phone: data.phone,
+          branch: data.branch,
+          city: data.city,
+          unlockedSubjects: [Subject.ARABIC],
+        },
+      });
+    }
+
+    const tokens = await buildTokens(user.id, user.role);
+    return { user: toUserResponse(user), ...tokens };
+  },
+
+  register: async (data: {
+    email?: string;
+    password?: string;
+    name: string;
+    phone: string;
   }) => {
     const existing = await prisma.user.findUnique({
-      where: { email: data.email.toLowerCase() },
+      where: { phone: data.phone },
     });
     if (existing) {
-      throw new AppError("Email already in use", 409, "EMAIL_EXISTS");
+      throw new AppError("Phone number already in use", 409, "PHONE_EXISTS");
     }
-    const passwordHash = await hashPassword(data.password);
+
+    const passwordHash = data.password ? await hashPassword(data.password) : null;
     const user = await prisma.user.create({
       data: {
-        email: data.email.toLowerCase(),
+        email: data.email?.toLowerCase() ?? null,
         passwordHash,
         name: data.name,
-        phone: data.phone ?? null,
-        unlockedSubjects: [Subject.ARABIC], // free subject unlocked by default
+        phone: data.phone,
+        unlockedSubjects: [Subject.ARABIC],
       },
     });
 
@@ -66,16 +107,28 @@ export const authService = {
     return { user: toUserResponse(user), ...tokens };
   },
 
-  login: async (data: { email: string; password: string }) => {
-    const user = await prisma.user.findUnique({
-      where: { email: data.email.toLowerCase() },
-    });
-    if (!user) {
-      throw new AppError("Invalid credentials", 401, "INVALID_CREDENTIALS");
+  login: async (data: { email?: string; phone?: string; password?: string }) => {
+    let user;
+    if (data.email) {
+      user = await prisma.user.findUnique({
+        where: { email: data.email.toLowerCase() },
+      });
+    } else if (data.phone) {
+      user = await prisma.user.findUnique({
+        where: { phone: data.phone },
+      });
     }
-    const isValid = await comparePassword(data.password, user.passwordHash);
-    if (!isValid) {
-      throw new AppError("Invalid credentials", 401, "INVALID_CREDENTIALS");
+
+    if (!user) {
+      throw new AppError("User not found", 401, "INVALID_CREDENTIALS");
+    }
+
+    // Only check password if user has one
+    if (user.passwordHash && data.password) {
+      const isValid = await comparePassword(data.password, user.passwordHash);
+      if (!isValid) {
+        throw new AppError("Invalid credentials", 401, "INVALID_CREDENTIALS");
+      }
     }
 
     const tokens = await buildTokens(user.id, user.role);

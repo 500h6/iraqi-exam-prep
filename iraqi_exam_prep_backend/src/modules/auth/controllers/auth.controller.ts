@@ -12,6 +12,19 @@ import {
 const selectRefreshToken = (req: Request) =>
   req.body.refreshToken ?? getRefreshTokenFromCookies(req.cookies);
 
+export const identifyHandler = async (req: Request, res: Response) => {
+  const { name, phone, branch, city } = req.body;
+  const result = await authService.identify({ name, phone, branch, city });
+  setRefreshTokenCookie(res, result.refreshToken);
+  return sendSuccess(res, {
+    data: {
+      token: result.accessToken,
+      refreshToken: result.refreshToken,
+      user: result.user,
+    },
+  });
+};
+
 export const registerHandler = async (req: Request, res: Response) => {
   const { name, email, password, phone } = req.body;
   const result = await authService.register({ name, email, password, phone });
