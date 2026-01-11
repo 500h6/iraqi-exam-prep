@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
     if (state is AuthAuthenticated) {
       context.go('/home');
     } else if (state is AuthUnauthenticated) {
-      context.go('/onboarding');
+      context.go('/login');
     }
   }
 
