@@ -16,7 +16,14 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    // Safety fallback: if no event reaches the listener within 5 seconds, check current state
+    // Check current state immediately after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _handleNavigation(context.read<AuthBloc>().state);
+      }
+    });
+    
+    // Safety fallback
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
         _handleNavigation(context.read<AuthBloc>().state);
