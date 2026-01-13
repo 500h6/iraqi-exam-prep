@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -53,15 +53,16 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
     });
 
     try {
-      final storageRef = FirebaseStorage.instance.ref();
       final fileName = '${DateTime.now().millisecondsSinceEpoch}_${image.name}';
-      final imageRef = storageRef.child('questions/$fileName');
+      
+      final supabase = Supabase.instance.client;
+      await supabase.storage.from('exam-images').uploadBinary(
+            fileName,
+            await image.readAsBytes(),
+            fileOptions: FileOptions(contentType: image.mimeType),
+          );
 
-      final metadata = SettableMetadata(contentType: image.mimeType);
-      final uploadTask = imageRef.putData(await image.readAsBytes(), metadata);
-
-      final snapshot = await uploadTask;
-      final downloadUrl = await snapshot.ref.getDownloadURL();
+      final downloadUrl = supabase.storage.from('exam-images').getPublicUrl(fileName);
 
       setState(() {
         _imageUrlController.text = downloadUrl;
