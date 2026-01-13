@@ -10,6 +10,7 @@ export const createQuestionSchema = z
       options: z.array(z.string().min(1)).min(2),
       correctAnswer: z.number().int().min(0),
       explanation: z.string().optional(),
+      imageUrl: z.string().optional(),
       difficulty: z.number().int().min(1).max(5).optional(),
     }),
   })

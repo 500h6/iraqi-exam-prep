@@ -104,9 +104,63 @@ class _ExamPageState extends State<ExamPage> {
                           Card(
                             child: Padding(
                               padding: const EdgeInsets.all(20),
-                              child: Text(
-                                question.questionText,
-                                style: Theme.of(context).textTheme.titleLarge,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  if (question.imageUrl != null && question.imageUrl!.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 16),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => Dialog(
+                                                child: InteractiveViewer(
+                                                  child: Image.network(question.imageUrl!),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Image.network(
+                                            question.imageUrl!,
+                                            fit: BoxFit.contain,
+                                            height: 200,
+                                            loadingBuilder: (context, child, loadingProgress) {
+                                              if (loadingProgress == null) return child;
+                                              return Center(
+                                                child: CircularProgressIndicator(
+                                                  value: loadingProgress.expectedTotalBytes != null
+                                                      ? loadingProgress.cumulativeBytesLoaded /
+                                                          loadingProgress.expectedTotalBytes!
+                                                      : null,
+                                                ),
+                                              );
+                                            },
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return const SizedBox(
+                                                height: 100,
+                                                child: Center(
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Icon(Icons.broken_image, color: Colors.grey),
+                                                      Text('حدث خطأ في تحميل الصورة', style: TextStyle(color: Colors.grey)),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  Text(
+                                    question.questionText,
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
