@@ -20,13 +20,13 @@ export const registerSchema = z.object({
 
 export const loginSchema = z.object({
   body: z.object({
-    phone: z.string().min(10).max(15),
+    phone: z.string().min(10).max(25), // Allow spaces: "+964 781 001 1034"
   }),
 });
 
 export const verifyOtpSchema = z.object({
   body: z.object({
-    phone: z.string().min(10).max(15),
+    phone: z.string().min(10).max(25), // Allow spaces
     code: z.string().length(6),
   }),
 });
