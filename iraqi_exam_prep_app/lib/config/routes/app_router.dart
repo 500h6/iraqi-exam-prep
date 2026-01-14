@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/auth/presentation/pages/login_page.dart';  // Modified
+import '../../features/auth/presentation/pages/login_page.dart';  
+import '../../features/auth/presentation/pages/otp_page.dart';
+import '../../features/auth/presentation/pages/complete_profile_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/exams/presentation/pages/home_page.dart';
 import '../../features/exams/presentation/pages/exam_page.dart';
@@ -30,6 +32,19 @@ class AppRouter {
         path: '/login',
         name: 'Login',
         builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: '/otp',
+        name: 'OTP',
+        builder: (context, state) {
+           final phone = state.extra as String;
+           return OtpPage(phone: phone);
+        },
+      ),
+      GoRoute(
+        path: '/complete-profile',
+        name: 'Complete Profile',
+        builder: (context, state) => const CompleteProfilePage(),
       ),
       GoRoute(
         path: '/home',

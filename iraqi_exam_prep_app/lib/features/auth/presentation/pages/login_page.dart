@@ -16,24 +16,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController(text: 'admin@iraqi-exam.app');
-  final _passwordController = TextEditingController(text: 'Admin@123456');
-  bool _obscurePassword = true;
+  final _phoneController = TextEditingController();
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
-  void _login(BuildContext context) {
+  void _submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       context.read<AuthBloc>().add(
-            LoginEvent(
-              email: _emailController.text.trim(),
-              password: _passwordController.text,
-            ),
+            LoginWithPhoneEvent(_phoneController.text.trim()),
           );
     }
   }
@@ -44,8 +38,10 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: AppColors.background,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthAuthenticated) {
-            context.go('/home');
+          if (state is AuthOtpSent) {
+            context.push('/otp', extra: state.phone);
+          } else if (state is AuthUnlinked) {
+            context.push('/otp', extra: state.phone); // Both go to OTP page, but page handles UI diff
           } else if (state is AuthError) {
             Fluttertoast.showToast(
               msg: state.message,
@@ -63,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 60),
                     // Logo
                     Center(
                       child: Container(
@@ -83,72 +79,41 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 32),
                     // Title
                     Text(
-                      'مرحباً بعودتك!',
+                      'تسجيل الدخول',
                       style: Theme.of(context).textTheme.displaySmall,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'سجّل الدخول لمتابعة رحلة التحضير للاختبار',
+                      'أدخل رقم هاتفك لتسجيل الدخول أو إنشاء حساب جديد',
                       style: Theme.of(context).textTheme.bodyMedium,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 40),
-                    // Email Field
+                    // Phone Field
                     TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
+                      controller: _phoneController,
+                      keyboardType: TextInputType.phone,
                       decoration: const InputDecoration(
-                        labelText: 'البريد الإلكتروني',
-                        prefixIcon: Icon(Icons.email_outlined),
+                        labelText: 'رقم الهاتف (مثال: 078xxxxxxx)',
+                        prefixIcon: Icon(Icons.phone_android_rounded),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'يرجى إدخال البريد الإلكتروني';
+                          return 'يرجى إدخال رقم الهاتف';
                         }
-                        if (!value.contains('@')) {
-                          return 'رجاءً أدخل بريداً إلكترونياً صحيحاً';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    // Password Field
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        labelText: 'كلمة المرور',
-                        prefixIcon: const Icon(Icons.lock_outlined),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'يرجى إدخال كلمة المرور';
-                        }
-                        if (value.length < 6) {
-                          return 'يجب أن تكون كلمة المرور 6 أحرف على الأقل';
+                        if (value.length < 10) {
+                          return 'رقم الهاتف قصير جداً';
                         }
                         return null;
                       },
                     ),
                     const SizedBox(height: 32),
-                    // Login Button
+                    // Submit Button
                     SizedBox(
                       height: 54,
                       child: ElevatedButton(
-                        onPressed: state is AuthLoading ? null : () => _login(context),
+                        onPressed: state is AuthLoading ? null : () => _submit(context),
                         child: state is AuthLoading
                             ? const SizedBox(
                                 height: 20,
@@ -158,23 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                                   strokeWidth: 2,
                                 ),
                               )
-                            : const Text('تسجيل الدخول'),
+                            : const Text('متابعة'),
                       ),
-                    ),
-                    const SizedBox(height: 24),
-                    // Register Link
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'لا تملك حساباً؟',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        TextButton(
-                          onPressed: () => context.go('/register'),
-                          child: const Text('إنشاء حساب'),
-                        ),
-                      ],
                     ),
                   ],
                 ),

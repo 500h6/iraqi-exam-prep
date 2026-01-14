@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/register_usecase.dart';
+import '../../domain/repositories/auth_repository.dart';
 
 import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/check_auth_status_usecase.dart';
@@ -19,45 +20,61 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required this.loginUseCase,
     required this.registerUseCase,
-
     required this.logoutUseCase,
     required this.checkAuthStatusUseCase,
     required this.getCurrentUserUseCase,
+    required this.authRepository, // Need repo directly for simple refactor or create new usecases
   }) : super(AuthInitial()) {
-    on<LoginEvent>(_onLogin);
-    on<RegisterEvent>(_onRegister);
-
+    on<LoginWithPhoneEvent>(_onLoginWithPhone);
+    on<VerifyOtpEvent>(_onVerifyOtp);
+    on<CompleteProfileEvent>(_onCompleteProfile);
     on<LogoutEvent>(_onLogout);
     on<CheckAuthStatusEvent>(_onCheckAuthStatus);
     on<UpdateUserEvent>((event, emit) => emit(AuthAuthenticated(event.user)));
   }
 
+  final AuthRepository authRepository;
 
-
-  Future<void> _onLogin(LoginEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onLoginWithPhone(LoginWithPhoneEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    final result = await loginUseCase(
-      email: event.email,
-      password: event.password,
-    );
+    // For simplicity, calling repository directly. Ideally use UseCase.
+    final result = await authRepository.requestOtp(phone: event.phone);
     result.fold(
       (failure) => emit(AuthError(failure.message)),
-      (user) => emit(AuthAuthenticated(user)),
+      (data) {
+        final linked = data['linked'] as bool? ?? false;
+        if (linked) {
+          emit(AuthOtpSent(event.phone));
+        } else {
+          emit(AuthUnlinked(event.phone));
+        }
+      },
     );
   }
 
-  Future<void> _onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onVerifyOtp(VerifyOtpEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    final result = await registerUseCase(
-      email: event.email,
-      password: event.password,
-      name: event.name,
-      phone: event.phone,
-    );
+    final result = await authRepository.verifyOtp(phone: event.phone, code: event.code);
     result.fold(
       (failure) => emit(AuthError(failure.message)),
-      (user) => emit(AuthAuthenticated(user)),
+      (user) {
+         // Check if name is placeholder "New Student"
+         if (user.name == "New Student") {
+             emit(AuthProfileIncomplete(user));
+         } else {
+             emit(AuthAuthenticated(user));
+         }
+      },
     );
+  }
+
+  Future<void> _onCompleteProfile(CompleteProfileEvent event, Emitter<AuthState> emit) async {
+      emit(AuthLoading());
+      final result = await authRepository.completeProfile(name: event.name);
+      result.fold(
+          (failure) => emit(AuthError(failure.message)),
+          (user) => emit(AuthAuthenticated(user)),
+      );
   }
 
   Future<void> _onLogout(LogoutEvent event, Emitter<AuthState> emit) async {

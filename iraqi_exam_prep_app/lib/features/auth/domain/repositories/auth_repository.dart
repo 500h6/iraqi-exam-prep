@@ -3,16 +3,17 @@ import '../../../../core/errors/failures.dart';
 import '../entities/user_entity.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, UserEntity>> login({
-    required String email,
-    required String password,
+  Future<Either<Failure, Map<String, dynamic>>> requestOtp({
+    required String phone,
   });
 
-  Future<Either<Failure, UserEntity>> register({
-    required String email,
-    required String password,
+  Future<Either<Failure, UserEntity>> verifyOtp({
+    required String phone,
+    required String code,
+  });
+
+  Future<Either<Failure, UserEntity>> completeProfile({
     required String name,
-    String? phone,
   });
 
   Future<Either<Failure, UserEntity>> identify({

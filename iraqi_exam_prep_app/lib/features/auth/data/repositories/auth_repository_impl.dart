@@ -10,15 +10,24 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<Either<Failure, UserEntity>> login({
-    required String email,
-    required String password,
+  Future<Either<Failure, Map<String, dynamic>>> requestOtp({
+    required String phone,
   }) async {
     try {
-      final user = await remoteDataSource.login(
-        email: email,
-        password: password,
-      );
+      final result = await remoteDataSource.requestOtp(phone: phone);
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> verifyOtp({
+    required String phone,
+    required String code,
+  }) async {
+    try {
+      final user = await remoteDataSource.verifyOtp(phone: phone, code: code);
       return Right(user);
     } catch (e) {
       return Left(AuthenticationFailure(e.toString()));
@@ -26,22 +35,14 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> register({
-    required String email,
-    required String password,
+  Future<Either<Failure, UserEntity>> completeProfile({
     required String name,
-    String? phone,
   }) async {
     try {
-      final user = await remoteDataSource.register(
-        email: email,
-        password: password,
-        name: name,
-        phone: phone,
-      );
+      final user = await remoteDataSource.completeProfile(name: name);
       return Right(user);
     } catch (e) {
-      return Left(AuthenticationFailure(e.toString()));
+      return Left(ServerFailure(e.toString()));
     }
   }
 
