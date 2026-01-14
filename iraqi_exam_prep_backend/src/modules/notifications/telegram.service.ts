@@ -1,5 +1,5 @@
 import { Telegraf, Context } from 'telegraf';
-import { prisma } from '../../shared/prisma';
+import { prisma } from '../shared/prisma';
 
 export class TelegramService {
     private bot: Telegraf | null = null;
