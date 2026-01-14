@@ -55,8 +55,7 @@ class AppConstants {
   static const String activeStatus = 'active';
   static const String expiredStatus = 'expired';
   static const String usedStatus = 'used';
-  // Supabase Configuration
-  static const String supabaseUrl = 'https://stcgnwidlfnvdatdlphc.supabase.co';
-  // Note: Using Publishable Key as provided by user in place of Anon Key.
-  static const String supabaseAnonKey = 'sb_publishable_WjCx0H1NnS62i40z_7aetg_iWB8tQeI';
+  // Supabase Configuration (set via --dart-define at build time)
+  static const String supabaseUrl = String.fromEnvironment('SUPABASE_URL', defaultValue: '');
+  static const String supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY', defaultValue: '');
 }
