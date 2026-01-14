@@ -17,6 +17,7 @@ import { adminRouter } from "./modules/admin/routes/admin.routes";
 
 export const app = express();
 
+app.set("trust proxy", 1); // Trust first proxy (Render load balancer)
 app.use(helmet());
 app.use(
   cors({
