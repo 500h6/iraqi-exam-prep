@@ -16,12 +16,7 @@ abstract class AuthRepository {
     required String name,
   });
 
-  Future<Either<Failure, UserEntity>> identify({
-    required String name,
-    required String phone,
-    String? branch,
-    String? city,
-  });
+
 
   Future<Either<Failure, void>> logout();
 

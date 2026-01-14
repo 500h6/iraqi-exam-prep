@@ -1,8 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/usecases/login_usecase.dart';
-import '../../domain/usecases/register_usecase.dart';
 import '../../domain/repositories/auth_repository.dart';
-
 import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/check_auth_status_usecase.dart';
 import '../../domain/usecases/get_current_user_usecase.dart';
@@ -10,20 +7,16 @@ import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final LoginUseCase loginUseCase;
-  final RegisterUseCase registerUseCase;
-
+  final AuthRepository authRepository;
   final LogoutUseCase logoutUseCase;
   final CheckAuthStatusUseCase checkAuthStatusUseCase;
   final GetCurrentUserUseCase getCurrentUserUseCase;
 
   AuthBloc({
-    required this.loginUseCase,
-    required this.registerUseCase,
+    required this.authRepository,
     required this.logoutUseCase,
     required this.checkAuthStatusUseCase,
     required this.getCurrentUserUseCase,
-    required this.authRepository, // Need repo directly for simple refactor or create new usecases
   }) : super(AuthInitial()) {
     on<LoginWithPhoneEvent>(_onLoginWithPhone);
     on<VerifyOtpEvent>(_onVerifyOtp);
@@ -32,8 +25,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CheckAuthStatusEvent>(_onCheckAuthStatus);
     on<UpdateUserEvent>((event, emit) => emit(AuthAuthenticated(event.user)));
   }
-
-  final AuthRepository authRepository;
 
   Future<void> _onLoginWithPhone(LoginWithPhoneEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());

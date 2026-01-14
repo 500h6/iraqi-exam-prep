@@ -5,19 +5,9 @@ import '../../../../core/services/storage_service.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserModel> login({required String email, required String password});
-  Future<UserModel> register({
-    required String email,
-    required String password,
-    required String name,
-    String? phone,
-  });
-  Future<UserModel> identify({
-    required String name,
-    required String phone,
-    String? branch,
-    String? city,
-  });
+  Future<Map<String, dynamic>> requestOtp({required String phone});
+  Future<UserModel> verifyOtp({required String phone, required String code});
+  Future<UserModel> completeProfile({required String name});
   Future<void> logout();
   Future<bool> checkAuthStatus();
   Future<UserModel> getCurrentUser();
@@ -30,61 +20,25 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this.dioClient, this.secureStorage);
 
   @override
-  Future<UserModel> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<Map<String, dynamic>> requestOtp({required String phone}) async {
     try {
       final response = await dioClient.post(
-        '/auth/login',
-        data: {
-          'email': email,
-          'password': password,
-        },
+        '/auth/login', // New endpoint maps to loginWithPhoneHandler
+        data: {'phone': phone},
       );
-
-      final data = response.data['data'] as Map<String, dynamic>? ?? {};
-      final token = data['token'] as String?;
-      final userJson = data['user'] as Map<String, dynamic>?;
-
-      if (token == null || userJson == null) {
-        throw Exception('Invalid response from server');
-      }
-
-      final user = UserModel.fromJson(userJson);
-
-      // Store token
-      await secureStorage.write(
-        key: AppConstants.accessTokenKey,
-        value: token,
-      );
-      await secureStorage.write(
-        key: AppConstants.userIdKey,
-        value: user.id,
-      );
-
-      return user;
+      final data = response.data['data'] as Map<String, dynamic>;
+      return data;
     } on DioException catch (e) {
-      throw Exception(_extractErrorMessage(e) ?? 'Login failed');
+      throw Exception(_extractErrorMessage(e) ?? 'Failed to request OTP');
     }
   }
 
   @override
-  Future<UserModel> register({
-    required String email,
-    required String password,
-    required String name,
-    String? phone,
-  }) async {
+  Future<UserModel> verifyOtp({required String phone, required String code}) async {
     try {
       final response = await dioClient.post(
-        '/auth/register',
-        data: {
-          'email': email,
-          'password': password,
-          'name': name,
-          if (phone != null) 'phone': phone,
-        },
+        '/auth/verify-otp',
+        data: {'phone': phone, 'code': code},
       );
 
       final data = response.data['data'] as Map<String, dynamic>? ?? {};
@@ -97,7 +51,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       final user = UserModel.fromJson(userJson);
 
-      // Store token
       await secureStorage.write(
         key: AppConstants.accessTokenKey,
         value: token,
@@ -109,51 +62,28 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return user;
     } on DioException catch (e) {
-      throw Exception(_extractErrorMessage(e) ?? 'Registration failed');
+      throw Exception(_extractErrorMessage(e) ?? 'Verification failed');
     }
   }
 
   @override
-  Future<UserModel> identify({
-    required String name,
-    required String phone,
-    String? branch,
-    String? city,
-  }) async {
+  Future<UserModel> completeProfile({required String name}) async {
     try {
       final response = await dioClient.post(
-        '/auth/identify',
-        data: {
-          'name': name,
-          'phone': phone,
-          if (branch != null) 'branch': branch,
-          if (city != null) 'city': city,
-        },
+        '/auth/complete-profile',
+        data: {'name': name},
       );
 
       final data = response.data['data'] as Map<String, dynamic>? ?? {};
-      final token = data['token'] as String?;
       final userJson = data['user'] as Map<String, dynamic>?;
 
-      if (token == null || userJson == null) {
-        throw Exception('Invalid response from server');
+      if (userJson == null) {
+         throw Exception('Invalid response from server');
       }
+      return UserModel.fromJson(userJson);
 
-      final user = UserModel.fromJson(userJson);
-
-      // Store token
-      await secureStorage.write(
-        key: AppConstants.accessTokenKey,
-        value: token,
-      );
-      await secureStorage.write(
-        key: AppConstants.userIdKey,
-        value: user.id,
-      );
-
-      return user;
     } on DioException catch (e) {
-      throw Exception(_extractErrorMessage(e) ?? 'Identification failed');
+      throw Exception(_extractErrorMessage(e) ?? 'Profile completion failed');
     }
   }
 
