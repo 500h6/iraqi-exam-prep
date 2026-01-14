@@ -38,9 +38,15 @@ export const registerHandler = async (req: Request, res: Response) => {
   }, 201);
 };
 
-export const loginHandler = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  const result = await authService.login({ email, password });
+export const loginWithPhoneHandler = async (req: Request, res: Response) => {
+  const { phone } = req.body;
+  const result = await authService.requestOtp(phone);
+  return sendSuccess(res, { data: result });
+};
+
+export const verifyOtpHandler = async (req: Request, res: Response) => {
+  const { phone, code } = req.body;
+  const result = await authService.verifyOtp(phone, code);
   setRefreshTokenCookie(res, result.refreshToken);
   return sendSuccess(res, {
     data: {
@@ -49,6 +55,12 @@ export const loginHandler = async (req: Request, res: Response) => {
       user: result.user,
     },
   });
+};
+
+export const completeProfileHandler = async (req: AuthenticatedRequest, res: Response) => {
+  const { name } = req.body;
+  const user = await authService.completeProfile(req.user!.id, name);
+  return sendSuccess(res, { data: { user } });
 };
 
 export const refreshHandler = async (req: Request, res: Response) => {

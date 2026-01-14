@@ -20,9 +20,20 @@ export const registerSchema = z.object({
 
 export const loginSchema = z.object({
   body: z.object({
-    email: z.string().email().optional(),
-    phone: z.string().optional(),
-    password: z.string().min(6).optional(),
+    phone: z.string().min(10).max(15),
+  }),
+});
+
+export const verifyOtpSchema = z.object({
+  body: z.object({
+    phone: z.string().min(10).max(15),
+    code: z.string().length(6),
+  }),
+});
+
+export const completeProfileSchema = z.object({
+  body: z.object({
+    name: z.string().min(2).max(100),
   }),
 });
 

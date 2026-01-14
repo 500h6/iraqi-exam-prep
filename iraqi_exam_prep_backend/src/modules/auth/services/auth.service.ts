@@ -1,6 +1,7 @@
 import { Role, Subject, User } from "@prisma/client";
 import { createHash } from "crypto";
 import { prisma } from "../../shared/prisma";
+import { telegramService } from "../../notifications/telegram.service";
 import { hashPassword, comparePassword } from "../../../utils/password";
 import {
   signAccessToken,
@@ -40,99 +41,94 @@ export const toUserResponse = (user: User) => ({
   createdAt: user.createdAt,
 });
 
+// Simple in-memory OTP store (Use Redis in production)
+const otpStore = new Map<string, { code: string; expires: number }>();
+
 export const authService = {
-  identify: async (data: {
-    name: string;
-    phone: string;
-    branch?: string;
-    city?: string;
-  }) => {
-    // Check if user exists by phone
+  requestOtp: async (phone: string) => {
+    // 1. Check if user exists and has telegramChatId
+    const user = await prisma.user.findUnique({
+      where: { phone },
+    });
+
+    if (!user || !user.telegramChatId) {
+      return { linked: false };
+    }
+
+    // 2. Generate OTP
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const expires = Date.now() + 5 * 60 * 1000; // 5 minutes
+
+    // 3. Store OTP
+    otpStore.set(phone, { code, expires });
+
+    // 4. Send via Telegram
+    const sent = await telegramService.sendOtp(phone, code);
+    if (!sent) {
+      throw new AppError("Failed to send OTP via Telegram", 500, "TELEGRAM_ERROR");
+    }
+
+    return { linked: true };
+  },
+
+  verifyOtp: async (phone: string, code: string) => {
+    // 1. Verify OTP
+    const stored = otpStore.get(phone);
+    if (!stored) {
+      throw new AppError("OTP expired or not requested", 400, "OTP_EXPIRED");
+    }
+
+    if (Date.now() > stored.expires) {
+      otpStore.delete(phone);
+      throw new AppError("OTP expired", 400, "OTP_EXPIRED");
+    }
+
+    if (stored.code !== code) {
+      throw new AppError("Invalid OTP", 400, "INVALID_OTP");
+    }
+
+    otpStore.delete(phone); // Consume OTP
+
+    // 2. Find/Create User
     let user = await prisma.user.findUnique({
-      where: { phone: data.phone },
+      where: { phone },
     });
-
-    if (user) {
-      // Update name or other info if provided
-      user = await prisma.user.update({
-        where: { id: user.id },
-        data: {
-          name: data.name,
-          branch: data.branch ?? user.branch,
-          city: data.city ?? user.city,
-        },
-      });
-    } else {
-      // Create new user
-      user = await prisma.user.create({
-        data: {
-          name: data.name,
-          phone: data.phone,
-          branch: data.branch ?? null,
-          city: data.city ?? null,
-          unlockedSubjects: [Subject.ARABIC],
-        },
-      });
-    }
-
-    const tokens = await buildTokens(user.id, user.role);
-    return { user: toUserResponse(user), ...tokens };
-  },
-
-  register: async (data: {
-    email?: string;
-    password?: string;
-    name: string;
-    phone: string;
-  }) => {
-    const existing = await prisma.user.findUnique({
-      where: { phone: data.phone },
-    });
-    if (existing) {
-      throw new AppError("Phone number already in use", 409, "PHONE_EXISTS");
-    }
-
-    const passwordHash = data.password ? await hashPassword(data.password) : null;
-    const user = await prisma.user.create({
-      data: {
-        email: data.email?.toLowerCase() ?? null,
-        passwordHash,
-        name: data.name,
-        phone: data.phone,
-        unlockedSubjects: [Subject.ARABIC],
-      },
-    });
-
-    const tokens = await buildTokens(user.id, user.role);
-    return { user: toUserResponse(user), ...tokens };
-  },
-
-  login: async (data: { email?: string; phone?: string; password?: string }) => {
-    let user;
-    if (data.email) {
-      user = await prisma.user.findUnique({
-        where: { email: data.email.toLowerCase() },
-      });
-    } else if (data.phone) {
-      user = await prisma.user.findUnique({
-        where: { phone: data.phone },
-      });
-    }
 
     if (!user) {
-      throw new AppError("User not found", 401, "INVALID_CREDENTIALS");
-    }
-
-    // Only check password if user has one
-    if (user.passwordHash && data.password) {
-      const isValid = await comparePassword(data.password, user.passwordHash);
-      if (!isValid) {
-        throw new AppError("Invalid credentials", 401, "INVALID_CREDENTIALS");
-      }
+      // Should not happen if requestOtp checks existance, but strictly speaking
+      // requestOtp only checks if LINKED.
+      // If user linked via Bot but deleted from DB (edge case),
+      // or if we allow OTP for unlinked? No, requestOtp returns linked:false.
+      throw new AppError("User not found", 404, "USER_NOT_FOUND");
     }
 
     const tokens = await buildTokens(user.id, user.role);
     return { user: toUserResponse(user), ...tokens };
+  },
+
+  completeProfile: async (userId: string, name: string) => {
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: { name }
+    });
+    return toUserResponse(user);
+  },
+
+  getProfile: async (userId: string) => {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) throw new AppError("User not found", 404, "USER_NOT_FOUND");
+    return toUserResponse(user);
+  },
+
+  logout: async (refreshToken?: string) => {
+    if (!refreshToken) return;
+    const tokenHash = hashToken(refreshToken);
+    await prisma.refreshToken.updateMany({
+      where: { tokenHash },
+      data: { revoked: true },
+    });
   },
 
   refresh: async (refreshToken: string) => {
@@ -153,22 +149,5 @@ export const authService = {
     await prisma.refreshToken.delete({ where: { tokenHash } });
     const tokens = await buildTokens(user.id, user.role);
     return { user: toUserResponse(user), ...tokens };
-  },
-
-  getProfile: async (userId: string) => {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-    });
-    if (!user) throw new AppError("User not found", 404, "USER_NOT_FOUND");
-    return toUserResponse(user);
-  },
-
-  logout: async (refreshToken?: string) => {
-    if (!refreshToken) return;
-    const tokenHash = hashToken(refreshToken);
-    await prisma.refreshToken.updateMany({
-      where: { tokenHash },
-      data: { revoked: true },
-    });
   },
 };

@@ -1,17 +1,17 @@
 import { Router } from "express";
 import {
-  identifyHandler,
-  loginHandler,
+  loginWithPhoneHandler,
+  verifyOtpHandler,
+  completeProfileHandler,
   meHandler,
   refreshHandler,
-  registerHandler,
   logoutHandler,
 } from "../controllers/auth.controller";
 import {
-  identifySchema,
   loginSchema,
+  verifyOtpSchema,
+  completeProfileSchema,
   refreshSchema,
-  registerSchema,
 } from "../dtos/auth.schema";
 import { validateResource } from "../../../middlewares/validateResource";
 import { authenticate } from "../../../middlewares/authMiddleware";
@@ -20,24 +20,24 @@ import { authRateLimiter } from "../../../middlewares/rateLimiter";
 export const authRouter = Router();
 
 authRouter.post(
-  "/identify",
-  authRateLimiter,
-  validateResource(identifySchema),
-  identifyHandler,
-);
-
-authRouter.post(
-  "/register",
-  authRateLimiter,
-  validateResource(registerSchema),
-  registerHandler,
-);
-
-authRouter.post(
   "/login",
   authRateLimiter,
   validateResource(loginSchema),
-  loginHandler,
+  loginWithPhoneHandler,
+);
+
+authRouter.post(
+  "/verify-otp",
+  authRateLimiter,
+  validateResource(verifyOtpSchema),
+  verifyOtpHandler,
+);
+
+authRouter.post(
+  "/complete-profile",
+  authenticate(),
+  validateResource(completeProfileSchema),
+  completeProfileHandler,
 );
 
 authRouter.post(
