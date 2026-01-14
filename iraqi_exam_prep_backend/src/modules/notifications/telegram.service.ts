@@ -1,5 +1,6 @@
 import { Telegraf, Context } from 'telegraf';
 import { prisma } from '../shared/prisma';
+import { normalizePhoneNumber, getPhoneVariants } from '../../utils/phoneUtils';
 
 export class TelegramService {
     private bot: Telegraf | null = null;
@@ -43,7 +44,9 @@ export class TelegramService {
             const contact = ctx.message.contact;
             if (!contact) return;
 
-            const phone = contact.phone_number.replace('+', '');
+            // Normalize phone number to standard format
+            const rawPhone = contact.phone_number.replace('+', '');
+            const phone = normalizePhoneNumber(rawPhone);
             const chatId = ctx.chat.id.toString();
             const firstName = contact.first_name;
 
@@ -86,9 +89,12 @@ export class TelegramService {
     async sendOtp(phone: string, code: string): Promise<boolean> {
         if (!this.bot) return false;
 
-        // 1. Find Chat ID by Phone
-        const user = await prisma.user.findUnique({
-            where: { phone },
+        // Normalize and get all possible phone formats
+        const phoneVariants = getPhoneVariants(phone);
+
+        // 1. Find Chat ID by any phone variant
+        const user = await prisma.user.findFirst({
+            where: { phone: { in: phoneVariants } },
             select: { telegramChatId: true },
         });
 

@@ -9,6 +9,7 @@ import {
   verifyRefreshToken,
 } from "../../../utils/jwt";
 import { AppError } from "../../../utils/appError";
+import { normalizePhoneNumber, getPhoneVariants } from "../../../utils/phoneUtils";
 
 const hashToken = (token: string) =>
   createHash("sha256").update(token).digest("hex");
@@ -46,9 +47,15 @@ const otpStore = new Map<string, { code: string; expires: number }>();
 
 export const authService = {
   requestOtp: async (phone: string) => {
-    // 1. Check if user exists and has telegramChatId
-    const user = await prisma.user.findUnique({
-      where: { phone },
+    // Normalize phone to standard format
+    const normalizedPhone = normalizePhoneNumber(phone);
+    const phoneVariants = getPhoneVariants(phone);
+
+    // 1. Check if user exists with any phone variant
+    const user = await prisma.user.findFirst({
+      where: {
+        phone: { in: phoneVariants },
+      },
     });
 
     if (!user || !user.telegramChatId) {
@@ -60,10 +67,11 @@ export const authService = {
     const expires = Date.now() + 5 * 60 * 1000; // 5 minutes
 
     // 3. Store OTP
-    otpStore.set(phone, { code, expires });
+    // Store with normalized phone for consistent lookup
+    otpStore.set(normalizedPhone, { code, expires });
 
     // 4. Send via Telegram
-    const sent = await telegramService.sendOtp(phone, code);
+    const sent = await telegramService.sendOtp(user.phone!, code);
     if (!sent) {
       throw new AppError("Failed to send OTP via Telegram", 500, "TELEGRAM_ERROR");
     }
@@ -72,14 +80,17 @@ export const authService = {
   },
 
   verifyOtp: async (phone: string, code: string) => {
-    // 1. Verify OTP
-    const stored = otpStore.get(phone);
+    const normalizedPhone = normalizePhoneNumber(phone);
+    const phoneVariants = getPhoneVariants(phone);
+
+    // 1. Verify OTP (using normalized phone)
+    const stored = otpStore.get(normalizedPhone);
     if (!stored) {
       throw new AppError("OTP expired or not requested", 400, "OTP_EXPIRED");
     }
 
     if (Date.now() > stored.expires) {
-      otpStore.delete(phone);
+      otpStore.delete(normalizedPhone);
       throw new AppError("OTP expired", 400, "OTP_EXPIRED");
     }
 
@@ -87,11 +98,11 @@ export const authService = {
       throw new AppError("Invalid OTP", 400, "INVALID_OTP");
     }
 
-    otpStore.delete(phone); // Consume OTP
+    otpStore.delete(normalizedPhone); // Consume OTP
 
-    // 2. Find/Create User
-    let user = await prisma.user.findUnique({
-      where: { phone },
+    // 2. Find User (try all phone variants)
+    let user = await prisma.user.findFirst({
+      where: { phone: { in: phoneVariants } },
     });
 
     if (!user) {
