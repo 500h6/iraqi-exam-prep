@@ -25,6 +25,10 @@ import {
   revokeCodeHandler,
   getCodeHandler,
 } from "../controllers/activationCode.controller";
+import {
+  listUsersHandler,
+  promoteUserHandler,
+} from "../controllers/user.controller";
 
 export const adminRouter = Router();
 
@@ -97,4 +101,19 @@ adminRouter.patch(
   requireRole([Role.ADMIN]),
   validateResource(codeIdParamSchema),
   revokeCodeHandler,
+);
+
+// User Management
+adminRouter.get(
+  "/users",
+  authenticate(),
+  requireRole([Role.ADMIN]),
+  listUsersHandler,
+);
+
+adminRouter.patch(
+  "/users/:id/promote",
+  authenticate(),
+  requireRole([Role.ADMIN]),
+  promoteUserHandler,
 );
