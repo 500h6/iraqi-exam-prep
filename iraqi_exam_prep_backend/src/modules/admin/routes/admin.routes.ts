@@ -28,6 +28,7 @@ import {
 import {
   listUsersHandler,
   promoteUserHandler,
+  demoteUserHandler,
 } from "../controllers/user.controller";
 
 export const adminRouter = Router();
@@ -116,4 +117,11 @@ adminRouter.patch(
   authenticate(),
   requireRole([Role.ADMIN]),
   promoteUserHandler,
+);
+
+adminRouter.patch(
+  "/users/:id/demote",
+  authenticate(),
+  requireRole([Role.ADMIN]),
+  demoteUserHandler,
 );

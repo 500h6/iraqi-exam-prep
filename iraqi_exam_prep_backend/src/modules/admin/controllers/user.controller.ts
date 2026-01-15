@@ -75,3 +75,46 @@ export const promoteUserHandler = async (req: Request, res: Response) => {
         message: `User "${updatedUser.name}" promoted to ADMIN`,
     });
 };
+
+/**
+ * Demote a user from ADMIN to STUDENT role
+ * PATCH /admin/users/:id/demote
+ */
+export const demoteUserHandler = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id) {
+        throw new AppError("User ID is required", 400, "MISSING_ID");
+    }
+
+    // Optional: Prevent self-demotion if you want to be safe
+    // if (req.user?.id === id) {
+    //     throw new AppError("You cannot demote yourself", 400, "SELF_DEMOTION");
+    // }
+
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+        throw new AppError("User not found", 404, "USER_NOT_FOUND");
+    }
+
+    if (user.role === "STUDENT") {
+        throw new AppError("User is already a student", 400, "ALREADY_STUDENT");
+    }
+
+    const updatedUser = await prisma.user.update({
+        where: { id },
+        data: { role: "STUDENT" },
+        select: {
+            id: true,
+            name: true,
+            phone: true,
+            role: true,
+        },
+    });
+
+    return sendSuccess(res, {
+        data: { user: updatedUser },
+        message: `User "${updatedUser.name}" demoted to STUDENT`,
+    });
+};
