@@ -23,13 +23,13 @@ export class TelegramService {
         // Handle Start and Contact
         this.bot.start((ctx) => {
             ctx.reply(
-                'Welcome to Iraqi Exam Prep! 🇮🇶\nPlease share your contact number to link your account.',
+                'أهلاً بك في تطبيق "الامتحان الوطني"! 🇮🇶\nيرجى مشاركة رقم هاتفك لربط حسابك.',
                 {
                     reply_markup: {
                         keyboard: [
                             [
                                 {
-                                    text: '📱 Share Contact',
+                                    text: '📱 مشاركة الرقم',
                                     request_contact: true,
                                 },
                             ],
@@ -63,7 +63,7 @@ export class TelegramService {
                     create: {
                         phone,
                         telegramChatId: chatId,
-                        name: firstName || 'New Student', // Temporary name
+                        name: firstName || 'طالب جديد', // Temporary name
                         role: 'STUDENT',
                     },
                 });
@@ -72,11 +72,11 @@ export class TelegramService {
                 const code = generateOtp();
                 storeOtp(phone, code); // store with normalized phone
 
-                await ctx.reply(`✅ Account Linked Successfully!\n\n🔐 Your Login Code: *${code}*\n\nGo back to the app and enter it.`, { parse_mode: 'Markdown' });
+                await ctx.reply(`✅ تم ربط الحساب بنجاح!\n\n🔐 رمز الدخول الخاص بك هو: *${code}*\n\nارجع إلى التطبيق وأدخل الرمز لإتمام الدخول.`, { parse_mode: 'Markdown' });
                 console.log(`🔗 Linked Phone ${phone} to ChatID ${chatId} & Sent OTP`);
             } catch (error) {
                 console.error('Error linking telegram:', error);
-                ctx.reply('❌ Failed to link account. Please try again.');
+                ctx.reply('❌ فشل ربط الحساب. يرجى المحاولة مرة أخرى.');
             }
         });
 
@@ -114,7 +114,7 @@ export class TelegramService {
         try {
             await this.bot.telegram.sendMessage(
                 user.telegramChatId,
-                `🔐 *${code}* is your Login Code.\n\nDo not share it with anyone.`,
+                `🔐 *${code}* هو رمز دخولك\n\nارجع الى التطبيق وقم بتسجيل الدخول باستخدام الرمز.`,
                 { parse_mode: 'Markdown' }
             );
             return true;
