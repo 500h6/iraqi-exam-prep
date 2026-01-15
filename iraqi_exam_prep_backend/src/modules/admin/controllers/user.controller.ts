@@ -118,3 +118,46 @@ export const demoteUserHandler = async (req: Request, res: Response) => {
         message: `User "${updatedUser.name}" demoted to STUDENT`,
     });
 };
+
+/**
+ * Manually activate user (Make Premium)
+ * PATCH /admin/users/:id/activate
+ */
+export const activateUserHandler = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id) {
+        throw new AppError("User ID is required", 400, "MISSING_ID");
+    }
+
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+        throw new AppError("User not found", 404, "USER_NOT_FOUND");
+    }
+
+    if (user.isPremium) {
+        throw new AppError("User is already premium", 400, "ALREADY_PREMIUM");
+    }
+
+    const updatedUser = await prisma.user.update({
+        where: { id },
+        data: {
+            isPremium: true,
+            // set a far future date if premiumUntil is required for some checks
+            premiumUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 10)),
+        },
+        select: {
+            id: true,
+            name: true,
+            phone: true,
+            isPremium: true,
+            role: true,
+        },
+    });
+
+    return sendSuccess(res, {
+        data: { user: updatedUser },
+        message: `User "${updatedUser.name}" has been activated (Premium)`,
+    });
+};

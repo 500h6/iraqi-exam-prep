@@ -29,6 +29,7 @@ import {
   listUsersHandler,
   promoteUserHandler,
   demoteUserHandler,
+  activateUserHandler,
 } from "../controllers/user.controller";
 
 export const adminRouter = Router();
@@ -124,4 +125,11 @@ adminRouter.patch(
   authenticate(),
   requireRole([Role.ADMIN]),
   demoteUserHandler,
+);
+
+adminRouter.patch(
+  "/users/:id/activate",
+  authenticate(),
+  requireRole([Role.ADMIN]),
+  activateUserHandler,
 );
