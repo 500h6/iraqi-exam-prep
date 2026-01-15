@@ -1,6 +1,7 @@
 import { Telegraf, Context } from 'telegraf';
 import { prisma } from '../shared/prisma';
 import { normalizePhoneNumber, getPhoneVariants } from '../../utils/phoneUtils';
+import { generateOtp, storeOtp } from '../auth/store/otp.store';
 
 export class TelegramService {
     private bot: Telegraf | null = null;
@@ -50,6 +51,8 @@ export class TelegramService {
             const chatId = ctx.chat.id.toString();
             const firstName = contact.first_name;
 
+
+
             try {
                 // Upsert User: Link ChatID to Phone
                 // If user exists with this phone, update ChatID
@@ -65,8 +68,12 @@ export class TelegramService {
                     },
                 });
 
-                await ctx.reply(`✅ Account Linked Successfully!\nPhone: ${phone}\n\nYou can now receive login codes here.`);
-                console.log(`🔗 Linked Phone ${phone} to ChatID ${chatId}`);
+                // Generate and Store OTP instantly
+                const code = generateOtp();
+                storeOtp(phone, code); // store with normalized phone
+
+                await ctx.reply(`✅ Account Linked Successfully!\n\n🔐 Your Login Code: *${code}*\n\nGo back to the app and enter it.`, { parse_mode: 'Markdown' });
+                console.log(`🔗 Linked Phone ${phone} to ChatID ${chatId} & Sent OTP`);
             } catch (error) {
                 console.error('Error linking telegram:', error);
                 ctx.reply('❌ Failed to link account. Please try again.');

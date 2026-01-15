@@ -42,8 +42,7 @@ export const toUserResponse = (user: User) => ({
   createdAt: user.createdAt,
 });
 
-// Simple in-memory OTP store (Use Redis in production)
-const otpStore = new Map<string, { code: string; expires: number }>();
+import { otpStore, generateOtp, storeOtp, getOtp, deleteOtp } from "../store/otp.store";
 
 export const authService = {
   requestOtp: async (phone: string) => {
@@ -62,15 +61,11 @@ export const authService = {
       return { linked: false };
     }
 
-    // 2. Generate OTP
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    const expires = Date.now() + 5 * 60 * 1000; // 5 minutes
+    // 2. Generate & Store OTP
+    const code = generateOtp();
+    storeOtp(normalizedPhone, code);
 
-    // 3. Store OTP
-    // Store with normalized phone for consistent lookup
-    otpStore.set(normalizedPhone, { code, expires });
-
-    // 4. Send via Telegram
+    // 3. Send via Telegram
     const sent = await telegramService.sendOtp(user.phone!, code);
     if (!sent) {
       throw new AppError("Failed to send OTP via Telegram", 500, "TELEGRAM_ERROR");
@@ -84,13 +79,13 @@ export const authService = {
     const phoneVariants = getPhoneVariants(phone);
 
     // 1. Verify OTP (using normalized phone)
-    const stored = otpStore.get(normalizedPhone);
+    const stored = getOtp(normalizedPhone);
     if (!stored) {
       throw new AppError("OTP expired or not requested", 400, "OTP_EXPIRED");
     }
 
     if (Date.now() > stored.expires) {
-      otpStore.delete(normalizedPhone);
+      deleteOtp(normalizedPhone);
       throw new AppError("OTP expired", 400, "OTP_EXPIRED");
     }
 
@@ -98,7 +93,7 @@ export const authService = {
       throw new AppError("Invalid OTP", 400, "INVALID_OTP");
     }
 
-    otpStore.delete(normalizedPhone); // Consume OTP
+    deleteOtp(normalizedPhone); // Consume OTP
 
     // 2. Find User (try all phone variants)
     let user = await prisma.user.findFirst({
