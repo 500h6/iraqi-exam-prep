@@ -68,7 +68,7 @@ class _SplashPageState extends State<SplashPage> {
               const SizedBox(height: 24),
               // App Name
               const Text(
-                'الاستعداد للاختبار الوطني',
+                'الامتحان الوطني',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,

@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
         // Background color handled by theme
         appBar: AppBar(
           title: const Text(
-            'الاستعداد للاختبار الوطني',
+            'الامتحان الوطني',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           actions: [
