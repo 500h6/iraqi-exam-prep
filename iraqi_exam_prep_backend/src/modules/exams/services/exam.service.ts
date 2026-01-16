@@ -149,10 +149,14 @@ export class ExamService {
         // 7. Final Shuffle of the selected set
         const selectedQuestions = this.shuffle(result.slice(0, TARGET_COUNT));
 
-        // 8. Mask sensitive data (correctAnswer & explanation) before returning to client
+        // 8. Mask sensitive data before returning to client to prevent cheating
+        // We set dummy values because the frontend entity expects non-null fields
         return selectedQuestions.map(q => {
-            const { correctAnswer, explanation, ...rest } = q;
-            return rest as any;
+            return {
+                ...q,
+                correctAnswer: -1, // Hidden
+                explanation: "مخفي أثناء الاختبار للحماية" // Hidden during exam for security
+            };
         });
     }
 
@@ -174,16 +178,16 @@ export class ExamService {
         });
 
         let score = 0;
-        let correctAnswers = 0;
-        let wrongAnswers = 0;
+        let correctAnswersCount = 0;
+        let wrongAnswersCount = 0;
 
         questions.forEach((q) => {
             const userAnswer = answers[q.id];
             if (userAnswer === q.correctAnswer) {
                 score++;
-                correctAnswers++;
+                correctAnswersCount++;
             } else {
-                wrongAnswers++;
+                wrongAnswersCount++;
             }
         });
 
@@ -193,7 +197,7 @@ export class ExamService {
         const passed = percentage >= 50;
 
         // Transaction to save attempt and result ensures consistency
-        const result = await prisma.$transaction(async (tx) => {
+        const savedResult = await prisma.$transaction(async (tx) => {
             const attempt = await tx.examAttempt.create({
                 data: {
                     userId,
@@ -210,8 +214,8 @@ export class ExamService {
                     subject: normalizedSubject as Subject,
                     score,
                     totalQuestions,
-                    correctAnswers,
-                    wrongAnswers,
+                    correctAnswers: correctAnswersCount,
+                    wrongAnswers: wrongAnswersCount,
                     percentage,
                     passed,
                     completedAt: new Date(),
@@ -221,7 +225,11 @@ export class ExamService {
             return examResult;
         });
 
-        return result;
+        // Return result AND the questions with correct answers for review
+        return {
+            ...savedResult,
+            questions: questions // Include full questions with real answers now that it's safe
+        };
     }
 
     async listResults(userId: string, limit: number) {

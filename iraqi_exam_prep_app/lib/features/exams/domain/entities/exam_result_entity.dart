@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'question_entity.dart';
 
 class ExamResultEntity extends Equatable {
   final String id;
@@ -11,6 +12,7 @@ class ExamResultEntity extends Equatable {
   final double percentage;
   final bool passed;
   final DateTime completedAt;
+  final List<QuestionEntity>? questions;
 
   const ExamResultEntity({
     required this.id,
@@ -23,6 +25,7 @@ class ExamResultEntity extends Equatable {
     required this.percentage,
     required this.passed,
     required this.completedAt,
+    this.questions,
   });
 
   @override
@@ -37,5 +40,6 @@ class ExamResultEntity extends Equatable {
         percentage,
         passed,
         completedAt,
+        questions,
       ];
 }

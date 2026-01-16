@@ -58,7 +58,7 @@ class _ExamPageState extends State<ExamPage> {
                 'score': state.result.score,
                 'totalQuestions': state.result.totalQuestions,
                 'subject': widget.subject,
-                'questions': _questions,
+                'questions': state.result.questions ?? _questions,
                 'answers': _answers,
               });
             } else if (state is ExamError) {
