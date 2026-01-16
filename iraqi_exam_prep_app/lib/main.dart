@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
-        title: 'الامتحان الوطني',
+        title: 'الاستعداد للاختبار الوطني',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
