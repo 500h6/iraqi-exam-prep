@@ -147,7 +147,13 @@ export class ExamService {
         }
 
         // 7. Final Shuffle of the selected set
-        return this.shuffle(result.slice(0, TARGET_COUNT));
+        const selectedQuestions = this.shuffle(result.slice(0, TARGET_COUNT));
+
+        // 8. Mask sensitive data (correctAnswer & explanation) before returning to client
+        return selectedQuestions.map(q => {
+            const { correctAnswer, explanation, ...rest } = q;
+            return rest as any;
+        });
     }
 
     async submitExam(

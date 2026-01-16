@@ -42,7 +42,7 @@ export const toUserResponse = (user: User) => ({
   createdAt: user.createdAt,
 });
 
-import { otpStore, generateOtp, storeOtp, getOtp, deleteOtp } from "../store/otp.store";
+import { otpStore, generateOtp, storeOtp, getOtp, deleteOtp, incrementOtpAttempts } from "../store/otp.store";
 
 export const authService = {
   requestOtp: async (phone: string) => {
@@ -89,8 +89,20 @@ export const authService = {
       throw new AppError("OTP expired", 400, "OTP_EXPIRED");
     }
 
+    const MAX_ATTEMPTS = 5;
+    if (stored.attempts >= MAX_ATTEMPTS) {
+      deleteOtp(normalizedPhone);
+      throw new AppError("Too many attempts. Please request a new OTP.", 429, "TOO_MANY_ATTEMPTS");
+    }
+
     if (stored.code !== code) {
-      throw new AppError("Invalid OTP", 400, "INVALID_OTP");
+      incrementOtpAttempts(normalizedPhone);
+      const remaining = MAX_ATTEMPTS - (stored.attempts + 1);
+      if (remaining <= 0) {
+        deleteOtp(normalizedPhone);
+        throw new AppError("Too many attempts. Please request a new OTP.", 429, "TOO_MANY_ATTEMPTS");
+      }
+      throw new AppError(`Invalid OTP. ${remaining} attempts remaining.`, 400, "INVALID_OTP");
     }
 
     deleteOtp(normalizedPhone); // Consume OTP

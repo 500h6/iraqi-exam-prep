@@ -46,6 +46,8 @@ class MyApp extends StatelessWidget {
         title: 'تطبيق الاستعداد للامتحانات',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.system,
         locale: const Locale('ar'),
         supportedLocales: const [
           Locale('ar'),

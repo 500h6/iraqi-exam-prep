@@ -19,21 +19,28 @@ class HomePage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: AppColors.background,
+        // Background color handled by theme
         appBar: AppBar(
-          title: const Text('تطبيق الاستعداد للامتحانات'),
+          title: const Text(
+            'الاستعداد للاختبار الوطني',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.person_outline),
-              onPressed: () {
-                // Show user profile or settings
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                context.read<AuthBloc>().add(LogoutEvent());
-              },
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: TextButton.icon(
+                onPressed: () {
+                  context.read<AuthBloc>().add(LogoutEvent());
+                },
+                icon: const Icon(Icons.logout, size: 18),
+                label: const Text(
+                  'خروج',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                style: TextButton.styleFrom(
+                  foregroundColor: AppColors.error,
+                ),
+              ),
             ),
           ],
         ),

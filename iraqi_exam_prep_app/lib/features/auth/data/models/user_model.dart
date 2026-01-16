@@ -7,7 +7,7 @@ part 'user_model.g.dart';
 class UserModel extends UserEntity {
   const UserModel({
     required super.id,
-    required super.email,
+    super.email,
     super.phone,
     required super.name,
     required super.isPremium,

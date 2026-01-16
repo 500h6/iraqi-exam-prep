@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
@@ -90,6 +91,13 @@ class _AdminCodePageState extends State<AdminCodePage>
         appBar: AppBar(
           title: const Text('إدارة أكواد التفعيل'),
           elevation: 0,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.people_outline),
+              tooltip: 'إدارة المستخدمين',
+              onPressed: () => context.push('/admin/users'),
+            ),
+          ],
           bottom: TabBar(
             controller: _tabController,
             tabs: const [

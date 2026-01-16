@@ -11,154 +11,160 @@ class NationalExamPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('National Exam Registration'),
+        title: const Text('التسجيل في الامتحان الوطني'),
+        centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Icon
-            Center(
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: AppColors.info.withOpacity(0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.how_to_reg,
-                  size: 50,
-                  color: AppColors.info,
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            // Title
-            Text(
-              'Register for National Exam',
-              style: Theme.of(context).textTheme.displaySmall,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Complete your registration for the official competency exams',
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 40),
-            // Info Card
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'About the National Exam',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      'The national competency exams are required for all students '
-                      'applying for Master\'s degree programs in Iraq. The exams cover:',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildExamItem('Arabic Language', Icons.language),
-                    _buildExamItem('English Language', Icons.translate),
-                    _buildExamItem('Computer Skills', Icons.computer),
-                  ],
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Icon
+              Center(
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: AppColors.info.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.how_to_reg,
+                    size: 50,
+                    color: AppColors.info,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
-            // Requirements Card
-            Card(
-              color: AppColors.warning.withOpacity(0.05),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.checklist,
-                          color: AppColors.warning,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Required Documents',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(color: AppColors.warning),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      '• Bachelor\'s degree certificate\n'
-                      '• Official transcript\n'
-                      '• National ID card\n'
-                      '• Recent photograph\n'
-                      '• Registration fee receipt',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+              const SizedBox(height: 24),
+              // Title
+              Text(
+                'التسجيل في الامتحان الوطني',
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 24, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'أكمل تسجيلك للامتحانات التنافسية الرسمية',
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 40),
+              // Info Card
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'عن الامتحان الوطني',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        'الامتحان الوطني الموحد هو شرط أساسي للتقديم للدراسات العليا (الماجستير والدكتوراه) في الجامعات العراقية. يشمل الامتحان:',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: 16),
+                      _buildExamItem('اللغة العربية', Icons.language),
+                      _buildExamItem('اللغة الإنجليزية', Icons.translate),
+                      _buildExamItem('الحاسوب', Icons.computer),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
-            // Registration Process Card
-            Card(
-              color: AppColors.primary.withOpacity(0.05),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.info_outline,
-                          color: AppColors.primary,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Registration Process',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(color: AppColors.primary),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      '1. Contact us via Telegram\n'
-                      '2. Provide your information and documents\n'
-                      '3. We\'ll guide you through the registration\n'
-                      '4. Receive your exam schedule and details',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+              const SizedBox(height: 24),
+              // Requirements Card
+              Card(
+                color: AppColors.warning.withOpacity(0.05),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.checklist,
+                            color: AppColors.warning,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'المعلومات المطلوبة للتسجيل',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(color: AppColors.warning),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        'لإتمام الحجز، يرجى تحضير المعلومات التالية وإرسالها لنا:\n\n'
+                        '✅ الاسم الرباعي\n'
+                        '✅ اسم الأم الثلاثي\n'
+                        '✅ رقم البطاقة الوطنية\n'
+                        '✅ رقم الهاتف',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.8),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
-            // Contact Button
-            SizedBox(
-              height: 54,
-              child: ElevatedButton.icon(
-                onPressed: () => _launchTelegram(),
-                icon: const Icon(Icons.telegram),
-                label: const Text('Contact via Telegram'),
+              const SizedBox(height: 32),
+              // Registration Process Card
+              Card(
+                color: AppColors.primary.withOpacity(0.05),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.info_outline,
+                            color: AppColors.primary,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'طريقة التسجيل',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(color: AppColors.primary),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        '1. اضغط على زر "التسجيل عبر تليكرام" أدناه.\n'
+                        '2. أرسل المعلومات المطلوبة أعلاه.\n'
+                        '3. سيقوم فريقنا بإكمال إجراءات الحجز وتزويدك بموعد الامتحان وتفاصيله.\n',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.6),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 32),
+              // Contact Button
+              SizedBox(
+                height: 54,
+                child: ElevatedButton.icon(
+                  onPressed: () => _launchTelegram(),
+                  icon: const Icon(Icons.telegram),
+                  label: const Text('التسجيل عبر تليكرام', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, 
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -12,6 +12,7 @@ import '../../features/activation/presentation/pages/activation_page.dart';
 import '../../features/registration/presentation/pages/national_exam_page.dart';
 import '../../features/admin/presentation/pages/admin_question_page.dart';
 import '../../features/admin/presentation/pages/admin_code_page.dart';
+import '../../features/admin/presentation/pages/admin_users_page.dart';
 import '../../features/admin/presentation/pages/question_management_page.dart';
 import '../../features/admin/presentation/bloc/admin_question_bloc.dart';
 import '../../features/admin/data/datasources/admin_remote_datasource.dart';
@@ -116,6 +117,13 @@ class AppRouter {
         path: '/admin/codes',
         name: 'إدارة الأكواد',
         builder: (context, state) => AdminCodePage(
+          dataSource: getIt<AdminRemoteDataSource>(),
+        ),
+      ),
+      GoRoute(
+        path: '/admin/users',
+        name: 'إدارة المستخدمين',
+        builder: (context, state) => AdminUsersPage(
           dataSource: getIt<AdminRemoteDataSource>(),
         ),
       ),

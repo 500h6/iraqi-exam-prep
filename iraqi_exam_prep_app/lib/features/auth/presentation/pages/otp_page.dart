@@ -54,7 +54,7 @@ class _OtpPageState extends State<OtpPage> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('التحقق من الرمز')),
-      backgroundColor: AppColors.background,
+      // Background color handled by theme
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
@@ -95,15 +95,19 @@ class _OtpPageState extends State<OtpPage> {
                      Container(
                        padding: const EdgeInsets.all(16),
                        decoration: BoxDecoration(
-                         color: Colors.blue.shade50,
+                         color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
                          borderRadius: BorderRadius.circular(12),
-                         border: Border.all(color: Colors.blue.shade200),
+                         border: Border.all(
+                           color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                         ),
                        ),
                        child: Column(
                          children: [
-                           const Text(
+                           Text(
                              'حسابك غير مربوط بالبوت!',
-                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                             style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                   fontWeight: FontWeight.bold,
+                                 ),
                            ),
                            const SizedBox(height: 8),
                            const Text(
@@ -119,6 +123,16 @@ class _OtpPageState extends State<OtpPage> {
                                backgroundColor: Colors.blue,
                                foregroundColor: Colors.white,
                              ),
+                           ),
+                           const SizedBox(height: 12),
+                           OutlinedButton.icon(
+                             onPressed: () {
+                               context.read<AuthBloc>().add(
+                                     LoginWithPhoneEvent(widget.phone),
+                                   );
+                             },
+                             icon: const Icon(Icons.refresh),
+                             label: const Text('تم الربط، أرسل الرمز'),
                            ),
                          ],
                        ),

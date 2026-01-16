@@ -13,6 +13,11 @@ abstract class AdminRemoteDataSource {
   Future<List<ActivationCodeModel>> generateCodes(GenerateCodeInput input);
   Future<List<ActivationCodeModel>> listCodes({String? status, int? limit});
   Future<void> revokeCode(String codeId);
+  // User Management
+  Future<List<Map<String, dynamic>>> searchUsers({String? phone});
+  Future<void> promoteToAdmin(String userId);
+  Future<void> demoteFromAdmin(String userId);
+  Future<void> activateUser(String userId);
 }
 
 class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
@@ -168,6 +173,71 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
         if (message != null) throw Exception(message);
       }
       throw Exception('Failed to revoke code');
+    }
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> searchUsers({String? phone}) async {
+    try {
+      final queryParams = <String, dynamic>{};
+      if (phone != null && phone.isNotEmpty) queryParams['phone'] = phone;
+
+      final response = await dioClient.get(
+        '/admin/users',
+        queryParameters: queryParams,
+      );
+      final data = response.data as Map<String, dynamic>;
+      final usersList = data['data']['users'] as List<dynamic>;
+      return usersList.cast<Map<String, dynamic>>();
+    } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
+      throw Exception('Failed to fetch users');
+    }
+  }
+
+  @override
+  Future<void> promoteToAdmin(String userId) async {
+    try {
+      await dioClient.patch('/admin/users/$userId/promote');
+    } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
+      throw Exception('Failed to promote user');
+    }
+  }
+
+  @override
+  Future<void> demoteFromAdmin(String userId) async {
+    try {
+      await dioClient.patch('/admin/users/$userId/demote');
+    } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
+      throw Exception('Failed to demote user');
+    }
+  }
+
+  @override
+  Future<void> activateUser(String userId) async {
+    try {
+      await dioClient.patch('/admin/users/$userId/activate');
+    } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
+      throw Exception('Failed to activate user');
     }
   }
 }

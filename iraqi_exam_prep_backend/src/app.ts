@@ -21,7 +21,7 @@ app.set("trust proxy", 1); // Trust first proxy (Render load balancer)
 app.use(helmet());
 app.use(
   cors({
-    origin: true, // Allow all origins for development
+    origin: env.nodeEnv === "production" ? env.clientBaseUrl : true,
     credentials: true,
   }),
 );

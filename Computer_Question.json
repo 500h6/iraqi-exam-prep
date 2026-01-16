@@ -1,0 +1,4181 @@
+[
+  {
+    "questionText": "من أي تبويب يمكن إدراج WordArt في Microsoft Word؟",
+    "options": [
+      "تخطبط",
+      "عرض",
+      "ادراج",
+      "تصميم"
+    ],
+    "correctAnswer": "ادراج",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو البروتوكول المسؤول عن نقل الملفات عبر الشبكة؟",
+    "options": [
+      "TCP",
+      "HTTP",
+      "FTP",
+      "IP"
+    ],
+    "correctAnswer": "FTP",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن حماية كلمة المرور بشكل أفضل؟",
+    "options": [
+      "عدم مشاركة كلمة المرور مع الآخرين",
+      "تفعيل المصادقة الثنائية (2FA)",
+      "تغيير كلمة المرور كل سنة",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "تفعيل المصادقة الثنائية (2FA)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "من أي تبويب يمكن إدراج خلفية صورة للصفحة في Microsoft Word؟",
+    "options": [
+      "ادراج",
+      "عرض",
+      "تخطيط",
+      "تصميم"
+    ],
+    "correctAnswer": "تصميم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي تبويب يمكن إجراء التدقيق الإملائي والنحوي في Microsoft Word؟",
+    "options": [
+      "عرض",
+      "تصميم",
+      "تخطيط",
+      "مراجعه"
+    ],
+    "correctAnswer": "مراجعه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين توجد أزرار التحكم في Microsoft Excel؟",
+    "options": [
+      "شريط الصيغة",
+      "شريط العنوان",
+      "الشريط الرئيسي",
+      "شريط الحالة"
+    ],
+    "correctAnswer": "شريط العنوان",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو تعريف URL؟",
+    "options": [
+      "اسم المضيف",
+      "المصدر ونوعه",
+      "مسار الملف",
+      "جميع ما سبق"
+    ],
+    "correctAnswer": "جميع ما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما المقصود بموقع ويب متجاوب؟",
+    "options": [
+      "موقع يربط الأجهزة ببعضها عبر الكابلات",
+      "موقع مخصص لفحص البريد بسرعة",
+      "موقع يمكنه التكيف مع الأجهزة المختلفة",
+      "موقع محمي بكلمة مرور"
+    ],
+    "correctAnswer": "موقع يمكنه التكيف مع الأجهزة المختلفة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الإنترنت هو:",
+    "options": [
+      "رسائل فورية",
+      "متصفح ويب",
+      "بريد الكتروني",
+      "شبكه من الشبكات"
+    ],
+    "correctAnswer": "شبكه من الشبكات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "في حالة حذف ملف بالخطأ، أين يمكن استعادته في نظام التشغيل؟",
+    "options": [
+      "ادارة المهام",
+      "سلة المهملات",
+      "مدير الملفات",
+      "شريط المهام"
+    ],
+    "correctAnswer": "سلة المهملات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن جعل النص بزاوية 45 درجة في برنامج Excel؟",
+    "options": [
+      "مجموعة نص بتبويب ادراج واجعل النص 45",
+      "تغيير حجم النص الى 45 من قائمة الخط في تبويب الصفحه الرئيسية",
+      "تدوير النص الى 45 من قائمة محاذاة تبويب الصفحه الرئيسية",
+      "تدوير النص الى 45 من قائمة تحرير في الصفحه الرئيسية"
+    ],
+    "correctAnswer": "تدوير النص الى 45 من قائمة محاذاة تبويب الصفحه الرئيسية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "من أي تبويب يمكن إضافة خلفية في Microsoft Excel؟",
+    "options": [
+      "ادراج",
+      "تخطيط",
+      "عرض",
+      "مراجعه"
+    ],
+    "correctAnswer": "تخطيط",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إلى ماذا يشير رمز الدولار ($) في Microsoft Excel؟",
+    "options": [
+      "فاصلة",
+      "عملة",
+      "رقم",
+      "نسبة"
+    ],
+    "correctAnswer": "عملة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يتم التوصيل بـ ______ لبناء شبكات الإنترنت.",
+    "options": [
+      "القمر الصناعي",
+      "ADSL",
+      "ISDN",
+      "جميع ما سبق"
+    ],
+    "correctAnswer": "جميع ما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو اختصار Ctrl + B؟",
+    "options": [
+      "جعل النص مائل",
+      "جعل النص تحت خط",
+      "جعل النص غامقاً",
+      "تكرار النص"
+    ],
+    "correctAnswer": "جعل النص غامقاً",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الخلية الأولى في Excel؟",
+    "options": [
+      "A0",
+      "A1",
+      "B1",
+      "A10"
+    ],
+    "correctAnswer": "A1",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "من اي تبويب ادراج رمز في word؟",
+    "options": [
+      "الصفحه الرئيسية",
+      "ادراج",
+      "تخطيط",
+      "تصميم"
+    ],
+    "correctAnswer": "ادراج",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن تمييز رسالة مهمة في البريد الالكتروني ؟",
+    "options": [
+      "وضعها بالمسودات",
+      "وضع علامة نجمه",
+      "وضع علامة مرفق",
+      "وضع علامة غير مقروئه"
+    ],
+    "correctAnswer": "وضع علامة نجمه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما المقصود ب HTTPS",
+    "options": [
+      "نسخة غير آمنه من HTTP",
+      "نسخة آمنه من HTTP",
+      "بروتوكول قفل ملفات",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "نسخة آمنه من HTTP",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "من المقبول ترك النص الطويل يتدفق إلى الخلايا المجاورة في ورقة العمل عندما",
+    "options": [
+      "سيتم إدخال البيانات في الخلايا المجاورة",
+      "لن يتم إدخال أي بيانات في الخلايا المجاورة",
+      "لا يوجد اختصار مناسب للنص",
+      "لا يوجد وقت لتنسيق النص"
+    ],
+    "correctAnswer": "لن يتم إدخال أي بيانات في الخلايا المجاورة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ضبط عرض العمود تلقائي في Excel ؟",
+    "options": [
+      "النقر المزدوج على اسم العمود في رأس العمود",
+      "النقر المزدوج على مؤشر الخلية في ورقة العمل",
+      "النقر المزدوج على الحد الأيمن للعمود في رأس العمود",
+      "النقر المزدوج على الحد الأيسر للعمود في رأس العمود"
+    ],
+    "correctAnswer": "النقر المزدوج على الحد الأيمن للعمود في رأس العمود",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ان كنت تريد ملء الخلايا بالاشهر بالتسلسل (كانون الاول ، كانون الثاني .....)",
+    "options": [
+      "التعبئة التلقائية",
+      "تعبئة السلسلة",
+      "تعبئة مخصصة",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "تعبئة السلسلة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكن تغيير عرض الورقة من عمودي الى افقي في Ecxel ؟",
+    "options": [
+      "تبويب عرض",
+      "تبويب مراجعه",
+      "تبويب تخطيط",
+      "تبويب ادراج"
+    ],
+    "correctAnswer": "تبويب تخطيط",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف تقوم بتعبئة الخلايا بلون في Excel؟",
+    "options": [
+      "من تبويب تنسيق",
+      "من تبويب تصميم",
+      "من التعبئة في شريط الادوات",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "من التعبئة في شريط الادوات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين يتم كتابة اسم الصنف في Excel؟",
+    "options": [
+      "في الخلايا",
+      "في شريط العنوان",
+      "في شريط الصيغة",
+      "في شريط الادوات"
+    ],
+    "correctAnswer": "في شريط العنوان",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الاسم الافتراضي لمجلد Excel عند حفظه؟",
+    "options": [
+      "Document",
+      "Book1",
+      "Excel1",
+      "Niwfile"
+    ],
+    "correctAnswer": "Book1",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي خيار في القائمة يمكن استخدامه لتقسيم النوافذ إلى جزئين في Excel؟",
+    "options": [
+      "مراجعه > نافذة",
+      "عرض > نافذة > تقسيم",
+      "نافذة > تقسيم",
+      "عرض > تقسيم"
+    ],
+    "correctAnswer": "عرض > نافذة > تقسيم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا يعني word ؟",
+    "options": [
+      "متصفح ويب",
+      "برنامج",
+      "تطبيق",
+      "نظام تشغيل"
+    ],
+    "correctAnswer": "تطبيق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي مما يلي لا يخص تحرير الخلية في Excel؟",
+    "options": [
+      "F2",
+      "Alt",
+      "Ctrl",
+      "Shift"
+    ],
+    "correctAnswer": "Alt",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا يحدث عند الضغط على F12 في Excel",
+    "options": [
+      "فتح نافذة تعليمات",
+      "فتح نافذة حفظ بإسم",
+      "فتح نافذة تحديث",
+      "التنقل بين ادوات الاشرطه"
+    ],
+    "correctAnswer": "فتح نافذة حفظ بإسم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكن أن تتضمن الرؤوس والتذييلات  (نصوص، الرسومات، و...",
+    "options": [
+      "التاريخ الحالي",
+      "الوقت الحالي",
+      "رقم الصفحه",
+      "جميع ما سبق"
+    ],
+    "correctAnswer": "جميع ما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكن لبرنامج PowerPoint عرض البيانات من اي من برامج الاضافة التالية لبرنامج ms Microsoft ؟ (يقصد add in في تبويب ادراج)",
+    "options": [
+      "محرر المعادلات",
+      "المخطط التنظيمي",
+      "البوم الصور",
+      "كل هذه"
+    ],
+    "correctAnswer": "كل هذه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اي من هذه الخيارات يتيح للمستخدمين تخزين والوصول الى الملفات عبر الانترنت",
+    "options": [
+      "HDD",
+      "SSD",
+      "Google Drive",
+      "CD"
+    ],
+    "correctAnswer": "Google Drive",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "امتداد الملف المحفوظ في Excel  هو من نوع ......",
+    "options": [
+      "xld",
+      "xlx",
+      "xlsx",
+      "doc"
+    ],
+    "correctAnswer": "xlsx",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما عرض مخطط المستند ؟ (يقصد Document outline view )",
+    "options": [
+      "معاينة بشاشة كامله",
+      "عرض به هيكل عناوين على مستويات مختلفه",
+      "معاينة بهوامش",
+      "عرض بهوامش وهامش"
+    ],
+    "correctAnswer": "عرض به هيكل عناوين على مستويات مختلفه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "المربع الاسود الصغير في الزاوية اليمنى السفلى لخلية او مدى نشيط يمثل ......",
+    "options": [
+      "مقبض نسخة",
+      "مقبض تعبئة",
+      "مقبض ملء",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "مقبض تعبئة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اي من الاتي يعتبر ميزة شائعة للتعليم الالكتروني",
+    "options": [
+      "دائماً يتطلب حضور الصف",
+      "وقت السفر والتكلفه مرتفعه",
+      "التعليم يكون بشكل سريع وسهل",
+      "لا يمكن تحميل الوثائق لقرائتها بوقت لاحق"
+    ],
+    "correctAnswer": "التعليم يكون بشكل سريع وسهل",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اختصار لوحة مفاتيح لفتح مربع حوار النص في word",
+    "options": [
+      "Ctrl + F",
+      "Ctrl + D",
+      "Ctrl + T",
+      "Ctrl + shift + F"
+    ],
+    "correctAnswer": "Ctrl + D",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "لإدراج عمود جديد بين العمود A والعمود B، اضغط على الزر\"",
+    "options": [
+      "إدراج الأعمدة من مجموعة \"تحرير\".",
+      "إدراج الأعمدة من مجموعة \"إدراج\".",
+      "إدراج الأعمدة من مجموعة \"الخلايا\".",
+      "كل الإجابات المعطاة غير صحيحة"
+    ],
+    "correctAnswer": "إدراج الأعمدة من مجموعة \"الخلايا\".",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي القائمة التي توفر خيارات مثل: الحركة، التحرير المخصص ، انتقال الشرائح",
+    "options": [
+      "ادراج",
+      "ادوات",
+      "تنسيق",
+      "عرض الشرائح"
+    ],
+    "correctAnswer": "عرض الشرائح",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيفية ازالة حدود الخلايا؟",
+    "options": [
+      "اختيار non border من تبويب تنسيق الخلايا",
+      "من شريط التنسيق ثم اختر الحدود ثم اختر \"لا حدود",
+      "الاول والثاني",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "الاول والثاني",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كم عدد الأعمدة في Microsoft Excel ؟",
+    "options": [
+      "1,000,000",
+      "1,048,576",
+      "16,2309",
+      "16,384"
+    ],
+    "correctAnswer": "16,384",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك إيقاف تشغيل الحاسوب بطريقة صحيحة؟",
+    "options": [
+      "الضغط على زر الطاقة مطولًا حتى ينطفئ الحاسوب",
+      "فصل التيار الكهربائي مباشرة",
+      "الذهاب إلى \"ابدأ\" ثم اختيار \"إيقاف التشغيل\"",
+      "الذهاب إلى \"ابدأ\" ثم اختيار \"إلسكون\""
+    ],
+    "correctAnswer": "الذهاب إلى \"ابدأ\" ثم اختيار \"إيقاف التشغيل\"",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي قيمة  (2, 4, 7.8)min ؟",
+    "options": [
+      "4",
+      "2",
+      "8",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "2",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الاختصار الذي يمكنك استخدامه لتحديد كل محتوى الصفحة ثم نسخه بسرعة؟",
+    "options": [
+      "Ctrl + p ثم Ctrl + S",
+      "Ctrl + C ثم Ctrl + A",
+      "Ctrl + A ثم Ctrl + C",
+      "Ctrl + Y ثم Ctrl + Z"
+    ],
+    "correctAnswer": "Ctrl + C ثم Ctrl + A",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي دالة تُستخدم لحساب القيمة الوسطى لمجموعة من الأرقام في Excel؟",
+    "options": [
+      "AVERAGE",
+      "MEDIAN",
+      "MIN",
+      "MAX"
+    ],
+    "correctAnswer": "MEDIAN",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الاختصار المستخدم لإنشاء ارتباط تشعبي ؟",
+    "options": [
+      "Ctrl + H",
+      "Ctrl + L",
+      "Ctrl + K",
+      "Ctrl + U"
+    ],
+    "correctAnswer": "Ctrl + K",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إذا كان الواي فاي لا يعمل، ما هو أول إجراء يجب القيام به؟",
+    "options": [
+      "الاتصال بمزود خدمة الإنترنت فورًا",
+      "تجديد بطاقة الشبكة",
+      "إعادة تشغيل الحاسوب",
+      "التحقق من تشغيل Wife"
+    ],
+    "correctAnswer": "التحقق من تشغيل Wife",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو امتداد المواقع الحكومية؟",
+    "options": [
+      "com",
+      "org",
+      "gov",
+      "net"
+    ],
+    "correctAnswer": "gov",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن إغلاق المصنف (Workbook) في Excel؟",
+    "options": [
+      "الضغط على زر \"X\" في أعلى النافذة",
+      "Ctrl + W",
+      "File > Close",
+      "جميع ما سبق"
+    ],
+    "correctAnswer": "جميع ما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو نوع الخط الافتراضي في Word ؟",
+    "options": [
+      "Roman",
+      "Arial",
+      "Calibri",
+      "Verdana"
+    ],
+    "correctAnswer": "Calibri",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين يظهر اسم الخلية المحددة في Excel؟",
+    "options": [
+      "شريط الصيغة",
+      "مربع الاسم",
+      "شريط العنوان",
+      "شريط الحالة"
+    ],
+    "correctAnswer": "مربع الاسم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الحركة القطعية التي يمكن أن تسبق ظهور الشريحة التالية أو تكون سابقة هي:",
+    "options": [
+      "الرسوم المتحركة",
+      "الانتقالات",
+      "التأثيرات",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "الانتقالات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو تنسيق PNG؟",
+    "options": [
+      "وحدة ملف تنفيذي",
+      "وحدة تقسيم إداري في المملكة",
+      "وحدة لغة برمجية",
+      "تنسيق صور"
+    ],
+    "correctAnswer": "تنسيق صور",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو اختصار E-mail؟",
+    "options": [
+      "End user mail",
+      "Electronic mail",
+      "Edition mail",
+      "Express mail"
+    ],
+    "correctAnswer": "Electronic mail",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي من مميزات التجارة الإلكترونية؟",
+    "options": [
+      "يمكنك مشاهدة السلع وأسعارها",
+      "زيادة الاتصال البشري",
+      "متوفرة على مدار 24 ساعه",
+      "يمكن الشراء ولكن بعيد"
+    ],
+    "correctAnswer": "متوفرة على مدار 24 ساعه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "تقاطع العمود والصف يمثل .....",
+    "options": [
+      "ورقة العمل",
+      "المصنف",
+      "الخلية",
+      "الجدول"
+    ],
+    "correctAnswer": "الخلية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية ليس نوعًا من قواعد البيانات؟",
+    "options": [
+      "قواعد بيانات العلائقية (Relational Databases)",
+      "قواعد بيانات NoSQL",
+      "قواعد البيانات النصية (Text Data Bases)",
+      "قواعد البيانات الشبكية (Network Database"
+    ],
+    "correctAnswer": "قواعد البيانات النصية (Text Data Bases)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكنك تعيين حدود الصفحة في Excel من",
+    "options": [
+      "من علامة التبويب الحدود في مربع حوار تنسيق الخلايا",
+      "من أداة نمط الخط في شريط أدوات الرسم",
+      "من أداة الحدود في شريط أدوات التنسيق",
+      "لا يمكنك تعيين حدود للصفحة في.Excel"
+    ],
+    "correctAnswer": "لا يمكنك تعيين حدود للصفحة في.Excel",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عندما يجب عرض جميع الأرقام بين 0 و 100 في نطاق بخط أحمر، ماذا يجب أن تفعل؟",
+    "options": [
+      "استخدم دالة ()if =لتنسيق الأرقام المطلوبة باللون الأحمر",
+      "طبق أمر التنسيق الشرطي من قائمة التنسيق",
+      "حدد الخلايا التي تحتوي على أرقام بين 0 و 100 ثم اختر اللون الأحمر على أداة لون النص",
+      "كل ما سبق"
+    ],
+    "correctAnswer": "طبق أمر التنسيق الشرطي من قائمة التنسيق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اختصار لوحة المفاتيح Ctrl + D في Excel سيقوم بـ",
+    "options": [
+      "فتح مربع حوار الخط",
+      "تطبيق خط مزدوج على الخلية النشطة",
+      "ملء التحديد",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "ملء التحديد",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكن إضافة تعليقات إلى الخلايا باستخدام ______",
+    "options": [
+      "إدراج  < تعليق",
+      "كلك ايمن على الخلية المحددة ثم ادراج تعليق",
+      "كلاهما",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "كلاهما",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "لتفعيل الخلية السابقة في نطاق محدد مسبقاً ، اضغط على",
+    "options": [
+      "Alt",
+      "Tab",
+      "Enter",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "لا شيء مما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "المسطرة في Word توجد في التبويب:",
+    "options": [
+      "إدراج",
+      "تخطيط",
+      "عرض",
+      "أدوات"
+    ],
+    "correctAnswer": "عرض",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الخيار الأفضل لإنشاء سيرة ذاتية؟",
+    "options": [
+      "إنشاء سيرة ذاتية باستخدام Excel",
+      "استخدام برنامج PowerPoint",
+      "استخدام معالج النصوص Notepad",
+      "استخدام تطبيق word"
+    ],
+    "correctAnswer": "استخدام تطبيق word",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "فائدة امتداد الملف",
+    "options": [
+      "معرفة حجم الملف",
+      "معرفة نوع الملف",
+      "تشفير الملف",
+      "اخفاء بيانات الملف"
+    ],
+    "correctAnswer": "معرفة نوع الملف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الموقع الذي يحفظ المستندات والملفات عبر الإنترنت؟",
+    "options": [
+      "Internet explorer",
+      "Google Drive",
+      "Google chrome",
+      "Facebook"
+    ],
+    "correctAnswer": "Google Drive",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو اختصار DML؟",
+    "options": [
+      "Direct Machine Language",
+      "Digital Management Layer",
+      "Data Manipulation Language",
+      "Data Model Logic"
+    ],
+    "correctAnswer": "Data Manipulation Language",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "من أي تبويب يمكن تغيير الورقة من وضع عمودي إلى أفقي في Excel؟",
+    "options": [
+      "تبويب عرض",
+      "تبويب تخطيط الصفحه",
+      "تبويب ادراج",
+      "تبويب مراجعه"
+    ],
+    "correctAnswer": "تبويب تخطيط الصفحه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "في Excel  عنوان العمود :",
+    "options": [
+      "حروف عربية",
+      "حروف انكليزية بدون ارقام",
+      "حروف انكليزية مع ارقام",
+      "ارقام فقط"
+    ],
+    "correctAnswer": "حروف انكليزية بدون ارقام",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "قيمه لا يقبلها مربع تعبئة السلسلة في Excel",
+    "options": [
+      "الخطي",
+      "النمو",
+      "الوقت",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "الوقت",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن حذف النص قبل نقطة الإدراج وعلى اليسار في Word؟",
+    "options": [
+      "Page Up",
+      "Page Down",
+      "Backspace",
+      "Delete"
+    ],
+    "correctAnswer": "Backspace",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن جعل العرض التلقائي في PowerPoint؟",
+    "options": [
+      "استخدام الاختصارات",
+      "تحديد وضع التقديم التلقائي",
+      "تعيين وقت (Timer)",
+      "تعيين الانتقال اليدوي بين الشرائح"
+    ],
+    "correctAnswer": "تعيين وقت (Timer)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من هذه الامتدادات هو امتداد نطاق ينتهي بـ؟",
+    "options": [
+      "Html",
+      "exe",
+      "uk",
+      "Png"
+    ],
+    "correctAnswer": "uk",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "حذف الصف العاشر في Excel",
+    "options": [
+      "النقر بالزر الايمن للماوس على الصف العاشر واختر حذف",
+      "من الصفحه الرئيسية اختر حذف ثم اختر حذف صف",
+      "كلاهما",
+      "من الصفحه الرئيسية ، خلايا ثم اختر تنسيق ثم حذف صف"
+    ],
+    "correctAnswer": "كلاهما",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك تكبير شاشة Word بسرعة؟",
+    "options": [
+      "باستخدام قائمة تكبير في تبويب \"عرض\"",
+      "باستخدام شريط التكبير/التصغير في الزاوية السفلى.",
+      "كلاهما",
+      "باستخدام قائمة تكبير في تبويب \"تخطيط\""
+    ],
+    "correctAnswer": "كلاهما",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "تخزن الملفات بشكل مؤقت بدون تكرار؟",
+    "options": [
+      "Cookies",
+      "CPU",
+      "Cache",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "Cache",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "حفظ اين موجود؟",
+    "options": [
+      "تبويب الصفحه الرئيسية",
+      "تبويب ملف",
+      "تبويب مراجعه",
+      "تبويب عرض"
+    ],
+    "correctAnswer": "تبويب ملف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي خيار في القائمة يمكن استخدامه لتقسيم النوافذ إلى جزئين؟",
+    "options": [
+      "مراجعة <نافذة",
+      "عرض <تقسيم",
+      "نافذة <تقسيم",
+      "عرض <نافذة <تقسيم"
+    ],
+    "correctAnswer": "عرض <نافذة <تقسيم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اي من الخيارات التالية يسمح بإظهار أو إخفاء العناصر في Excel؟",
+    "options": [
+      "تحرير (Edit)",
+      "مراجعة (Review)",
+      "تنسيق (Format)",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "تنسيق (Format)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ليس طريقة لإنشاء عرض تقديمي",
+    "options": [
+      "انشاء عرض تقديمي",
+      "قالب تصميم",
+      "معالج المحتوى التلقائي",
+      "slide scan in استخدام ميزة"
+    ],
+    "correctAnswer": "slide scan in استخدام ميزة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إدراج رأس وتذييل الصفحة يتم من تبويب:",
+    "options": [
+      "Home",
+      "Layout",
+      "Insert",
+      "Design"
+    ],
+    "correctAnswer": "Insert",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عدد الخطوات بين البداية والنهاية في معالج المحتوى التلقائي يكون غالبًا:",
+    "options": [
+      "6",
+      "4",
+      "3",
+      "5"
+    ],
+    "correctAnswer": "3",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الرجوع إلى محتوى متصفح الإنترنت بدون إنترنت يتم عبر:",
+    "options": [
+      "من السجل",
+      "من الذاكرة المؤقته كاش",
+      "من الاشارات المرجعيه",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "من الذاكرة المؤقته كاش",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "العنصر الذي يحتوي على صفوف وأعمدة داخل Excel هو:",
+    "options": [
+      "Workbook",
+      "Cells",
+      "Sheet",
+      "Table"
+    ],
+    "correctAnswer": "Sheet",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الدالة المستخدمة لحساب الانحراف المعياري في Excel؟",
+    "options": [
+      "AVERAGE",
+      "SUM",
+      "STDEV",
+      "VAR"
+    ],
+    "correctAnswer": "STDEV",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو أفضل نوع عرض لاستخدامه عند تقديم عرض تقديمي داخل قاعة؟",
+    "options": [
+      "Outline View",
+      "Master View",
+      "Slide show",
+      "Slide sorter"
+    ],
+    "correctAnswer": "Slide show",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الاختصار المستخدم للانتقال إلى الخلية الأولى في ورقة العمل؟",
+    "options": [
+      "Ctrl + 1",
+      "Ctrl + Home",
+      "Ctrl + End",
+      "Shift + Home"
+    ],
+    "correctAnswer": "Ctrl + Home",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "لإضافة رمز العملة (د.ع) بعد الرقم 1000 في Excel",
+    "options": [
+      "$",
+      "ID",
+      "IQD",
+      "QD"
+    ],
+    "correctAnswer": "IQD",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الذي يحدث عند الضغط على مفتاح Home في لوحة المفاتيح  في Word ؟",
+    "options": [
+      "الانتقال إلى بداية المستند",
+      "الانتقال إلى نهاية المستند",
+      "الانتقال إلى بداية السطر",
+      "الانتقال إلى منتصف السطر"
+    ],
+    "correctAnswer": "الانتقال إلى بداية السطر",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الفئات التالية تُستخدم لنقل البيانات في قواعد البيانات؟",
+    "options": [
+      "DDL",
+      "DCL",
+      "DML",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "DML",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "في أي تبويب يمكن تغيير نوع الخط في Excel أو PowerPoint؟",
+    "options": [
+      "إدراج",
+      "تخطيط",
+      "الصفحة الرئيسية",
+      "مراجعه"
+    ],
+    "correctAnswer": "الصفحة الرئيسية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الدور الأساسي للجدار الناري في أمن الشبكات؟",
+    "options": [
+      "تشفير البيانات لضمان سريتها",
+      "منع الوصول غير المصرح به إلى الشبكة",
+      "زيادة سرعة الاتصال بالإنترنت",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "منع الوصول غير المصرح به إلى الشبكة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الاختصار المستخدم لإدراج فاصل صفحات في مستند Microsoft Word؟",
+    "options": [
+      "Space",
+      "Ctrl + Shift + N",
+      "Ctrl + Enter",
+      "Ctrl + S"
+    ],
+    "correctAnswer": "Ctrl + Enter",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو وظيفة الاختصار Ctrl + D في Microsoft Excel؟",
+    "options": [
+      "ملء تحديد يمين ويسار الخلية",
+      "تكرار آخر إجراء تم تنفيذه",
+      "ملء تحديد اسفل الخلية",
+      "ملء تحديد اعلى الخلية"
+    ],
+    "correctAnswer": "ملء تحديد اسفل الخلية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية يعد متصفح إنترنت؟",
+    "options": [
+      "Microsoft word",
+      "Google chrome",
+      "Windows media",
+      "Adobe Photoshop"
+    ],
+    "correctAnswer": "Google chrome",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك التنقل بين الشرائح أثناء تقديم عرض PowerPoint أمام جمهور؟",
+    "options": [
+      "عرض شريحة تليها الأخرى بشكل متتالي",
+      "استخدام شاشة عرض كبيرة واختيار \"جمهور\" ثم الضغط على \"موافق\"",
+      "طريقة العرض بوضع ملء الشاشة",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "طريقة العرض بوضع ملء الشاشة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "لإنشاء مستند جديد :",
+    "options": [
+      "open",
+      "new",
+      "save",
+      "Save as"
+    ],
+    "correctAnswer": "new",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا يمكن للارتباط التشعبي أن يربط؟",
+    "options": [
+      "شبكة الإنترنت",
+      "شبكات الانترنت",
+      "اجهزة الحواسيب",
+      "صفحات الويب او المستندات"
+    ],
+    "correctAnswer": "صفحات الويب او المستندات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اين توجد سلة المهملات  (مكرر)",
+    "options": [
+      "في مستعرض الملفات",
+      "على سطح المكتب",
+      "في قائمة بدأ",
+      "في شريط المهام"
+    ],
+    "correctAnswer": "على سطح المكتب",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك فتح تطبيق Microsoft Excel؟",
+    "options": [
+      "من قائمة ابدأ - كل البرامج - كلك أيمن - Microsoft Excel",
+      "من قائمة ابدأ - كل البرامج - كلك أيسر - Microsoft Excel",
+      "من فتح ملف مستعرض الملفات واختيار تطبيق Excel",
+      "من الضغط على زر الطاقة في الحاسوب مباشرةً"
+    ],
+    "correctAnswer": "من قائمة ابدأ - كل البرامج - كلك أيسر - Microsoft Excel",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا تعني HTTP؟ (مكرر)",
+    "options": [
+      "منصة نص تشعبي",
+      "بروتوكول نقل نص تشعبي",
+      "تصفح نص تشعبي",
+      "مصدر نص تشعبي"
+    ],
+    "correctAnswer": "بروتوكول نقل نص تشعبي",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي مفتاح يُستخدم للانتقال بين الخلايا عموديًا في Excel؟ (مكرر)",
+    "options": [
+      "Alt",
+      "Shift",
+      "Enter",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "Enter",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما وظيفة الاختصار Ctrl + B ؟ (مكرر)",
+    "options": [
+      "نسخ ولصق",
+      "قص ولصق",
+      "جعل النص غامقًا",
+      "جعل النص مائل"
+    ],
+    "correctAnswer": "جعل النص غامقًا",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما وظيفة الاختصار Ctrl + O؟ (مكرر)",
+    "options": [
+      "إنشاء مستند جديد",
+      "فتح ملف محفوظ",
+      "حفظ الملف",
+      "طباعة الملف"
+    ],
+    "correctAnswer": "فتح ملف محفوظ",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "0إذا كانت القيم (18, 5, 6) موجودة في خلية، والدالة المستخدمة هي MAX، فما النتيجة؟ (مكرر)",
+    "options": [
+      "5",
+      "6",
+      "25",
+      "18"
+    ],
+    "correctAnswer": "18",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما فائدة إضافة النقش (التعبئة بنمط) على الخلايا في Excel؟",
+    "options": [
+      "تلوين النص فقط دون تغيير الخلفية",
+      "تمييز الخلايا عن بعضها البعض",
+      "لا فائده منه",
+      "دمج الخلايا تلقائياً"
+    ],
+    "correctAnswer": "تمييز الخلايا عن بعضها البعض",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن لعدة مستخدمين استخدام حاسوب مركزي كبير في نفس الوقت؟",
+    "options": [
+      "يستخدمه أصحاب المكتب فقط",
+      "شركة مبيعات تجارية كبيرة بأكثر من مكان تستخدم نفس المركز أو السيرفر",
+      "جعل رمز خاص للمشتركين داخل المؤسسة",
+      "المستخدمون ضمن نفس وحدة المعالجة المركزية"
+    ],
+    "correctAnswer": "شركة مبيعات تجارية كبيرة بأكثر من مكان تستخدم نفس المركز أو السيرفر",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الدالة المستخدمة لحساب عدد الطلاب الراسبين؟ (مكرر)",
+    "options": [
+      "COUNT",
+      "COUNTIF",
+      "SUM",
+      "SUMIF"
+    ],
+    "correctAnswer": "COUNTIF",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما وظيفة المربع الصغير الموجود في زاوية خلية Excel؟ (مكرر)",
+    "options": [
+      "تغيير لون الخلية",
+      "ملء البيانات تلقائياً",
+      "تحديد الخلايا",
+      "نقل محتوى الخلايا"
+    ],
+    "correctAnswer": "ملء البيانات تلقائياً",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "هل يمكن إدراج مقاطع فيديو وصوت في PowerPoint؟ (مكرر)",
+    "options": [
+      "فقط فيديو",
+      "فقط صوت",
+      "كلاهما",
+      "لا شيء منهم"
+    ],
+    "correctAnswer": "كلاهما",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عند دمج البريد الإلكتروني مع البيانات، ما المصطلح المستخدم؟",
+    "options": [
+      "الخادم",
+      "العميل",
+      "المصدر",
+      "ليس من الخيارات"
+    ],
+    "correctAnswer": "ليس من الخيارات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو أفضل رمز يمكنك استخدامه لحماية حسابك؟ (مكرر)",
+    "options": [
+      "password",
+      "12345",
+      "ali@17&ah0",
+      "sah123"
+    ],
+    "correctAnswer": "ali@17&ah0",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عند إرسال ملف PowerPoint عبر البريد الإلكتروني، ما الخيار المستخدم؟",
+    "options": [
+      "مشاركة رابط (Share Link)",
+      "إرسال كمرفق (Attachment)",
+      "إدراجه في نص البريد الإلكتروني",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "إرسال كمرفق (Attachment)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الفرق بين الصندوق الوارد inbox  ورسائل spam (مكرر)",
+    "options": [
+      "صندوق الوارد يحتوي على الاعلانا والرسائل المزعجه اما الرسائل غير المرغوبه تحتوي على الرسائل المهمه",
+      "صندوق الوارد يحتوي على جميع الرسائل، وصندوق البريد غير المرغوب فيه يحتوي على الرسائل المشبوهة الغير مرغوبه",
+      "صندوق الوارد يحتوي على الرسائل التي لم ترسل والغير مرغوب بها تحتوي على الرسائل المرسله",
+      "جميع الخيارات خاطئه"
+    ],
+    "correctAnswer": "صندوق الوارد يحتوي على جميع الرسائل، وصندوق البريد غير المرغوب فيه يحتوي على الرسائل المشبوهة الغير مرغوبه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اي من الخيارات التالية يمكن ان تحول عمود بيانات الى صف ؟ (مكرر)",
+    "options": [
+      "قص لصق",
+      "لصق خاص > تحويل",
+      "كلاهما",
+      "لا شيء مما ذكر"
+    ],
+    "correctAnswer": "لصق خاص > تحويل",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي أفضل طريقة لعرض الشرائح في PowerPoint؟",
+    "options": [
+      "عرض فارز الشرائح (Slide Sorter)",
+      "عرض الشرائح (Slide Show)",
+      "العرض التفصيلي (Outline View)",
+      "العرض العادي (Normal View)"
+    ],
+    "correctAnswer": "عرض الشرائح (Slide Show)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن إدراج عمود بين A و B في Excel؟ (مكرر)",
+    "options": [
+      "نحدد العمود A  ثم من قائمة الصفحة الرئيسية نختار \"إدراج\" ثم \"إدراج عمود\"",
+      "نحدد العمود B  ثم من قائمة الصفحة الرئيسية نختار \"إدراج\" ثم \"إدراج عمود\"",
+      "نحدد العمود A  ثم من قائمة عرض نختار \"إدراج عمود\"",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "نحدد العمود B  ثم من قائمة الصفحة الرئيسية نختار \"إدراج\" ثم \"إدراج عمود\"",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو امتداد ملفات محفوظة في Excel ؟ (مكرر)",
+    "options": [
+      "xld",
+      "txt",
+      "xlsx",
+      "xls"
+    ],
+    "correctAnswer": "xlsx",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "من أي قائمة يمكن إدراج تعليق (Comment) في Excel؟ (مكرر)",
+    "options": [
+      "Home",
+      "insert",
+      "Review",
+      "View"
+    ],
+    "correctAnswer": "Review",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن إزالة عمود بين عمودين في Excel؟ (مكرر)",
+    "options": [
+      "حدد رأس العمود الذي تريد حذفه وحدد زر حذف الصف في الشريط القياسي",
+      "حدد رأس العمود الذي تريد حذفه وحدد \"إدراج حذف\" من القائمة",
+      "حدد رأس الصف الذي تريد حذفه وحدد \"تحرير <حذف\" من القائمة",
+      "انقر بزر الماوس الأيمن على رأس العمود الذي تريد حذفه وحدد \"حذف\" من القائمة المختصرة"
+    ],
+    "correctAnswer": "انقر بزر الماوس الأيمن على رأس العمود الذي تريد حذفه وحدد \"حذف\" من القائمة المختصرة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين يمكن العثور على العلامة المائية (Watermark) في Microsoft Word؟",
+    "options": [
+      "إدراج (Insert)",
+      "تصميم (Design)",
+      "تخطيط الصفحة (Page Layout)",
+      "مراجعة (Review)"
+    ],
+    "correctAnswer": "تصميم (Design)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكنك نقل ورقة من مصنف إلى مصنف كتاب جديد باستخدام (ملف استاذ ضرغام)",
+    "options": [
+      "من قائمة تحرير اختر \"نقل أو نسخ\" ثم حدد \"إنشاء نسخة\" واضغط \"موافق\"",
+      "من قائمة تحرير اختر \"نقل أو نسخ\" ثم اختر )نقل إلى النهاية( واضغط \"موافق\")",
+      "من قائمة تحرير اختر \"نقل أو نسخ\" ثم اختر )مصنف جديد( من قائمة \"إلى المصنف\" واضغط \"موافق\"",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "ليس مما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الوسيلة الأنسب لمساعدة المصابين بالعمى على استخدام الكمبيوتر؟ (مكرر)",
+    "options": [
+      "استخدام ماوس ولوحة مفاتيح صحية (Healthy mouse and keyboard)",
+      "استخدام واجهات رسومية (Graphic interfaces)",
+      "استخدام جهاز تجميع",
+      "استخدام برامج قراءة الشاشة او لوحة مفاتيح برايل"
+    ],
+    "correctAnswer": "استخدام برامج قراءة الشاشة او لوحة مفاتيح برايل",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من العبارات التالية غير صحيحة عن الاستبدال والبحث؟ ( مكرر)",
+    "options": [
+      "البحث عن جزء من كلمة",
+      "البحث عن صيغة",
+      "تستطيع البحث بالمائل والاستبدال بالمظلل",
+      "تستطيع البحث حسب الأعمدة والأسطر"
+    ],
+    "correctAnswer": "تستطيع البحث بالمائل والاستبدال بالمظلل",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عند حفظ ملف في  Excel 2019، ما هو الاسم الذي يُطلق على الملف؟ (مكرر)",
+    "options": [
+      "Row",
+      "Book",
+      "Cell",
+      "Paper"
+    ],
+    "correctAnswer": "Book",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الرمز الذي يجب ان يسبق الدالة في Excel؟ (مكرر)",
+    "options": [
+      "#",
+      "=",
+      "+",
+      "-"
+    ],
+    "correctAnswer": "=",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "في Ms Excel  ما هو الرقم الافتراضي الذي يظهر عن مربع حوار تعبئة؟ (مكرر)",
+    "options": [
+      "0",
+      "10",
+      "5",
+      "1"
+    ],
+    "correctAnswer": "1",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يعرض Excel عنوان الخلية الحالية في: (مكرر)",
+    "options": [
+      "شريط الصيغة",
+      "شريط الحالة",
+      "مربع الاسم",
+      "شريط الادوات"
+    ],
+    "correctAnswer": "مربع الاسم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اي من الاتي يبلغ حجمه 8 بايت (مكرر)",
+    "options": [
+      "تاريخ وقت",
+      "الذاكرة",
+      "الرقم",
+      "الرابط"
+    ],
+    "correctAnswer": "الذاكرة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الأمر المستخدم لتغليظ الخط في برامج Microsoft Office؟",
+    "options": [
+      "Ctrl + I",
+      "Ctrl + U",
+      "Ctrl + B",
+      "Ctrl + S"
+    ],
+    "correctAnswer": "Ctrl + B",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أفضل طريقة لإيقاف تشغيل الحاسوب هي؟",
+    "options": [
+      "إغلاق الكمبيوتر من خلال النقر على زر الطاقة",
+      "من خلال إيقاف التشغيل من قائمة ابدأ",
+      "فصل الكهرباء عن الكمبيوتر",
+      "جميع ما سبق"
+    ],
+    "correctAnswer": "من خلال إيقاف التشغيل من قائمة ابدأ",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك إدراج ورقة عمل جديدة في Excel؟ (مكرر)",
+    "options": [
+      "من صفحة \"الرئيسية\" (Home) ثم اختيار \"إدراج\" (Insert)",
+      "من خلال النقر بزر الماوس الأيمن على الورقة في الأسفل واختيار \"إضافة ورقة عمل\" (Insert Worksheet)",
+      "الخيارين اعلاه",
+      "من تبويب ادراج (insert) ثم اختر ادراج ورقة"
+    ],
+    "correctAnswer": "الخيارين اعلاه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الإجراءات التالية يعتبر من أساليب الأمان والحماية الأكثر فعالية؟ ( مكرر)",
+    "options": [
+      "اختيار كلمة مرور قوية وتغييرها بإستمرار",
+      "حفظ كلمة المرور في مكان آمن",
+      "عدم إخبار أي شخص عن كلمات المرور",
+      "اختيار كلمة مرور تحتوي على حروف وارقام ورموز معقده"
+    ],
+    "correctAnswer": "اختيار كلمة مرور تحتوي على حروف وارقام ورموز معقده",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن إدراج مخطط في Microsoft Word؟",
+    "options": [
+      "صفحة رئيسية > إدراج > مخطط",
+      "إدراج > مخطط",
+      "إدراج > صورة > مخطط"
+    ],
+    "correctAnswer": "إدراج > مخطط",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "في أي مكان يمكن البحث عن الصور والنصوص والمحتويات الأخرى؟ (مكرر)",
+    "options": [
+      "الملفات",
+      "المتصفحات",
+      "محرك البحث",
+      "التخزين السحابي"
+    ],
+    "correctAnswer": "محرك البحث",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الوسيلة التي يمكن من خلالها إرسال الصور والمستندات عبر خطوط الهاتف دون الحاجة إلى كمبيوتر؟",
+    "options": [
+      "بريد الكتروني",
+      "عبر الهاتف",
+      "Fax",
+      "Infinix"
+    ],
+    "correctAnswer": "Fax",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية هو من خصائص الحوسبة السحابية؟ (مكرر)",
+    "options": [
+      "يمكن استرجاع البيانات بدون اتصال بالإنترنت",
+      "يمكن الوصول إلى البيانات من أي مكان باستخدام الإنترنت",
+      "تخزين البيانات فقط على أجهزة الكمبيوتر الشخصية",
+      "لا يمكن الوصول الى البيانات"
+    ],
+    "correctAnswer": "يمكن الوصول إلى البيانات من أي مكان باستخدام الإنترنت",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو \"Phishing\" (التصيد الإلكتروني)؟",
+    "options": [
+      "سرقة الهوية",
+      "اختراق معلومات",
+      "اغراق المستخدم بالديون",
+      "ارسال رسائل ترويجية"
+    ],
+    "correctAnswer": "اختراق معلومات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك تغيير اتجاه ورقة العمل من اليمين إلى اليسار أو العكس في Excel؟",
+    "options": [
+      "من اتجاه صفحه",
+      "من تخطيط صفحه",
+      "من اعداد صفحه"
+    ],
+    "correctAnswer": "من تخطيط صفحه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك ضبط الهوامش في برنامج Word؟ (مكرر)",
+    "options": [
+      "من قائمة \"ملف\" اختر \"إعداد الصفحة\" ثم قم بتعديل الهوامش",
+      "من قائمة \"تخطيط\" اختر \"هوامش\" ثم حدد الخيار المطلوب",
+      "من قائمة \"عرض\" اختر \"إعداد الصفحة\" ثم قم بتعديل الهوامش",
+      "من قائمة \"مراجعة\" اختر \"هوامش\" ثم حدد الخيار المطلوب"
+    ],
+    "correctAnswer": "من قائمة \"تخطيط\" اختر \"هوامش\" ثم حدد الخيار المطلوب",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الاختصار Ctrl + S ؟(مكرر)",
+    "options": [
+      "طباعة",
+      "حفظ بإسم",
+      "حفظ",
+      "فتح"
+    ],
+    "correctAnswer": "حفظ",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إذا كنت تريد عرض عنصر ثابت في جميع الشرائح في PowerPoint، أين يجب أن تضعه؟",
+    "options": [
+      "في الملاحضات",
+      "في الشريحة الرئيسية",
+      "في التخطيط التفصيلي",
+      "في كل شريحة"
+    ],
+    "correctAnswer": "في الشريحة الرئيسية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو وظيفة برنامج Excel Microsoft؟",
+    "options": [
+      "كتابة النصوص",
+      "القيام بالعمليات الحسابية والتحليلات الإحصائية",
+      "ادراج صور والتعديل عليها",
+      "عرض تقديمي"
+    ],
+    "correctAnswer": "القيام بالعمليات الحسابية والتحليلات الإحصائية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عند فتح برنامج Excel، ما الذي يظهر في البداية؟",
+    "options": [
+      "نافذة الصفحه الرئيسية",
+      "الصفحه الرئيسية وادراج",
+      "ملفاتك على الجهاز",
+      "نافذة قوالب جاهزه"
+    ],
+    "correctAnswer": "نافذة قوالب جاهزه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا تختار لإنشاء مصنف جديد فارغ في برنامج Excel؟",
+    "options": [
+      "قالب جاهز",
+      "مصنف فارغ",
+      "جدول بيانات",
+      "ملف من Recent"
+    ],
+    "correctAnswer": "مصنف فارغ",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي مما يلي ليس من وظائف برنامج Excel؟",
+    "options": [
+      "انشاء الرسوم البيانية",
+      "تحليل البيانات احصائياً",
+      "تحرير ملفات فيديو",
+      "تخزين البيانات في جداول"
+    ],
+    "correctAnswer": "تحرير ملفات فيديو",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو اسم المصنف الذي يظهر افتراضياً عند فتح مستند جديد في برنامج Excel؟",
+    "options": [
+      "NewFile",
+      "Ecxel Sheet",
+      "Book1",
+      "Workbook"
+    ],
+    "correctAnswer": "Book1",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "وظيفة شريط العنوان في نافذة Excel؟",
+    "options": [
+      "عرض الادوات السريعه فقط",
+      "عرض الرسوم البيانية",
+      "عرض اسم المصنف المفتوح وازرار التحكم",
+      "ادوات التنسيق"
+    ],
+    "correctAnswer": "عرض اسم المصنف المفتوح وازرار التحكم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما وظيفة شريط أدوات الوصول السريع (Quick Access Toolbar)؟",
+    "options": [
+      "عرض اسم المصنف",
+      "توفير الأوامر الأكثر استخدامًا",
+      "تغيير ألوان واجهة البرنامج",
+      "انشاء وفتح الملفات"
+    ],
+    "correctAnswer": "توفير الأوامر الأكثر استخدامًا",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الشريط الذي يحتوي على علامات التبويب والأوامر والمجموعات في Excel؟",
+    "options": [
+      "شريط أدوات الوصول السريع",
+      "شريط الصيغة",
+      "الشريط الرئيسي (Ribbon)",
+      "شريط التصفح"
+    ],
+    "correctAnswer": "الشريط الرئيسي (Ribbon)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين توجد قائمة File في إصدار Excel 2016؟",
+    "options": [
+      "في الجزء الأيمن من الشريط الرئيسي (Ribbon)",
+      "في أسفل نافذة البرنامج",
+      "في الجزء الايسر شريط العنوان",
+      "في الجزء الأيسر من الشريط الرئيسي (Ribbon)"
+    ],
+    "correctAnswer": "في الجزء الأيسر من الشريط الرئيسي (Ribbon)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الغرض من شريطي التصفح الأفقي والعمودي (Scroll Bars) في Excel؟",
+    "options": [
+      "التحكم في حجم الخط",
+      "التنقل أفقيًا وعموديًا في المصنف",
+      "التبديل بين المصنفات",
+      "تعديل الصيغ الرياضية"
+    ],
+    "correctAnswer": "التنقل أفقيًا وعموديًا في المصنف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما العنصر الذي يضم مجموعة من الأوامر المتعلقة بالتنسيقات والأنماط؟",
+    "options": [
+      "علامة تبويب (Tab)",
+      "مجموعة أوامر (Groups)",
+      "شريط الأدوات (Toolbar)",
+      "شريط الصيغة (Formula Bar)"
+    ],
+    "correctAnswer": "مجموعة أوامر (Groups)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما وظيفة المسطرة (Ruler) في برنامج Excel؟",
+    "options": [
+      "تعديل حجم الخط",
+      "تحديد الهوامش وعلامات الجدولة",
+      "عرض الأوامر الأكثر استخدامًا",
+      "إنشاء الصيغ الرياضية"
+    ],
+    "correctAnswer": "تحديد الهوامش وعلامات الجدولة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما العنصر الذي يظهر أسفل الشاشة ويبين حالة المصنف وطرق العرض الحالية؟",
+    "options": [
+      "شريط الصيغة (Formula Bar)",
+      "المسطرة",
+      "شريط الحالة (Status Bar)",
+      "شريط ادوات"
+    ],
+    "correctAnswer": "شريط الحالة (Status Bar)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الأوامر التالية ليس ضمن قائمة File في Excel؟",
+    "options": [
+      "الحفظ",
+      "الطباعة",
+      "التكبير والتصغير",
+      "حفظ بإسم"
+    ],
+    "correctAnswer": "التكبير والتصغير",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما وظيفة شريط تكبير وتصغير (Zoom Slider) الموجود في شريط الحالة؟.",
+    "options": [
+      "تغيير حجم النصوص على الشاشة",
+      "تغيير حجم الخلايا على الشاشة",
+      "تغيير حجم عرض المصنف على الشاشة",
+      "فتح مصنفات جديده كبيرة"
+    ],
+    "correctAnswer": "تغيير حجم عرض المصنف على الشاشة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الفرق بين Save و Save As؟",
+    "options": [
+      "كلاهما يقومان بنفس الوظيفة.",
+      "Save لحفظ التعديلات على الملف الحالي، بينما Save As تُستخدم لحفظ الملف باسم أو موقع جديد.",
+      "Save As تُستخدم لحفظ الملفات بصيغة PDF فقط."
+    ],
+    "correctAnswer": "Save لحفظ التعديلات على الملف الحالي، بينما Save As تُستخدم لحفظ الملف باسم أو موقع جديد.",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي وظيفة أداة Share في برنامج Excel؟",
+    "options": [
+      "طباعة الملفات",
+      "مشاركة الملفات مع الآخرين أو إرسالها عبر البريد الإلكتروني",
+      "تخزين الملفات في مواقع متعددة",
+      "إنشاء نسخة احتياطية للملف"
+    ],
+    "correctAnswer": "مشاركة الملفات مع الآخرين أو إرسالها عبر البريد الإلكتروني",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية يمكن القيام به باستخدام أداة Share؟",
+    "options": [
+      "إرسال الملف كإعلان على موقع إلكتروني",
+      "فتح الملف في وضع القراءة فقط",
+      "حذف الملف من Drive Sky",
+      "تعديل اسم الملف أثناء إرساله بالبريد الإلكتروني"
+    ],
+    "correctAnswer": "فتح الملف في وضع القراءة فقط",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي وظيفة أداة Export في برنامج Excel؟",
+    "options": [
+      "حفظ الملفات تلقائياً في الجهاز المحلي",
+      "تغيير نوع الملف أو امتداده وتصديره",
+      "حذف الملفات غير الضرورية",
+      "مشاركة الملفات عبر الإنترنت"
+    ],
+    "correctAnswer": "تغيير نوع الملف أو امتداده وتصديره",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الصيغة التي يمكن تخزين الملف بها باستخدام أداة Export؟",
+    "options": [
+      "Excel فقط",
+      "PDF",
+      "MP4",
+      "HTML فقط"
+    ],
+    "correctAnswer": "PDF",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن إضافة أداة جديدة إلى شريط أدوات الإقلاع السريع",
+    "options": [
+      "من قائمة View واختيار اضافة اداة للاقلاع السريع",
+      "النقر بزر الفأرة الأيمن على الأداة واختيار Toolbar Access Quick to Add.",
+      "تعديل إعدادات البرنامج"
+    ],
+    "correctAnswer": "النقر بزر الفأرة الأيمن على الأداة واختيار Toolbar Access Quick to Add.",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو المصنف ( Book )في Excel؟",
+    "options": [
+      "عبارة عن جدول بيانات واحد فقط",
+      "ملف يحتوي على أوراق عمل متعددة",
+      "ملف لحفظ البيانات والصور وتحليلها",
+      "مجموعة من الرسوم البيانية"
+    ],
+    "correctAnswer": "ملف يحتوي على أوراق عمل متعددة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الصفوف ( Rows )في ورقة العمل؟",
+    "options": [
+      "خلايا مرتبة عمودًيا ويشار إليها بالحروف",
+      "خلايا مرتبة أفقًيا ويشار إليها بالأرقام.",
+      "خلايا مرتبه بشكل عشوائي",
+      "خلايا تستخدم لتحديد الاعمده فقط"
+    ],
+    "correctAnswer": "خلايا مرتبة أفقًيا ويشار إليها بالأرقام.",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو العمود ( Column )في ورقة العمل؟",
+    "options": [
+      "مجموعة خلايا مرتبة أفقًيا ويشار إليها بالأرقام",
+      "مجموعة خلايا مرتبة عمودًيا ويشار إليها بالحروف.",
+      "مساحة مخصصة للرسوم البيانية",
+      "عنوان الورقة الحالي"
+    ],
+    "correctAnswer": "مجموعة خلايا مرتبة عمودًيا ويشار إليها بالحروف.",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الخلية ( Cell )في ورقة العمل؟",
+    "options": [
+      "مجموعة خلايا مرتبه افقية",
+      "مجموعة من الصفوف والاعمده",
+      "تقاطع صف وعمود ولها عنوان يتكون من حرف ورقم",
+      "صفحة تحتوي على بيانات النصوص فقط"
+    ],
+    "correctAnswer": "تقاطع صف وعمود ولها عنوان يتكون من حرف ورقم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو مرجع الخلية (Reference Cell)؟",
+    "options": [
+      "اسم ورقة العمل",
+      "حرف يمثل العمود ورقم يمثل الصف الذي تقع فيه الخلية",
+      "اسم الملف الذي يحتوي على ورقة العمل",
+      "نوع البيانات المدخلة في الخلية"
+    ],
+    "correctAnswer": "حرف يمثل العمود ورقم يمثل الصف الذي تقع فيه الخلية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو المرجع F40 في Excel؟",
+    "options": [
+      "يحدد ورقة العمل 40",
+      "يحدد الخلية في العمود F والصف 40",
+      "يحدد المدى الأفقي بين الصف 40 والعمود F",
+      "يحدد ملف Excel باسم 40F."
+    ],
+    "correctAnswer": "يحدد الخلية في العمود F والصف 40",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو تعريف المدى ( Range )في Excel؟",
+    "options": [
+      "جدول يحتوي على جميع البيانات في ورقة العمل",
+      "النطاق الذي يشير إلى المسافة بين خليتين",
+      "مجموعة من الصفوف فقط",
+      "مساحة تحتوي على الرسوم البيانية"
+    ],
+    "correctAnswer": "النطاق الذي يشير إلى المسافة بين خليتين",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو المدى الأفقي (Range Horizontal)؟",
+    "options": [
+      "مجموعة خلايا متتالية عمودياً ضمن عمود واحد",
+      "مجموعة خلايا متتالية افقياً ضمن صف واحد",
+      "مجموعة خلايا تحتوي على بيانات متفرقة",
+      "خلايا مخصصة لإدخال النصوص فقط"
+    ],
+    "correctAnswer": "مجموعة خلايا متتالية افقياً ضمن صف واحد",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إذا كان المدى الأفقي هو C8:M8 فما الذي يشير إليه؟",
+    "options": [
+      "خلايا في العمود C",
+      "خلايا في الصف 8 بين العمود C والعمود M",
+      "خلايا في الصف 8 بين العمود M والعمود C بترتيب عكسي",
+      "جميع الخلايا في العمود M."
+    ],
+    "correctAnswer": "خلايا في الصف 8 بين العمود C والعمود M",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إذا كان المدى C5:H10 فما الذي يشير إليه؟",
+    "options": [
+      "خلايا بين الصف 5 والصف 10 فقط",
+      "خلايا متتالية عمودًيا بين العمود C والعمود H",
+      "خلايا متتالية افقياً",
+      "خلايا بين العمود H والعمود C عبر صفوف متعددة"
+    ],
+    "correctAnswer": "خلايا بين العمود H والعمود C عبر صفوف متعددة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن الحصول على قوالب جاهزة لإنشاء مصنف في Excel؟",
+    "options": [
+      "من خلال البحث في الإنترنت باستخدام محرك البحث",
+      "عبر شريط البحث في أعلى الصفحة وفًقاً للفئات الموجوده",
+      "من خلال فتح مصنف فارغ فقط",
+      "عن طريق استخدام برامج أخرى من مايكروسوفت"
+    ],
+    "correctAnswer": "عبر شريط البحث في أعلى الصفحة وفًقاً للفئات الموجوده",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن حفظ المصنف بعد الانتهاء من العمل عليه في Excel؟",
+    "options": [
+      "النقر على زر \"فتح\" في قائمة File",
+      "النقر على زر \"حفظ\" في شريط الأدوات السريع.",
+      "النقر على File ثم اختيار Save لحفظ المصنف",
+      "النقر على زر \"حفظ باسم\" فقط دون تحديد مكان الحفظ"
+    ],
+    "correctAnswer": "النقر على File ثم اختيار Save لحفظ المصنف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا يحدث عند النقر على  Save as في Excel؟",
+    "options": [
+      "يتم حفظ المصنف بنفس الاسم والموقع الذي كان عليه",
+      "تظهر نافذة لتحديد اسم المصنف الجديد ومكان الحفظ",
+      "يتم حفظ المصنف بصيغة PDF تلقائًيا",
+      "يتم حفظ الملف والخروج من التطبيق"
+    ],
+    "correctAnswer": "تظهر نافذة لتحديد اسم المصنف الجديد ومكان الحفظ",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الطريقة الصحيحة لتعديل البيانات المدخلة في خلية؟",
+    "options": [
+      "يمكن تعديل البيانات إلا بعد حفظ الملف.",
+      "النقر على الخلية مرتين ثم تعديل البيانات مباشرة",
+      "الضغط على مفتاح Enter ثم تعديل النص في شريط الصيغة",
+      "وضع المؤشر في الخلية وتعديل البيانات في شريط الصيغة أو مباشرة داخل الخلية"
+    ],
+    "correctAnswer": "وضع المؤشر في الخلية وتعديل البيانات في شريط الصيغة أو مباشرة داخل الخلية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك تحديد مجموعة أعمدة متجاورة في Excel؟",
+    "options": [
+      "تحديد العمود الأول ثم الضغط على مفتاح Ctrl والنقر على الأعمدة الأخرى",
+      "تحديد العمود الأول ثم الضغط على مفتاح Shift والنقر على العمود الأخير",
+      "تحديد العمود الأول فقط باستخدام الماوس",
+      "تحديد الأعمدة باستخدام شريط الأدوات فقط"
+    ],
+    "correctAnswer": "تحديد العمود الأول ثم الضغط على مفتاح Shift والنقر على العمود الأخير",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ممن تتكون واجهةة الأكسل",
+    "options": [
+      "الصفحه الرئيسية والعرض",
+      "المراجعه والادراج",
+      "الصفحه الرئيسية والتخطيط",
+      "الصفحه الرئيسية وادراج"
+    ],
+    "correctAnswer": "الصفحه الرئيسية وادراج",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك إدراج عمود جديد في Excel؟",
+    "options": [
+      "حدد العمود ثم من تبويب الصفحه الرئيسية ثم اختر ادراج عامود",
+      "اضغط على Shift + Ctrl + \"+\"",
+      "النقر بالزر الايمن للماوس على رأس العمود ثم اختر من ادراج ، ادراج عمود",
+      "جميع الخيارات السابقة"
+    ],
+    "correctAnswer": "جميع الخيارات السابقة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الطريقة الي تتعرف بيهه الحواسيب مع بعضها البعض في الشبكة الانترنت",
+    "options": [
+      "HTTP بروتوكول الانترنت",
+      "IP بروتوكل الانترنت",
+      "WWW بروتوكول الانترنت",
+      "FTP بروتوكول الانترنت"
+    ],
+    "correctAnswer": "IP بروتوكل الانترنت",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إذا قمت بتحديد مجموعة خلايا وأردت جعل الخلية السابقة نشطة، ماذا تضغط؟",
+    "options": [
+      "Enter",
+      "Tab",
+      "Shift + Tab",
+      "None of all"
+    ],
+    "correctAnswer": "Shift + Tab",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "في برنامج Microsoft Excel، يتم استخدام  pie chart من أجل:",
+    "options": [
+      "لإظهار الاتجاه في القيم عبر بعدين في منحنى مستمر.",
+      "لإظهار مساهمة كل قيمة بالنسبة إلى الإجمالي.",
+      "لمقارنة القيم عبر الفئات",
+      "لإظهار اتجاه القيم عبر الزمن أو عبر الفئات."
+    ],
+    "correctAnswer": "لإظهار مساهمة كل قيمة بالنسبة إلى الإجمالي.",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يتم التنقل بين الخلايا في برنامج Excel؟",
+    "options": [
+      "Alt",
+      "Ctrl",
+      "Tab",
+      "Shift"
+    ],
+    "correctAnswer": "Tab",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو عدد الشرائح التي لا تستطيع طباعتها في صفحة واحدة؟",
+    "options": [
+      "شريحتين في الصفحة",
+      "3 شرائح في الصفحه",
+      "5 شرائح في الصفحه",
+      "6 شرائح في الصفحه"
+    ],
+    "correctAnswer": "5 شرائح في الصفحه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الصور المتحركة (التأثيرات المتحركة) يمكن أن تنطبق على؟",
+    "options": [
+      "جميع الشرائح",
+      "شريحة محددة",
+      "شريحة حالية",
+      "جميع ما ذكر"
+    ],
+    "correctAnswer": "جميع ما ذكر",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "سؤال اين نجد النوافذ النشطة في Windows؟",
+    "options": [
+      "في سطح المكتب",
+      "في شريط المهام (Taskbar)",
+      "سلة المهملات",
+      "مستكشف الملفات"
+    ],
+    "correctAnswer": "في شريط المهام (Taskbar)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين يتم تخزين الملفات التي تم تنزيلها من الإنترنت على الكمبيوتر؟",
+    "options": [
+      "Move",
+      "Downloads",
+      "Upload",
+      "Copy"
+    ],
+    "correctAnswer": "Downloads",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو اختصار تحديد الكل في معظم البرامج؟",
+    "options": [
+      "Ctrl + C",
+      "Ctrl + A",
+      "Ctrl + V",
+      "Ctrl + X"
+    ],
+    "correctAnswer": "Ctrl + A",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الفرق بين الويب والإنترنت؟",
+    "options": [
+      "الويب أسرع من الإنترنت",
+      "الويب هو شبكة عالمية تربط الحواسيب مع بعضها",
+      "الويب هو جزء من الإنترنت يستخدم بروتوكول HTTP لعرض محتوى عبر المتصفحات",
+      "الإنترنت لا يحتوي على بروتوكولات، بينما الويب يحتوي على HTTP فقط"
+    ],
+    "correctAnswer": "الويب هو جزء من الإنترنت يستخدم بروتوكول HTTP لعرض محتوى عبر المتصفحات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف نغلق Workbook في Excel؟",
+    "options": [
+      "من قائمة Home  نختار Close",
+      "من قائمة View > Close",
+      "من شريط Title bar  نختار Close"
+    ],
+    "correctAnswer": "من شريط Title bar  نختار Close",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين يمكن إدراج نص تشعبي؟",
+    "options": [
+      "من قائمة View > Hyperlink",
+      "من قائمة Edit > Hyperlink",
+      "من قائمة Insert > Hyperlink",
+      "من قائمة File > Hyperlink"
+    ],
+    "correctAnswer": "من قائمة Insert > Hyperlink",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كم عدد Slide Layout في PowerPoint؟",
+    "options": [
+      "10",
+      "12",
+      "15",
+      "ليس من ما ذكر"
+    ],
+    "correctAnswer": "ليس من ما ذكر",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا يمثل A15 في Excel؟",
+    "options": [
+      "الخلية في الصف 10 والعمود A",
+      "العمود 5 والصف 1 والخلية A",
+      "الخلية في الصف 15 والعمود A",
+      "الخلية في الصف 5 والعمود A"
+    ],
+    "correctAnswer": "الخلية في الصف 15 والعمود A",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية لا يُعتبر قاعدة بيانات؟",
+    "options": [
+      "جداول",
+      "استعلامات",
+      "علاقات",
+      "التقارير"
+    ],
+    "correctAnswer": "علاقات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي فائدة الشهادة الرقمية؟",
+    "options": [
+      "التصفح الامن بالشبكه المحلية",
+      "الوصول اثناء التصفح",
+      "زيادة امان الموقع الالكتروني"
+    ],
+    "correctAnswer": "زيادة امان الموقع الالكتروني",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اختصار إدراج مربع الحوار لتنسيقالخط في برنامج Word هو",
+    "options": [
+      "Ctrl + T",
+      "Ctrl + Shift + F",
+      "Ctrl + D",
+      "Ctrl + F"
+    ],
+    "correctAnswer": "Ctrl + D",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا يعني \"عرض المخطط (Outline View)\" في PowerPoint؟",
+    "options": [
+      "عرض الصور والفيديوهات داخل الشرائح",
+      "عرض النصوص والعناوين الرئيسية في الشرائح",
+      "عرض الشرائح بشكل أفقي",
+      "عرض الشرائح مع إخفاء النصوص والعناوين"
+    ],
+    "correctAnswer": "عرض النصوص والعناوين الرئيسية في الشرائح",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا يعني \"View Handout\" في PowerPoint؟",
+    "options": [
+      "عرض الشرائح بشكل عرضي مع التأثيرات",
+      "عرض النصوص فقط دون الشرائح",
+      "عرض الصور والفيديوهات فقط داخل الشرائح",
+      "عرض توزيع الشرائح باوراق مطبوعه بتنظيم"
+    ],
+    "correctAnswer": "عرض توزيع الشرائح باوراق مطبوعه بتنظيم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو شكل السهم (مؤشر التعبئة) الذي ينقل محتوى الخلايا في Excel؟",
+    "options": [
+      "زائد على شكل الاسعاف",
+      "سهم مؤشر",
+      "سهم زايد صغير",
+      "مؤشر فارة ذات مسارة"
+    ],
+    "correctAnswer": "مؤشر فارة ذات مسارة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الاختصار الذي يساعد على تكرار محتوى الخلية او صيغتها في الخلية أسفلها في Excel؟",
+    "options": [
+      "Ctrl + C",
+      "Ctrl + D",
+      "Ctrl + V",
+      "Ctrl + Z"
+    ],
+    "correctAnswer": "Ctrl + D",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الأرقام التي تحتوي على مراتب في Excel؟",
+    "options": [
+      "الأرقام العشرية",
+      "الأرقام التي يتم تمثيلها بالصيغة العلمية",
+      "الأرقام التي تحتوي على فواصل مئات أو آلاف",
+      "الأرقام الموجبة فقط"
+    ],
+    "correctAnswer": "الأرقام التي تحتوي على فواصل مئات أو آلاف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن حذف الإطار في Excel؟",
+    "options": [
+      "الضغط بزر الماوس الأيمن واختيار \"تنسيق الخلايا\"",
+      "استخدام خيار مربع حوار التنسيق يم حدود ثم لا حدود",
+      "اختيار \"الحدود\" ثم تحديد \"لا حدود \"",
+      "الضغط على \"تصفية\" ثم \"إلغاء التصنيف\""
+    ],
+    "correctAnswer": "استخدام خيار مربع حوار التنسيق يم حدود ثم لا حدود",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن إدراج ورقة في Excel؟",
+    "options": [
+      "من قائمة ادراج ثم ادراج",
+      "من قائمة الصفحه الرئيسية ثم  ادراج ثم ادراج ورقة",
+      "من الشريط العلوي",
+      "من العرض ثم ادراج"
+    ],
+    "correctAnswer": "من قائمة الصفحه الرئيسية ثم  ادراج ثم ادراج ورقة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الأبعاد التي يسمح بها تخطيط المستند في برنامج Microsoft Word؟",
+    "options": [
+      "2 × 3 بوصة",
+      "8.5 × 11 بوصة (الحجم القياسي)",
+      "10 × 12 بوصة",
+      "يمكن تحديده حسب حاجة المستخدم"
+    ],
+    "correctAnswer": "يمكن تحديده حسب حاجة المستخدم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "تبويب مسؤول عن نقل الملفات عبر الشبكة؟",
+    "options": [
+      "HTTP",
+      "FTP",
+      "DNS",
+      "SMTP"
+    ],
+    "correctAnswer": "FTP",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية يتم استخدامه لمسح محتوى الخلية في Excel؟",
+    "options": [
+      "Delete",
+      "Clear",
+      "Clear all",
+      "Cut"
+    ],
+    "correctAnswer": "Clear",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو أعلى سعة تخزين داخلية؟",
+    "options": [
+      "الكمبيوتر المكتبي",
+      "الهاتف المحمول",
+      "محرك الأقراص الثابتة (HDD)",
+      "الخادم"
+    ],
+    "correctAnswer": "الخادم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية يتم استخدامه لتدوير الصفحة في ورقة العمل في Excel؟",
+    "options": [
+      "إعدادات الطباعة",
+      "إعداد الصفحة",
+      "تخطيط الصفحة",
+      "التدوير (Rotate) في شريط الأدوات"
+    ],
+    "correctAnswer": "إعداد الصفحة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين يقع شريط المهام في نظام التشغيل؟",
+    "options": [
+      "بالأعلى",
+      "بالأسفل",
+      "على الشاشة للرد السريع",
+      "في الجانب الأيمن"
+    ],
+    "correctAnswer": "بالأسفل",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الذي يحتوي عليه الجانب الأيسر في Excel؟",
+    "options": [
+      "اسم المصنف",
+      "اسم الصفحة",
+      "اسم الخلية",
+      "اسم الامتداد"
+    ],
+    "correctAnswer": "اسم الخلية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا تسمى وسائل كتابة ملاحظة صغيرة في Excel؟",
+    "options": [
+      "رسومات متحركة",
+      "ملاحظات مهمة",
+      "تعليقات",
+      "مربعات نصوص"
+    ],
+    "correctAnswer": "تعليقات",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما وظيفة الاختصار Ctrl + X؟",
+    "options": [
+      "تحديد النص ووضع علامة قص",
+      "حذف النص وتحويله إلى الحافظة",
+      "نسخ النص إلى الحافظة",
+      "لصق النص في المكان المحدد"
+    ],
+    "correctAnswer": "حذف النص وتحويله إلى الحافظة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن إخفاء عمود أو صف في Excel؟",
+    "options": [
+      "إدراج",
+      "تنسيق",
+      "حذف",
+      "حذف ."
+    ],
+    "correctAnswer": "تنسيق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الاختصار لطباعة ورقة Excel؟",
+    "options": [
+      "Ctrl + Alt + P",
+      "Ctrl + Shift + P",
+      "Ctrl + P",
+      "Ctrl + T"
+    ],
+    "correctAnswer": "Ctrl + P",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الوسيلة المستخدمة للشرائح في PowerPoint؟",
+    "options": [
+      "العرض التفصيلي",
+      "شرائح رسوم متحركة",
+      "التنسيق",
+      "الرسوم البيانية"
+    ],
+    "correctAnswer": "شرائح رسوم متحركة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إذا أردت كتابة نص كبير بمسافة صغيرة، ما هو الخط المناسب أكثر؟",
+    "options": [
+      "خط الصورة",
+      "خط النص",
+      "خط بدون زخرفه",
+      "خط زخرفة"
+    ],
+    "correctAnswer": "خط النص",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عند إكمال القالب وفتحه، ماذا سيظهر لنا؟",
+    "options": [
+      "لوحة بدء",
+      "لوحة العنوان",
+      "شاشة الرئيسية",
+      "نافذة التنسيق"
+    ],
+    "correctAnswer": "لوحة العنوان",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك تغيير شكل الإطار؟",
+    "options": [
+      "من خلال مجموعة \"قلب الاطار\"",
+      "من خلال مجموعة \"تدوير\"",
+      "من خلال مجموعتي \"تدوير وقلب الاطار\"",
+      "من خلال مجموعة \" ادوات التنسيق\""
+    ],
+    "correctAnswer": "من خلال مجموعتي \"تدوير وقلب الاطار\"",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو البروتوكول المسؤول عن نقل البيانات النصية عبر الإنترنت؟",
+    "options": [
+      "FTP",
+      "HTTP",
+      "SMTP",
+      "POP3"
+    ],
+    "correctAnswer": "HTTP",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا تفعل إذا كان النص الذي تكتبه في الخلية طويلًا ويستمر في الانتقال إلى الخلية المجاورة؟",
+    "options": [
+      "استخدام التفاف النص فقط",
+      "تفعيل التفاف النص في الخلايا المجاورة",
+      "تطبيق التفاف النص على الخلية الحالية",
+      "تطبيق التفاف النص على جميع الخلايا في العمود"
+    ],
+    "correctAnswer": "تطبيق التفاف النص على الخلية الحالية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك توسيع العمود أو الصف في Excel؟",
+    "options": [
+      "من صفحة رئيسية",
+      "من تنسيق",
+      "من إدراج",
+      "من عرض"
+    ],
+    "correctAnswer": "من تنسيق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الذي يحتوي عليه تبويب البحث والاستبدال في Excel؟",
+    "options": [
+      "بحث",
+      "استبدال",
+      "ذهاب الى",
+      "جميع ما سبق"
+    ],
+    "correctAnswer": "جميع ما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما المقصود بـ \"امتداد الملف\"؟",
+    "options": [
+      "حجم الملف",
+      "مكان حفظ الملف",
+      "نوع الملف",
+      "تاريخ انشاء الملف"
+    ],
+    "correctAnswer": "نوع الملف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عند الرد على الجميع في البريد الإلكتروني، إلى من يتم إرسال الرسالة؟",
+    "options": [
+      "إلى المرسل فقط",
+      "إلى جميع المرسلين في البريد الإلكتروني",
+      "إلى المرسل والمستقبلين الفرديين فقط",
+      "إلى المرسل والمستقبلين الأساسيين فقط"
+    ],
+    "correctAnswer": "إلى جميع المرسلين في البريد الإلكتروني",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك تغيير اتجاه تخطيط الطباعة إلى أفقي في Excel؟",
+    "options": [
+      "من تبويب \"الصفحة الرئيسية\" (Home) ثم اختيار \"اتجاه الطباعة\" (Print Orientation)",
+      "من تبويب \"تخطيط الصفحة\" (Page Layout) ثم اختيار \"اتجاه الصفحة\" (Orientation) واختيار \"أفقي\" (Landscape)",
+      "من تبويب \"إدراج\" (Insert) ثم اختيار \"اتجاه الطباعة\"",
+      "من تبويب \"ملف\" (File) ثم اختيار \"إعدادات الطباعة\" (Print Settings)"
+    ],
+    "correctAnswer": "من تبويب \"تخطيط الصفحة\" (Page Layout) ثم اختيار \"اتجاه الصفحة\" (Orientation) واختيار \"أفقي\" (Landscape)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إدراج ارتباط تشعبي في Word 2016 يكون من:",
+    "options": [
+      "عرض",
+      "مراجعة",
+      "ادراج",
+      "تصميم"
+    ],
+    "correctAnswer": "ادراج",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اين يقع شريط المهام ؟",
+    "options": [
+      "على سطح المكتب",
+      "في اسفل الشاشة",
+      "اعلى الشاشة",
+      "مستكشف الملفات"
+    ],
+    "correctAnswer": "في اسفل الشاشة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا تسمى خلفية سطح المكتب؟",
+    "options": [
+      "الشاشة الرئيسية",
+      "خلفية السطح",
+      "ورق جدران",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "ورق جدران",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "مؤشر نقل محتوى الخلية في Excel ؟",
+    "options": [
+      "زائد صغير اسود",
+      "مؤشر فأرة مع مرساة في الطرف",
+      "زائد كبير علامة طبيب",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "مؤشر فأرة مع مرساة في الطرف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "في سلسلة التعبئة في Excel، أي مما يلي غير صحيح؟",
+    "options": [
+      "خطي",
+      "نمو",
+      "الوقت",
+      "الاشهر"
+    ],
+    "correctAnswer": "الوقت",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الكتابة في Word تكون:",
+    "options": [
+      "انجليزي فقط",
+      "عربي فقط",
+      "انجليزي وعربي",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "انجليزي وعربي",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكن أن تحول صف الى عمود؟",
+    "options": [
+      "قص ولصق",
+      "لصق خاص > تحويل",
+      "كلا الخيارين",
+      "لا شيء مما ذكر"
+    ],
+    "correctAnswer": "لصق خاص > تحويل",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ادراج الأرقام من 1 إلى 10 تعتبر عملية:",
+    "options": [
+      "معالجة",
+      "اخراج",
+      "ادخال",
+      "تحليل"
+    ],
+    "correctAnswer": "ادخال",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الشاشة الرئيسية في Excel؟",
+    "options": [
+      "شريط الصيغة",
+      "صفحه رئيسية وادراج",
+      "شريط الحاله",
+      "شريط العنوان"
+    ],
+    "correctAnswer": "صفحه رئيسية وادراج",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أقصى تكبير في PowerPoint هو",
+    "options": [
+      "200%",
+      "400%",
+      "500%",
+      "600%"
+    ],
+    "correctAnswer": "400%",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "في Excel ادراج صف بين الصف 10 ، 11 عن طريق",
+    "options": [
+      "حدد الصف ثم من ادراج > ادراج > ادراج صف",
+      "حدد الصف 10 ثم من الصفحه الرئيسية > ادراج > ادراج صف",
+      "حدد الصف 11 ثم من الصفحه الرئيسية  > ادراج > ادراج صف",
+      "لا شيء مما ذكر"
+    ],
+    "correctAnswer": "حدد الصف 11 ثم من الصفحه الرئيسية  > ادراج > ادراج صف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الخط الأزرق المتموج في Word يشير إلى:",
+    "options": [
+      "خطأ املائي",
+      "تكرار كلمة",
+      "خطأ نحوي او قواعدي",
+      "لا شيء"
+    ],
+    "correctAnswer": "خطأ نحوي او قواعدي",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "لإرفاق ملف في البريد الإلكتروني، نستخدم رمز:",
+    "options": [
+      "القلم",
+      "النجمه",
+      "المشبك",
+      "السهم"
+    ],
+    "correctAnswer": "المشبك",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين توجد أزرار التحكم في Excel؟",
+    "options": [
+      "شريط الادوات",
+      "شريط العنوان",
+      "شريط الحالة",
+      "ازرار التمرير"
+    ],
+    "correctAnswer": "شريط العنوان",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو رمز القفل في المتصفح؟",
+    "options": [
+      "يعني ان المتصفح مغلق",
+      "يعني ان المتصفح آمن ومشفر",
+      "يعني المتصفح به خطأ",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "يعني ان المتصفح آمن ومشفر",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو محتوى في Excel",
+    "options": [
+      "نصوص فقط",
+      "ارقام فقط",
+      "معادلات ونصوص وارقام",
+      "نصوص وارقام"
+    ],
+    "correctAnswer": "معادلات ونصوص وارقام",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الغرض من حماية البيانات على الإنترنت؟",
+    "options": [
+      "تسريع تحميل المواقع",
+      "منع الوصول الغير مصرح به",
+      "زيادة امان الانترنت",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "منع الوصول الغير مصرح به",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الغرض من التشفير ؟",
+    "options": [
+      "تأمين بيانات فقط",
+      "تحويل البيانات الى رموز غير مفهومه",
+      "اخفاء البيانات المهمة",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "تحويل البيانات الى رموز غير مفهومه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عند الرد على البريد الالكتروني يكون",
+    "options": [
+      "Reply",
+      "Reply All",
+      "كلاهما",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "كلاهما",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "توفر Excel MS القيمة الافتراضية للخطوة في مربع حوار \"ملء السلسلة\"",
+    "options": [
+      "0",
+      "1",
+      "5",
+      "10"
+    ],
+    "correctAnswer": "1",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا يجب أن تفعل إذا تلقيت رابطاً مشبوهاً؟",
+    "options": [
+      "اضغط على الرابط للتحقق منه",
+      "صنفه كغير مرغوب به او احذفه",
+      "افتح الرابط بوضع مخفي",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "صنفه كغير مرغوب به او احذفه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "من الخيارات التالية من الأرجح أن يكون له أكبر سعة تخزين؟",
+    "options": [
+      "جهاز كومبيوتر مكتبي",
+      "HDD",
+      "الخادم",
+      "المودم"
+    ],
+    "correctAnswer": "الخادم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي فائدة التخزين السحابي؟",
+    "options": [
+      "زيادة سرعة الانترنت",
+      "التخزين الدائم",
+      "الوصول الى اي بيانات من الانترنت",
+      "تخزين البيانات على جهاز كومبيوتر"
+    ],
+    "correctAnswer": "الوصول الى اي بيانات من الانترنت",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "من الخيارات التالية يجب اختياره لعرض مستند مطبوع من الصفحات المطبوع؟",
+    "options": [
+      "معاينة فواصل الصفحه",
+      "تخطيط الصفحه",
+      "تخطيط القراءة",
+      "تخطيط الويب"
+    ],
+    "correctAnswer": "تخطيط الصفحه",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي وظيفة اختصار \"Ctrl+G\"؟",
+    "options": [
+      "فتح مربع حوار الفقرة وتنشيط التبويب للانتقال",
+      "فتح مربع حوار البحث والاستبدال وتنشيط التبويب للانتقال",
+      "فتح مربع حوار إعداد الصفحة وتنشيط التبويب للانتقال",
+      "فتح مربع حوار البريد وتنشيط التبويب للانتقال"
+    ],
+    "correctAnswer": "فتح مربع حوار البحث والاستبدال وتنشيط التبويب للانتقال",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من التالي يعطي مساحة رسم شكل مثلث مثالي في برامج Office؟",
+    "options": [
+      "شريط المسافة",
+      "Ctrl",
+      "Shift",
+      "Alt"
+    ],
+    "correctAnswer": "Shift",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "اي من التقنيات التالية تقدم أكبر فائدة لمستخدم كومبيوتر مصاب بالعمى",
+    "options": [
+      "الشبكات اللاسلكية",
+      "الماوس ولوحة المفاتيح الصحيتان",
+      "برنامج تركيب اجزاء الحديث",
+      "واجهة المستخدم الرسومية"
+    ],
+    "correctAnswer": "برنامج تركيب اجزاء الحديث",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الأجهزة التالية بإمكانه نقل صورة مستند من شخص الى اخر عبر خط الهاتف دونالحاجة الى كومبيوتر",
+    "options": [
+      "التلكس",
+      "البريد الالكتروني",
+      "البريد الهاتفي",
+      "الفاكس"
+    ],
+    "correctAnswer": "الفاكس",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من التنسيقات التالية يمكنك تحديد تطبيقه أو عدم تطبيقه في مربع حوار التنسيق التلقائي؟",
+    "options": [
+      "تنسيق الارقام",
+      "تنسيق الحدود",
+      "تنسيق الخطوط",
+      "جميع ما سبق"
+    ],
+    "correctAnswer": "جميع ما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية يتيح لك تحديد أكثر من شريحة في عرض تقديمي؟",
+    "options": [
+      "Alt .انقر فوق كل شريحة",
+      "Shift .سحب كل شريحة",
+      "Shift .انقر فوق كل شريحة",
+      "Ctrl .انقر فوق كل شريحة"
+    ],
+    "correctAnswer": "Ctrl .انقر فوق كل شريحة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "شريط الحالة يحتوي على الجميع باستثناء:",
+    "options": [
+      "قائمة بدأ",
+      "بحث",
+      "الرسوم المتحركة",
+      "فن الكتابة"
+    ],
+    "correctAnswer": "الرسوم المتحركة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو اختصار الاستبدال ؟",
+    "options": [
+      "Ctrl + K",
+      "Ctrl + H",
+      "Ctrl + P",
+      "Ctrl + F"
+    ],
+    "correctAnswer": "Ctrl + H",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكن إضافة التعليقات إلى الخلايا باستخدام ________",
+    "options": [
+      "الصفحة الرئيسية > التعليقات",
+      "إدراج > تعليق",
+      "البيانات > التعليقات",
+      "مراجعة > تعليق"
+    ],
+    "correctAnswer": "مراجعة > تعليق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي ميزة \"إعادة توجيه البريد\"؟",
+    "options": [
+      "إرسال بريد إلكتروني إلى شخص",
+      "الرد على رسالة بريد إلكتروني من شخص آخر",
+      "اعادة ارسال نفس البريد الى شخص آخر",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "اعادة ارسال نفس البريد الى شخص آخر",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن إضافة أرقام الصفحات في مستند؟",
+    "options": [
+      "من تبويب \"عرض\"",
+      "من تبويب \"تخطيط\"",
+      "من تبويب \"إدراج\"",
+      "من تبويب \"مراجعة\""
+    ],
+    "correctAnswer": "من تبويب \"إدراج\"",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك تحديث قيم خلايا الصيغ إذا تم تعطيل وضع الحساب التلقائي فيExcel ؟",
+    "options": [
+      "F8",
+      "F9",
+      "F10",
+      "F11"
+    ],
+    "correctAnswer": "F9",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عندما يتم تحديد نطاق من الخلايا، كيف يمكنك تفعيل الخلية السابقة؟",
+    "options": [
+      "Alt",
+      "Tab",
+      "Enter",
+      "لاشيء مما سبق"
+    ],
+    "correctAnswer": "لاشيء مما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكنك نقل ورقة من مصنف إلى مصنف جديد باستخدام @",
+    "options": [
+      "من قائمة تحرير اختر \"نقل أو نسخ\" ثم حدد \"إنشاء نسخة\" واضغط \"موافق\"",
+      "من قائمة تحرير اختر \"نقل أو نسخ\" ثم اختر )نقل إلى النهاية( واضغط \"موافق\")",
+      "من قائمة تحرير اختر \"نقل أو نسخ\" ثم اختر )مصنف جديد( من قائمة \"إلى المصنف\" واضغط \"موافق\")",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "لا شيء مما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كم عدد البرامج او الملفات التي يمكنك فتحها في وقت واحد؟",
+    "options": [
+      "واحد",
+      "اثنان",
+      "حسب حجم الذاكرة",
+      "حسب اتساع شريط المهام"
+    ],
+    "correctAnswer": "حسب حجم الذاكرة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عدد Sheet الافتراضي في Excel",
+    "options": [
+      "2",
+      "1",
+      "3",
+      "4"
+    ],
+    "correctAnswer": "1",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو ليس تأثير انتقال في PowerPoint؟",
+    "options": [
+      "ذوبان Dissolve",
+      "الستائر العمودية Curtains",
+      "التلاشي ضمن اللون الاسود Fade",
+      "وميض قطري Blinks diagonal"
+    ],
+    "correctAnswer": "وميض قطري Blinks diagonal",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكن أن تحتوي ورقة العمل على ________ عدد من الصفوف كحد أقصى",
+    "options": [
+      "256",
+      "1024",
+      "65535",
+      "1048576"
+    ],
+    "correctAnswer": "1048576",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك إدراج فاصل صفحات في Word ؟",
+    "options": [
+      "اضغط على Ctrl + Enter",
+      "اختر فاصل صفحه من تبويب ادراج",
+      "كلاهما",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "كلاهما",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين توجد اختيارات \"الوارد inbox\" و\"المرسل outbox\"؟",
+    "options": [
+      "وسائط متعددة",
+      "الاتصالات الالكترونية",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "الاتصالات الالكترونية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما اسم خلفية سطح المكتب",
+    "options": [
+      "سطح المكتب",
+      "الشاشة",
+      "ورق حائط",
+      "صورة خلفية"
+    ],
+    "correctAnswer": "ورق حائط",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "وسيلة الايضاح في تخطيط الاكسل",
+    "options": [
+      "غير موجودة",
+      "موجوده ويمكن اخفائها",
+      "موجوده ولا يمكن اخفائها",
+      "جميع الخيارات غير صحيحه"
+    ],
+    "correctAnswer": "موجوده ويمكن اخفائها",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكن تدوير النص بزاوية 45 درجة من خلال ؟ Excel",
+    "options": [
+      "من تنسيق اختر تدوير النص 45",
+      "من تخطيط اختر تدوير الصفحه بزاوية 45",
+      "من الصفحه الرئيسية محاذاة اختر تدوير النص بدرجة 45",
+      "من الصفحه الرئيسية النمط اختر تدوير النص والزاوية 45"
+    ],
+    "correctAnswer": "من الصفحه الرئيسية محاذاة اختر تدوير النص بدرجة 45",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "تتعرف الاجهزه عن بعضها البعض عن طريق",
+    "options": [
+      "TCP",
+      "HTTP",
+      "IP",
+      "FTP"
+    ],
+    "correctAnswer": "IP",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "لتخزين ملفاتك ومجلداتك file/folder في .......",
+    "options": [
+      "ملفاتي files",
+      "مجلداتي folder",
+      "مستندات Document",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "مجلداتي folder",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكنك تعيين حدود الصفحة في Excel من:",
+    "options": [
+      "من علامة التبويب الحدود في مربع حوار تنسيق الخلايا",
+      "من أداة الحدود في شريط أدوات التنسيق",
+      "من أداة نمط الخط في شريط أدوات الرسم",
+      "لا يمكن تعيين حدود للصفحه في Excel"
+    ],
+    "correctAnswer": "لا يمكن تعيين حدود للصفحه في Excel",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يمكنك اضافة فاصلة لل1000 في Excel بإستخدام",
+    "options": [
+      "Number رقم",
+      "نمط فاصلة  comma style",
+      "انماط styles",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "نمط فاصلة  comma style",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إذا كان لديك مجموعة صور للعطلات الصيفية وتريد إدراجها في عرض تقديمي بسهولة في PowerPoint، فأي من الخيارات التالية تستخدم؟",
+    "options": [
+      "من تبويب إدراج > لقطة شاشة",
+      "من تبويب إدراج > ألبوم صور",
+      "من تبويب تصميم > نسق الشريحة",
+      "من تبويب إدراج > صور من الانترنت"
+    ],
+    "correctAnswer": "من تبويب إدراج > ألبوم صور",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "لحفظ صفحه والرجوع اليها لاحقاً تضع علامة ......",
+    "options": [
+      "المشبك",
+      "السهم",
+      "النجمة",
+      "مرساة"
+    ],
+    "correctAnswer": "النجمة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عند اغلاق الصفحه التي تتصفحها اين ستذهب",
+    "options": [
+      "سطح المكتب",
+      "يغلق المتصفح",
+      "الصفحه السابقة",
+      "الصفحه الرئيسية"
+    ],
+    "correctAnswer": "الصفحه السابقة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "التواصل بين شخصين او اكثر يتم عبر",
+    "options": [
+      "بودكاست",
+      "ملفات صوتية",
+      "اتصال مرئي",
+      "الرسائل الفورية IM"
+    ],
+    "correctAnswer": "الرسائل الفورية IM",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو الاختصار المستخدم لتوسيط النص في Microsoft Word؟",
+    "options": [
+      "Ctrl + L",
+      "Ctrl + R",
+      "Ctrl + M",
+      "Ctrl + E"
+    ],
+    "correctAnswer": "Ctrl + E",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الطريقة الصحيحة لمسح تنسيقات الخلايا في Excel؟",
+    "options": [
+      "تحرير > مسح الكل",
+      "تحرير > مسح تنسيق",
+      "تحرير > مسح تعليق",
+      "الصفحه الرئيسية > حذف"
+    ],
+    "correctAnswer": "تحرير > مسح تنسيق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من العبارات التالية خاطئة بشأن ربط الحاسبات بالإنترنت؟",
+    "options": [
+      "نحتاج إلى عنوان IP للاتصال بالإنترنت",
+      "نحتاج الى رابط لتبادل البيانات",
+      "يمكننا الاتصال بالانترنت دون الحاجة الى مزود خدمة الانترنت",
+      "سرعة اتصال الانترنت تعتمد على نوع الشبكة"
+    ],
+    "correctAnswer": "يمكننا الاتصال بالانترنت دون الحاجة الى مزود خدمة الانترنت",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هي الطريقة الصحيحة لحذف خلية في Excel؟",
+    "options": [
+      "تحديد العمود بالكامل، ثم النقر بزر الماوس الأيمن واختيار \"حذف\"",
+      "تحديد الصف بالكامل، ثم النقر بزر الماوس الأيمن واختيار \"حذف\"",
+      "تحديد الخلية، ثم النقر بزر الماوس الأيمن واختيار \"حذف\"",
+      "تحديد الخلية، ثم الضغط على مفتاح Delete من لوحة المفاتيح"
+    ],
+    "correctAnswer": "تحديد الخلية، ثم النقر بزر الماوس الأيمن واختيار \"حذف\"",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن الوصول للقاموس ببرامج office",
+    "options": [
+      "تبويب مراجعة",
+      "النقر بالزر الايمن للماوس على الكلمة",
+      "كلاهما",
+      "تبويب عرض"
+    ],
+    "correctAnswer": "كلاهما",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية تختار لتحرير عمود في Excel؟",
+    "options": [
+      "Edit column",
+      "Change column",
+      "format in cells",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "format in cells",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الذي يعتبر ماديًا للحاسوب؟",
+    "options": [
+      "نظام التشغيل",
+      "البرمجيات",
+      "الاجهزة",
+      "التطبيقات"
+    ],
+    "correctAnswer": "الاجهزة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما نوع الشبكة التي يتم استخدامها لتواصل العالم؟",
+    "options": [
+      "LAN",
+      "VPN",
+      "شبكة الانترنت",
+      "WAN"
+    ],
+    "correctAnswer": "شبكة الانترنت",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "لتحويل الملف إلى PDF، ماذا نختار؟",
+    "options": [
+      "نختار تصدير ثم إنشاء",
+      "حفظ وتحويل",
+      "كلاهما",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "كلاهما",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ملف قيد التنفيذ، أين يظهر اسمه؟",
+    "options": [
+      "شريط الصيغة",
+      "مربع الاسم",
+      "شريط العنوان",
+      "شريط الحالة"
+    ],
+    "correctAnswer": "شريط العنوان",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الحد الاقصى لطول عرض النص داخل الخلية",
+    "options": [
+      "75",
+      "255",
+      "157",
+      "290"
+    ],
+    "correctAnswer": "255",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عندما تريد إرسال بريد إلكتروني بوقت لاحق، أين تحفظه؟",
+    "options": [
+      "في المسودات",
+      "في الأرشيف",
+      "في الإرسال لاحقًا",
+      "في البريد الوارد"
+    ],
+    "correctAnswer": "في الإرسال لاحقًا",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما الغرض من المصادقة الثنائية؟",
+    "options": [
+      "زيادة سرعة الإنترنت",
+      "طبقة لزيادة الامان",
+      "حفظ كلمات المرور",
+      "ليس مما سبق"
+    ],
+    "correctAnswer": "طبقة لزيادة الامان",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "إذا أخذت مستندات مجانية ولم تذكر اسم الكاتب، ماذا يعتبر ذلك؟",
+    "options": [
+      "سرقة هوية",
+      "سرقة فكرية",
+      "انتهاك حقوق النسخ",
+      "انتهاك العلامة التجارية"
+    ],
+    "correctAnswer": "سرقة فكرية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما قيمة دالة MIN ل (Excel (2،6،8،4؟",
+    "options": [
+      "4",
+      "2",
+      "8",
+      "0"
+    ],
+    "correctAnswer": "2",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عندما يتم تحويل صف من البيانات إلى أعمدة",
+    "options": [
+      "قم بنسخ الخلايا في الصف وحدد نفس عدد الخلايا في الصف ثم الصق",
+      "قم بنسخ الخلايا في العمود ثم اختر لصق خاص ثم حدد \"تحويل\" واضغط على \"موافق\"",
+      "قم بنسخ الخلايا ثم انتقل إلى الخلايا ثم في عالمة التبويب \"المحاذاة\" حدد مربع \"تحويل\" واضغط على \"موافق\"",
+      "حدد الخلايا ثم ضع المؤشر على الخلية الجديدة واختر لصق خاص، حدد مربع \"تحويل\" واضغط على \"موافق\""
+    ],
+    "correctAnswer": "حدد الخلايا ثم ضع المؤشر على الخلية الجديدة واختر لصق خاص، حدد مربع \"تحويل\" واضغط على \"موافق\"",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما فائدة. امتداد الملف",
+    "options": [
+      "معرفة حجم الملف",
+      "معرفة نوع الملف",
+      "تشفير الملف",
+      "اخفاء بيانات الملف"
+    ],
+    "correctAnswer": "معرفة نوع الملف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي مما يلي ليس متصفح إنترنت؟",
+    "options": [
+      "Google Chrome",
+      "Microsoft edge",
+      "Mozilla Firefox",
+      "Microsoft word"
+    ],
+    "correctAnswer": "Microsoft word",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أين تكون سلة المهملات في Windows؟",
+    "options": [
+      "شريط المهام",
+      "على سطح المكتب",
+      "مستكشف الملفات",
+      "لوحة التحكم"
+    ],
+    "correctAnswer": "على سطح المكتب",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن إدراج تعليق في Excel 2016؟",
+    "options": [
+      "من علامة التبويب \"مراجعة\"",
+      "من علامة التبويب \"إدراج\"",
+      "من النقر بزر الفأرة الأيمن",
+      "كلا الخيارين (A، C)"
+    ],
+    "correctAnswer": "كلا الخيارين (A، C)",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما وظيفة الاختصار  Ctrl + E في Word؟",
+    "options": [
+      "محاذاة النص لليمين",
+      "محاذاة النص لليسار",
+      "محاذاة النص في المنتصف",
+      "للوصول لنهاية المستند"
+    ],
+    "correctAnswer": "محاذاة النص في المنتصف",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك إدراج Layout ؟",
+    "options": [
+      "من قائمة ملف",
+      "من قائمة تخطيط",
+      "من قائمة تصميم",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "من قائمة تخطيط",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك ادراج مخطط pie chart ؟",
+    "options": [
+      "من قائمة ملف",
+      "من قائمة تخطيط",
+      "من قائمة تصميم",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "لا شيء مما سبق",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "عند أرشفة الرسائل في البريد الإلكتروني، ماذا يحدث لها؟",
+    "options": [
+      "تُحذف نهائيًا",
+      "تُنقل إلى مجلد المسودات",
+      "تُحفظ كرسائل قديمة دون حذفها",
+      "تُرسل إلى مجلد البريد العشوائي"
+    ],
+    "correctAnswer": "تُحفظ كرسائل قديمة دون حذفها",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "في البريد الإلكتروني، أي من الخيارات يُستخدم لعرض الرسائل المرسلة؟",
+    "options": [
+      "Inbox",
+      "Sent",
+      "Drafts",
+      "Index"
+    ],
+    "correctAnswer": "Sent",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "لغة قاعدة البيانات المعنية بتعريف هيكل وقاعدة البيانات بأكملها هي:",
+    "options": [
+      "DCL",
+      "DDL",
+      "DML",
+      "جميع ما سبق"
+    ],
+    "correctAnswer": "DDL",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "الدالة لإيجاد الوسيط الحسابي ف Excel هي",
+    "options": [
+      "MIN",
+      "MAX",
+      "Median",
+      "Average"
+    ],
+    "correctAnswer": "Median",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ماذا يسمى تأثير دخول شريحة جديدة وخروج أخرى في PowerPoint؟",
+    "options": [
+      "رسوم متحركة",
+      "انتقال شريحة",
+      "تخطيط شريحة",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "انتقال شريحة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ليتعرف الاجهزه على بعضها البعض بإستخدام",
+    "options": [
+      "TCP",
+      "FTP",
+      "IP",
+      "HTTP"
+    ],
+    "correctAnswer": "IP",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي مفتاح يُستخدم لفتح قائمة التعليمات في البرامج؟",
+    "options": [
+      "F10",
+      "F9",
+      "F1",
+      "F3"
+    ],
+    "correctAnswer": "F1",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكن تغيير حجم الخط في Word أو Excel؟",
+    "options": [
+      "تبويب ادراج",
+      "تبويب الصفحه الرئيسية",
+      "تبويب تخطيط الصفحه",
+      "لا شيء مما ذكر"
+    ],
+    "correctAnswer": "تبويب الصفحه الرئيسية",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كم عدد الأعمدة في ورقة عمل Excel؟",
+    "options": [
+      "255",
+      "1024",
+      "16,384",
+      "1,048,576"
+    ],
+    "correctAnswer": "16,384",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية يُستخدم لنقل البيانات الملقمة عبر الانترنت؟",
+    "options": [
+      "ADSL",
+      "HTTP",
+      "FTP",
+      "WWW"
+    ],
+    "correctAnswer": "HTTP",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من مؤشرات الخلايا يشير إلى أنه يمكنك ملء السلسلة؟",
+    "options": [
+      "رمز طبيب علامة زائد كبيرة",
+      "ايقونة زائد رفيعة صغيرة",
+      "مؤشر الماوس مع مرساة",
+      "لا شيء مما سبق"
+    ],
+    "correctAnswer": "ايقونة زائد رفيعة صغيرة",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يعرض Excel عنوان الخلية الحالية في  ________",
+    "options": [
+      "شريط الصيغة",
+      "شريط الحالة",
+      "مربع الاسم",
+      "شريط العنوان"
+    ],
+    "correctAnswer": "مربع الاسم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ي من التقنيات التالية تقدم أكبر فائدة لمستخدم كومبيوتر مصاب بالعمى",
+    "options": [
+      "الماوس ولوحة المفاتيح الصحيتان",
+      "الشبكات اللاسلكية",
+      "برنامج تركيب اجزاء الحديث",
+      "واجهة المستخدم الرسومية"
+    ],
+    "correctAnswer": "برنامج تركيب اجزاء الحديث",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "ما هو العنوان الخاص بصفحة الويب؟",
+    "options": [
+      "DNS",
+      "IP",
+      "HTML",
+      "URL"
+    ],
+    "correctAnswer": "URL",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "كيف يمكنك البحث داخل صفحة ويب؟",
+    "options": [
+      "Ctrl + H",
+      "Ctrl + F",
+      "Ctrl + K",
+      "Ctrl + A"
+    ],
+    "correctAnswer": "Ctrl + F",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "أي من الخيارات التالية يعد بريدًا سحابيًا؟",
+    "options": [
+      "Google Chrome",
+      "Internet Explorer",
+      "Skype",
+      "Microsoft Outlook"
+    ],
+    "correctAnswer": "Microsoft Outlook",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  },
+  {
+    "questionText": "يظهر في يسار شريط الصيغة في Excel",
+    "options": [
+      "ملء السلسلة",
+      "مربع الاسم",
+      "اسم الصيغة",
+      "شريط الادوات القياسي"
+    ],
+    "correctAnswer": "مربع الاسم",
+    "explanation": "",
+    "difficulty": 1,
+    "isActive": true
+  }
+]
