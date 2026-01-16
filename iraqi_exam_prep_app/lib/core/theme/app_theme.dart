@@ -34,6 +34,11 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           color: AppColors.textPrimary,
         ),
+        headlineSmall: GoogleFonts.cairo(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: AppColors.textPrimary,
+        ),
         titleLarge: GoogleFonts.cairo(
           fontSize: 18,
           fontWeight: FontWeight.w500,
@@ -144,6 +149,7 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
+        primary: AppColors.primaryLight, // Better contrast in dark mode
         brightness: Brightness.dark,
         surface: AppColors.surfaceDark,
         background: AppColors.backgroundDark,
@@ -169,6 +175,11 @@ class AppTheme {
         ),
         headlineMedium: GoogleFonts.cairo(
           fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: AppColors.textPrimaryDark,
+        ),
+        headlineSmall: GoogleFonts.cairo(
+          fontSize: 18,
           fontWeight: FontWeight.w600,
           color: AppColors.textPrimaryDark,
         ),
@@ -200,14 +211,44 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           color: AppColors.textPrimaryDark,
         ),
+        iconTheme: const IconThemeData(color: AppColors.textPrimaryDark),
+      ),
+
+      // Icon Theme
+      iconTheme: const IconThemeData(
+        color: AppColors.textPrimaryDark,
+      ),
+
+      // List Tile Theme
+      listTileTheme: const ListTileThemeData(
+        iconColor: AppColors.primaryLight,
+        textColor: AppColors.textPrimaryDark,
       ),
 
       // Elevated Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.primary, // Keep primary for brand identity
           foregroundColor: Colors.white,
+          disabledBackgroundColor: AppColors.surfaceDark.withOpacity(0.5),
+          disabledForegroundColor: Colors.white38,
           elevation: 0,
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          textStyle: GoogleFonts.cairo(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+
+      // Outlined Button Theme
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.primaryLight, // Lighter blue for dark bg
+          side: const BorderSide(color: AppColors.primaryLight, width: 2),
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -234,7 +275,7 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+          borderSide: const BorderSide(color: AppColors.primaryLight, width: 2),
         ),
         hintStyle: GoogleFonts.cairo(
           color: AppColors.textSecondaryDark,
@@ -249,6 +290,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16),
         ),
         color: AppColors.surfaceDark,
+        shadowColor: Colors.black45,
       ),
     );
   }

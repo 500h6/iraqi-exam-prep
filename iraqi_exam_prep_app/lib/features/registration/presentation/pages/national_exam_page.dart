@@ -9,159 +9,96 @@ class NationalExamPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text('التسجيل في الامتحان الوطني'),
         centerTitle: true,
       ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Theme.of(context).scaffoldBackgroundColor,
+              Theme.of(context).colorScheme.primary.withOpacity(0.05),
+            ],
+          ),
+        ),
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Icon
-              Center(
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: AppColors.info.withOpacity(0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.how_to_reg,
-                    size: 50,
-                    color: AppColors.info,
-                  ),
+              // Header Card
+              _buildHeader(context),
+              const SizedBox(height: 32),
+              
+              // Info Sections
+              _buildModernSection(
+                context,
+                title: 'عن الامتحان الوطني',
+                icon: Icons.info_rounded,
+                color: AppColors.primary,
+                content: Column(
+                  children: [
+                    Text(
+                      'الامتحان الوطني الموحد هو شرط أساسي للتقديم للدراسات العليا (الماجستير والدكتوراه) في الجامعات العراقية.',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildCompactItem(context, 'العربية', Icons.language, AppColors.arabicColor),
+                        _buildCompactItem(context, 'الإنجليزية', Icons.translate, AppColors.englishColor),
+                        _buildCompactItem(context, 'الحاسوب', Icons.computer, AppColors.computerColor),
+                      ],
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 24),
-              // Title
-              Text(
-                'التسجيل في الامتحان الوطني',
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 24, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              
+              _buildModernSection(
+                context,
+                title: 'المتطلبات الأساسية',
+                icon: Icons.assignment_turned_in_rounded,
+                color: AppColors.warning,
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildRequirementRow(context, 'الاسم الرباعي الكامل كما في البطاقة الشخصية'),
+                    _buildRequirementRow(context, 'اسم الأم الثلاثي'),
+                    _buildRequirementRow(context, 'رقم البطاقة الوطنية الموحدة'),
+                    _buildRequirementRow(context, 'رقم هاتف مفعل للإشعارات'),
+                  ],
+                ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                'أكمل تسجيلك للامتحانات التنافسية الرسمية',
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
+              const SizedBox(height: 24),
+
+              _buildModernSection(
+                context,
+                title: 'آلية الحجز والتسجيل',
+                icon: Icons.ads_click_rounded,
+                color: AppColors.success,
+                content: Text(
+                  'عملية التسجيل تتم بكل سهولة؛ ما عليك سوى الضغط على الزر أدناه لإرسال بياناتك عبر تليكرام، وسيقوم فريقنا المختص بإتمام كافة إجراءات الحجز وتزويدك بالوصل الرسمي وموعد الامتحان.',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.8),
+                ),
               ),
               const SizedBox(height: 40),
-              // Info Card
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'عن الامتحان الوطني',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        'الامتحان الوطني الموحد هو شرط أساسي للتقديم للدراسات العليا (الماجستير والدكتوراه) في الجامعات العراقية. يشمل الامتحان:',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 16),
-                      _buildExamItem('اللغة العربية', Icons.language),
-                      _buildExamItem('اللغة الإنجليزية', Icons.translate),
-                      _buildExamItem('الحاسوب', Icons.computer),
-                    ],
-                  ),
+
+              // Premium CTA Button
+              _buildTelegramButton(context),
+              const SizedBox(height: 20),
+              
+              Text(
+                'ملاحظة: سيتم الرد على طلباتكم خلال ساعات الدوام الرسمي',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).hintColor,
+                  fontStyle: FontStyle.italic,
                 ),
-              ),
-              const SizedBox(height: 24),
-              // Requirements Card
-              Card(
-                color: AppColors.warning.withOpacity(0.05),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.checklist,
-                            color: AppColors.warning,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'المعلومات المطلوبة للتسجيل',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(color: AppColors.warning),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        'لإتمام الحجز، يرجى تحضير المعلومات التالية وإرسالها لنا:\n\n'
-                        '✅ الاسم الرباعي\n'
-                        '✅ اسم الأم الثلاثي\n'
-                        '✅ رقم البطاقة الوطنية\n'
-                        '✅ رقم الهاتف',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.8),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
-              // Registration Process Card
-              Card(
-                color: AppColors.primary.withOpacity(0.05),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.info_outline,
-                            color: AppColors.primary,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'طريقة التسجيل',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(color: AppColors.primary),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        '1. اضغط على زر "التسجيل عبر تليكرام" أدناه.\n'
-                        '2. أرسل المعلومات المطلوبة أعلاه.\n'
-                        '3. سيقوم فريقنا بإكمال إجراءات الحجز وتزويدك بموعد الامتحان وتفاصيله.\n',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.6),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
-              // Contact Button
-              SizedBox(
-                height: 54,
-                child: ElevatedButton.icon(
-                  onPressed: () => _launchTelegram(),
-                  icon: const Icon(Icons.telegram),
-                  label: const Text('التسجيل عبر تليكرام', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, 
-                    foregroundColor: Colors.white,
-                  ),
-                ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -170,15 +107,160 @@ class NationalExamPage extends StatelessWidget {
     );
   }
 
-  Widget _buildExamItem(String title, IconData icon) {
+  Widget _buildHeader(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: AppColors.primary.withOpacity(0.1),
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.primary.withOpacity(0.2), width: 2),
+          ),
+          child: const Icon(
+            Icons.verified_user_rounded,
+            size: 60,
+            color: AppColors.primary,
+          ),
+        ),
+        const SizedBox(height: 24),
+        Text(
+          'بوابتك للدراسات العليا',
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          height: 3,
+          width: 50,
+          decoration: BoxDecoration(
+            color: AppColors.primary,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildModernSection(
+    BuildContext context, {
+    required String title,
+    required IconData icon,
+    required Color color,
+    required Widget content,
+  }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(isDark ? 0.3 : 0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+            child: Row(
+              children: [
+                Icon(icon, color: color, size: 24),
+                const SizedBox(width: 12),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: isDark ? Colors.white : AppColors.textPrimary,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          Divider(color: color.withOpacity(0.1), height: 1),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: content,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCompactItem(BuildContext context, String label, IconData icon, Color color) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Icon(icon, color: color, size: 24),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRequirementRow(BuildContext context, String text) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: AppColors.primary),
+          const Icon(Icons.check_circle_outline_rounded, color: AppColors.success, size: 18),
           const SizedBox(width: 12),
-          Text(title),
+          Expanded(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTelegramButton(BuildContext context) {
+    return Container(
+      height: 60,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0088CC).withOpacity(0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+        gradient: const LinearGradient(
+          colors: [Color(0xFF0088CC), Color(0xFF24A1DE)],
+        ),
+      ),
+      child: ElevatedButton.icon(
+        onPressed: () => _launchTelegram(),
+        icon: const Icon(Icons.telegram, size: 28),
+        label: const Text(
+          'التسجيل الفوري عبر تليكرام',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.white,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        ),
       ),
     );
   }

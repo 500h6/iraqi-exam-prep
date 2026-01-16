@@ -6,6 +6,8 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
+import '../../../../core/theme/bloc/theme_cubit.dart';
+import '../../../../core/theme/bloc/theme_state.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -25,20 +27,77 @@ class HomePage extends StatelessWidget {
             'الاستعداد للاختبار الوطني',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
+
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: TextButton.icon(
-                onPressed: () {
+            // Theme Toggle
+            BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, state) {
+                final isDark = state.themeMode == ThemeMode.dark;
+                return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                    color: isDark ? Colors.white.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+                    icon: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      transitionBuilder: (child, anim) => RotationTransition(
+                        turns: anim,
+                        child: child,
+                      ),
+                      child: Icon(
+                        isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                        key: ValueKey(isDark),
+                        color: isDark ? AppColors.warning : AppColors.textPrimary,
+                        size: 20,
+                      ),
+                    ),
+                    tooltip: isDark ? 'الوضع النهاري' : 'الوضع الليلي',
+                  ),
+                );
+              },
+            ),
+
+            const SizedBox(width: 8),
+
+            // Logout Button
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              child: InkWell(
+                onTap: () {
                   context.read<AuthBloc>().add(LogoutEvent());
                 },
-                icon: const Icon(Icons.logout, size: 18),
-                label: const Text(
-                  'خروج',
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-                style: TextButton.styleFrom(
-                  foregroundColor: AppColors.error,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: AppColors.error.withOpacity(0.2),
+                      width: 1,
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.logout_rounded,
+                        size: 16,
+                        color: AppColors.error,
+                      ),
+                      SizedBox(width: 6),
+                      Text(
+                        'خروج',
+                        style: TextStyle(
+                          color: AppColors.error,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

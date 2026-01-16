@@ -9,6 +9,8 @@ import 'core/di/injection_container.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
+import 'core/theme/bloc/theme_cubit.dart';
+import 'core/theme/bloc/theme_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,31 +43,40 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => getIt<AuthBloc>()..add(CheckAuthStatusEvent()),
         ),
+        BlocProvider(
+          create: (_) => getIt<ThemeCubit>(),
+        ),
       ],
-      child: MaterialApp.router(
-        title: 'الاستعداد للاختبار الوطني',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.system,
-        locale: const Locale('ar'),
-        supportedLocales: const [
-          Locale('ar'),
-        ],
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        routerConfig: AppRouter.router,
-        builder: (context, child) {
-          final mediaQuery = MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0));
-          return MediaQuery(
-            data: mediaQuery,
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: child!,
-            ),
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return MaterialApp.router(
+            title: 'الاستعداد للاختبار الوطني',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: state.themeMode,
+            locale: const Locale('ar'),
+            supportedLocales: const [
+              Locale('ar'),
+            ],
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            routerConfig: AppRouter.router,
+            builder: (context, child) {
+              final mediaQuery = MediaQuery.of(context).copyWith(
+                textScaler: const TextScaler.linear(1.0),
+              );
+              return MediaQuery(
+                data: mediaQuery,
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: child!,
+                ),
+              );
+            },
           );
         },
       ),

@@ -29,6 +29,7 @@ import '../../features/admin/domain/usecases/update_question_usecase.dart';
 import '../../features/admin/domain/usecases/delete_question_usecase.dart';
 import '../../features/admin/domain/usecases/search_questions_usecase.dart';
 import '../../features/admin/presentation/bloc/admin_question_bloc.dart';
+import '../theme/bloc/theme_cubit.dart';
 import '../network/dio_client.dart';
 
 final getIt = GetIt.instance;
@@ -113,6 +114,12 @@ Future<void> initializeDependencies() async {
       updateQuestionUseCase: getIt(),
       deleteQuestionUseCase: getIt(),
       searchQuestionsUseCase: getIt(),
+
     ),
+  );
+
+  // Theme Feature
+  getIt.registerFactory<ThemeCubit>(
+    () => ThemeCubit(getIt()),
   );
 }
