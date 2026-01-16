@@ -137,6 +137,8 @@ class AppTheme {
         color: Colors.white,
       ),
     );
+  }
+
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
