@@ -50,7 +50,8 @@ class _OtpPageState extends State<OtpPage> {
   @override
   Widget build(BuildContext context) {
     // Check if unlinked state to show "Link" button
-    final isUnlinked = context.select((AuthBloc bloc) => bloc.state is AuthUnlinked);
+    // Check if unlinked state to show "Link" button
+    // final isUnlinked = context.select((AuthBloc bloc) => bloc.state is AuthUnlinked);
 
     return Scaffold(
       appBar: AppBar(title: const Text('التحقق من الرمز')),
@@ -95,10 +96,10 @@ class _OtpPageState extends State<OtpPage> {
                      Container(
                        padding: const EdgeInsets.all(16),
                        decoration: BoxDecoration(
-                         color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                         color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                          borderRadius: BorderRadius.circular(12),
                          border: Border.all(
-                           color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                           color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                          ),
                        ),
                        child: Column(

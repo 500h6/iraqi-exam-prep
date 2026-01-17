@@ -376,17 +376,17 @@ class _CompleteProfilePageState extends State<CompleteProfilePage>
                         ),
                       ),
                     )
-                  : Row(
+                  : const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.check_circle_rounded,
                           color: Colors.white,
                           size: 22,
                         ),
-                        const SizedBox(width: 10),
-                        const Text(
-                          'حفظ ومتابعة',
+                        SizedBox(width: 8),
+                        Text(
+                          'حفظ والانطلاق',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,

@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         width: 100,
         height: 100,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
@@ -329,7 +329,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             decoration: BoxDecoration(
               gradient: isLoading
                   ? null
-                  : LinearGradient(
+                  : const LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
@@ -365,10 +365,10 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         ),
                       ),
                     )
-                  : Row(
+                  : const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           'متابعة',
                           style: TextStyle(
                             color: Colors.white,
@@ -376,8 +376,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        const Icon(
+                        SizedBox(width: 8),
+                        Icon(
                           Icons.arrow_back_rounded,
                           color: Colors.white,
                           size: 20,
