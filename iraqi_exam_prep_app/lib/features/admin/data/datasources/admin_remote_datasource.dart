@@ -18,6 +18,7 @@ abstract class AdminRemoteDataSource {
   Future<void> promoteToAdmin(String userId);
   Future<void> demoteFromAdmin(String userId);
   Future<void> activateUser(String userId);
+  Future<void> deactivateUser(String userId);
 }
 
 class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
@@ -238,6 +239,20 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
         if (message != null) throw Exception(message);
       }
       throw Exception('Failed to activate user');
+    }
+  }
+
+  @override
+  Future<void> deactivateUser(String userId) async {
+    try {
+      await dioClient.patch('/admin/users/$userId/deactivate');
+    } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
+      throw Exception('Failed to deactivate user');
     }
   }
 }

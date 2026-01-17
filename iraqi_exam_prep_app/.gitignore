@@ -52,3 +52,9 @@ app.*.map.json
 
 # Build scripts with secrets
 build_web_local.bat
+
+# Android Signing Secrets
+key.properties
+**/*.jks
+**/*.keystore
+

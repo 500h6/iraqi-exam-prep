@@ -38,7 +38,13 @@ Future<void> initializeDependencies() async {
   // External
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerSingleton<SharedPreferences>(sharedPreferences);
-  getIt.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
+  getIt.registerSingleton<FlutterSecureStorage>(
+    const FlutterSecureStorage(
+      aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ),
+    ),
+  );
 
   // Services
   getIt.registerSingleton<StorageService>(StorageServiceImpl(getIt()));

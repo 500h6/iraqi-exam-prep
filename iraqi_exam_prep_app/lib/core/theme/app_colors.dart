@@ -45,4 +45,20 @@ class AppColors {
   // Shimmer Colors
   static const Color shimmerBase = Color(0xFFE2E8F0);
   static const Color shimmerHighlight = Color(0xFFF1F5F9);
+
+  // Exam Option Colors (Light Mode)
+  static const Color optionBackground = Color(0xFFFFFFFF);
+  static const Color optionBorder = Color(0xFFE2E8F0);
+  static const Color optionSelectedBackground = Color(0xFFEFF6FF);
+  static const Color optionSelectedBorder = Color(0xFF2563EB);
+
+  // Exam Option Colors (Dark Mode)
+  static const Color optionBackgroundDark = Color(0xFF1E293B);
+  static const Color optionBorderDark = Color(0xFF334155);
+  static const Color optionSelectedBackgroundDark = Color(0xFF1E3A5F);
+  static const Color optionSelectedBorderDark = Color(0xFF60A5FA);
+
+  // Exam Progress Colors
+  static const Color progressBackground = Color(0xFFE2E8F0);
+  static const Color progressBackgroundDark = Color(0xFF334155);
 }

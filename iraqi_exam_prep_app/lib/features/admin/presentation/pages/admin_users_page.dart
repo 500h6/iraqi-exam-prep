@@ -307,12 +307,31 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                                 children: [
                                   // Premium Status
                                   if (user['isPremium'] == true)
-                                    const Padding(
-                                      padding: EdgeInsets.only(left: 8.0),
-                                      child: Tooltip(
-                                        message: 'حساب مفعل (Premium)',
-                                        child: Icon(Icons.stars, color: Colors.amber, size: 28),
-                                      ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Tooltip(
+                                          message: 'حساب مفعل (Premium)',
+                                          child: Icon(Icons.stars, color: Colors.amber, size: 28),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        ElevatedButton(
+                                          onPressed: _isPromoting
+                                              ? null
+                                              : () => _deactivateUser(
+                                                    user['id'] as String,
+                                                    user['name'] as String? ?? 'مستخدم',
+                                                  ),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: AppColors.error.withValues(alpha: 0.1),
+                                            foregroundColor: AppColors.error,
+                                            elevation: 0,
+                                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                                            side: const BorderSide(color: AppColors.error),
+                                          ),
+                                          child: const Text('إلغاء'),
+                                        ),
+                                      ],
                                     )
                                   else
                                     Padding(

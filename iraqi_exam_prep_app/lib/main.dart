@@ -12,25 +12,82 @@ import 'features/auth/presentation/bloc/auth_event.dart';
 import 'core/theme/bloc/theme_cubit.dart';
 import 'core/theme/bloc/theme_state.dart';
 
+import 'dart:async';
+
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Supabase
-  await Supabase.initialize(
-    url: AppConstants.supabaseUrl,
-    anonKey: AppConstants.supabaseAnonKey,
-  );
+    // Catch early Flutter errors
+    FlutterError.onError = (FlutterErrorDetails details) {
+      FlutterError.presentError(details);
+      // Log to console if possible, but mainly for debug
+      debugPrint('Flutter Error: ${details.exception}');
+    };
 
-  // Initialize dependency injection
-  await initializeDependencies();
+    try {
+      // Initialize Supabase
+      await Supabase.initialize(
+        url: AppConstants.supabaseUrl,
+        anonKey: AppConstants.supabaseAnonKey,
+      );
 
-  // Set preferred orientations
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+      // Initialize dependency injection
+      await initializeDependencies();
 
-  runApp(const MyApp());
+      // Set preferred orientations
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+
+      runApp(const MyApp());
+    } catch (e, stack) {
+      runApp(ErrorApp(error: e.toString(), stackTrace: stack.toString()));
+    }
+  }, (error, stack) {
+    runApp(ErrorApp(error: error.toString(), stackTrace: stack.toString()));
+  });
+}
+
+class ErrorApp extends StatelessWidget {
+  final String error;
+  final String stackTrace;
+
+  const ErrorApp({super.key, required this.error, required this.stackTrace});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.red,
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              const SizedBox(height: 50),
+              const Icon(Icons.error_outline, size: 64, color: Colors.white),
+              const SizedBox(height: 16),
+              const Text(
+                'Critical Error Occurred',
+                style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                error,
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              const Divider(color: Colors.white54),
+              Text(
+                stackTrace,
+                style: const TextStyle(color: Colors.white70, fontSize: 12),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

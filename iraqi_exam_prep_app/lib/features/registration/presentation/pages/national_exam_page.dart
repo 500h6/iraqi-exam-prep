@@ -93,7 +93,7 @@ class NationalExamPage extends StatelessWidget {
               const SizedBox(height: 20),
               
               Text(
-                'ملاحظة: سيتم الرد على طلباتكم خلال ساعات الدوام الرسمي',
+                'ملاحظة: سيتم الرد على طلباتكم بأقرب وقت  ',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).hintColor,
                   fontStyle: FontStyle.italic,
@@ -194,25 +194,36 @@ class NationalExamPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCompactItem(BuildContext context, String label, IconData icon, Color color) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Icon(icon, color: color, size: 24),
+Widget _buildCompactItem(
+  BuildContext context,
+  String label,
+  IconData icon,
+  Color color,
+) {
+  final isDark = Theme.of(context).brightness == Brightness.dark;
+
+  return Column(
+    children: [
+      Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(16),
         ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
-        ),
-      ],
-    );
-  }
+        child: Icon(icon, color: color, size: 24),
+      ),
+      const SizedBox(height: 8),
+      Text(
+        label,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+      ),
+    ],
+  );
+}
+
 
   Widget _buildRequirementRow(BuildContext context, String text) {
     return Padding(

@@ -161,3 +161,45 @@ export const activateUserHandler = async (req: Request, res: Response) => {
         message: `User "${updatedUser.name}" has been activated (Premium)`,
     });
 };
+
+/**
+ * Deactivate user (Revoke Premium)
+ * PATCH /admin/users/:id/deactivate
+ */
+export const deactivateUserHandler = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id) {
+        throw new AppError("User ID is required", 400, "MISSING_ID");
+    }
+
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+        throw new AppError("User not found", 404, "USER_NOT_FOUND");
+    }
+
+    if (!user.isPremium) {
+        throw new AppError("User is not premium", 400, "NOT_PREMIUM");
+    }
+
+    const updatedUser = await prisma.user.update({
+        where: { id },
+        data: {
+            isPremium: false,
+            premiumUntil: null, // Clear the premium expiration date
+        },
+        select: {
+            id: true,
+            name: true,
+            phone: true,
+            isPremium: true,
+            role: true,
+        },
+    });
+
+    return sendSuccess(res, {
+        data: { user: updatedUser },
+        message: `User "${updatedUser.name}" has been deactivated (Premium revoked)`,
+    });
+};
