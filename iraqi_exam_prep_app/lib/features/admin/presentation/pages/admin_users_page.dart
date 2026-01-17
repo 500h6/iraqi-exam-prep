@@ -127,6 +127,48 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
     }
   }
 
+  Future<void> _deactivateUser(String userId, String userName) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('تأكيد إلغاء التفعيل'),
+        content: Text('هل تريد إلغاء تفعيل حساب "$userName"؟\nسيفقد المستخدم صلاحية الوصول للامتحانات.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('تراجع'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
+            child: const Text('إلغاء التفعيل'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    setState(() => _isPromoting = true);
+    try {
+      await widget.dataSource.deactivateUser(userId);
+      Fluttertoast.showToast(
+        msg: 'تم إلغاء تفعيل حساب "$userName".',
+        backgroundColor: AppColors.error,
+        textColor: Colors.white,
+      );
+      _searchUsers(); // Refresh list
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: e.toString().replaceFirst('Exception: ', ''),
+        backgroundColor: AppColors.error,
+        textColor: Colors.white,
+      );
+    } finally {
+      setState(() => _isPromoting = false);
+    }
+  }
+
   Future<void> _activateUser(String userId, String userName) async {
     final confirmed = await showDialog<bool>(
       context: context,
