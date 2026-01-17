@@ -72,7 +72,7 @@ export class TelegramService {
                 const code = generateOtp();
                 storeOtp(phone, code); // store with normalized phone
 
-                await ctx.reply(`✅ تم ربط الحساب بنجاح!\n\n🔐 رمز الدخول الخاص بك هو: *${code}*\n\nارجع إلى التطبيق وأدخل الرمز لإتمام الدخول.`, { parse_mode: 'Markdown' });
+                await ctx.reply(`✅ تم ربط الحساب بنجاح!\n\n🔐 رمز الدخول الخاص بك هو: \`${code}\`\n\nارجع إلى التطبيق وأدخل الرمز لإتمام الدخول.`, { parse_mode: 'Markdown' });
                 console.log(`🔗 Linked Phone ${phone} to ChatID ${chatId} & Sent OTP`);
             } catch (error) {
                 console.error('Error linking telegram:', error);
@@ -114,7 +114,7 @@ export class TelegramService {
         try {
             await this.bot.telegram.sendMessage(
                 user.telegramChatId,
-                `🔐 *${code}* هو رمز دخولك\n\nارجع الى التطبيق وقم بتسجيل الدخول باستخدام الرمز.`,
+                `🔐 \`${code}\` هو رمز دخولك\n\nارجع الى التطبيق وقم بتسجيل الدخول باستخدام الرمز.`,
                 { parse_mode: 'Markdown' }
             );
             return true;
