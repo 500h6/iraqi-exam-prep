@@ -1,8 +1,7 @@
 import { Role, Subject, User } from "@prisma/client";
 import { createHash } from "crypto";
 import { prisma } from "../../shared/prisma";
-import { telegramService } from "../../notifications/telegram.service";
-import { hashPassword, comparePassword } from "../../../utils/password";
+import { otpiqService } from "../../../services/otpiq.service";
 import {
   signAccessToken,
   signRefreshToken,
@@ -10,6 +9,7 @@ import {
 } from "../../../utils/jwt";
 import { AppError } from "../../../utils/appError";
 import { normalizePhoneNumber, getPhoneVariants } from "../../../utils/phoneUtils";
+import { otpStore, generateOtp, storeOtp, getOtp, deleteOtp, incrementOtpAttempts } from "../store/otp.store";
 
 const hashToken = (token: string) =>
   createHash("sha256").update(token).digest("hex");
@@ -42,36 +42,39 @@ export const toUserResponse = (user: User) => ({
   createdAt: user.createdAt,
 });
 
-import { otpStore, generateOtp, storeOtp, getOtp, deleteOtp, incrementOtpAttempts } from "../store/otp.store";
-
 export const authService = {
   requestOtp: async (phone: string) => {
     // Normalize phone to standard format
     const normalizedPhone = normalizePhoneNumber(phone);
     const phoneVariants = getPhoneVariants(phone);
 
-    // 1. Check if user exists with any phone variant
-    const user = await prisma.user.findFirst({
-      where: {
-        phone: { in: phoneVariants },
-      },
-    });
+    // 1. Check if user exists with number
+    // Note: If we want to allow new users to sign up via OTP directly, we might skip this check 
+    // or handle it differently. But based on existing logic, it seems we check existence first.
+    // However, for a proper "SignUp/Login" flow via OTP, usually we just send the OTP.
+    // But let's respect the current "linked" logic - assume user must be pre-registered or we just want to verify phone.
+    // Actually, if I remove Telegram, how do users sign up? 
+    // The previous logic retuned { linked: false } if no telegram ID.
+    // Now, we should probably allow sending OTP to ANY valid phone number, 
+    // and then in `verifyOtp` we create the user if they don't exist (or return a flag).
 
-    if (!user || !user.telegramChatId) {
-      return { linked: false };
-    }
+    // For now, let's keep it simple: Send OTP to provided phone.
 
     // 2. Generate & Store OTP
     const code = generateOtp();
     storeOtp(normalizedPhone, code);
 
-    // 3. Send via Telegram
-    const sent = await telegramService.sendOtp(user.phone!, code);
-    if (!sent) {
-      throw new AppError("Failed to send OTP via Telegram", 500, "TELEGRAM_ERROR");
-    }
+    // 3. Send via WhatsApp (OTPIQ)
+    await otpiqService.sendOtp(normalizedPhone, code);
 
-    return { linked: true };
+    // Return status - since we don't depend on "linking" anymore (phone IS the link), 
+    // we can return something indicating success or if user exists.
+    // But to minimize frontend breakage, let's check if user exists.
+    const user = await prisma.user.findFirst({
+      where: { phone: { in: phoneVariants } },
+    });
+
+    return { linked: !!user };
   },
 
   verifyOtp: async (phone: string, code: string) => {
