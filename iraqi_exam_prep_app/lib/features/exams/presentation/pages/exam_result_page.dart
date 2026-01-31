@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math' as math;
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../domain/entities/question_entity.dart';
@@ -28,328 +29,359 @@ class ExamResultPage extends StatefulWidget {
 
 class _ExamResultPageState extends State<ExamResultPage>
     with TickerProviderStateMixin {
-  late AnimationController _scoreAnimationController;
-  late AnimationController _fadeController;
-  late AnimationController _scaleController;
-  late Animation<double> _scoreAnimation;
-  late Animation<double> _fadeAnimation;
-  late Animation<double> _scaleAnimation;
+  late final AnimationController _scoreController;
+  late final AnimationController _fadeController;
+  late final AnimationController _scaleController;
 
-  bool get _isDarkMode => Theme.of(context).brightness == Brightness.dark;
+  late final Animation<double> _scoreAnim;
+  late final Animation<double> _fadeAnim;
+  late final Animation<double> _scaleAnim;
+
+  bool get _isDark => Theme.of(context).brightness == Brightness.dark;
 
   int get _percentage => (widget.score / widget.totalQuestions * 100).toInt();
   bool get _passed => _percentage >= AppConstants.passingScore;
 
+  Color get _resultColor => _passed ? AppColors.success : AppColors.error;
+
   @override
   void initState() {
     super.initState();
-    _initAnimations();
-  }
 
-  void _initAnimations() {
-    // Score counter animation
-    _scoreAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 1500),
+    _scoreController = AnimationController(
+      duration: const Duration(milliseconds: 1400),
       vsync: this,
     );
-    _scoreAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: _scoreAnimationController,
-        curve: Curves.easeOutCubic,
-      ),
-    );
 
-    // Fade in animation
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-    _fadeAnimation = CurvedAnimation(
+
+    _scaleController = AnimationController(
+      duration: const Duration(milliseconds: 850),
+      vsync: this,
+    );
+
+    _scoreAnim = CurvedAnimation(
+      parent: _scoreController,
+      curve: Curves.easeOutCubic,
+    );
+
+    _fadeAnim = CurvedAnimation(
       parent: _fadeController,
       curve: Curves.easeOut,
     );
 
-    // Scale pop animation for icon
-    _scaleController = AnimationController(
-      duration: const Duration(milliseconds: 800),
-      vsync: this,
-    );
-    _scaleAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: _scaleController,
-        curve: Curves.elasticOut,
-      ),
+    _scaleAnim = CurvedAnimation(
+      parent: _scaleController,
+      curve: Curves.elasticOut,
     );
 
-    // Start animations in sequence
     _fadeController.forward();
-    Future.delayed(const Duration(milliseconds: 200), () {
-      _scaleController.forward();
-    });
-    Future.delayed(const Duration(milliseconds: 400), () {
-      _scoreAnimationController.forward();
-    });
+    Future.delayed(const Duration(milliseconds: 140), () => _scaleController.forward());
+    Future.delayed(const Duration(milliseconds: 340), () => _scoreController.forward());
   }
 
   @override
   void dispose() {
-    _scoreAnimationController.dispose();
+    _scoreController.dispose();
     _fadeController.dispose();
     _scaleController.dispose();
     super.dispose();
   }
 
-  Color get _resultColor => _passed ? AppColors.success : AppColors.error;
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
+    final textPrimary = _isDark ? Colors.white : AppColors.textPrimary;
+    final textSecondary =
+        _isDark ? AppColors.textSecondaryDark : AppColors.textSecondary;
+
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-            child: Column(
+      appBar: AppBar(
+        title: const Text('نتيجة الاختبار'),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              theme.scaffoldBackgroundColor,
+              cs.primary.withOpacity(_isDark ? 0.08 : 0.06),
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: FadeTransition(
+            opacity: _fadeAnim,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(20, 14, 20, 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 6),
+
+                  // Header (icon + message)
+                  _buildHeader(
+                    context,
+                    textPrimary: textPrimary,
+                    textSecondary: textSecondary,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Score section
+                  _ModernSection(
+                    title: 'درجتك',
+                    icon: Icons.score_rounded,
+                    color: _resultColor,
+                    child: _buildScoreCard(
+                      context,
+                      textSecondary: textSecondary,
+                    ),
+                  ),
+
+                  const SizedBox(height: 14),
+
+                  // Stats
+                  _ModernSection(
+                    title: 'الإحصائيات',
+                    icon: Icons.analytics_rounded,
+                    color: cs.primary,
+                    child: _buildStatsRow(context),
+                  ),
+
+                  const SizedBox(height: 14),
+
+                  // Subject badge
+                  _ModernSection(
+                    title: 'المادة',
+                    icon: Icons.school_rounded,
+                    color: cs.primary,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: _buildSubjectBadge(context),
+                    ),
+                  ),
+
+                  const SizedBox(height: 18),
+
+                  // Actions
+                  _ModernSection(
+                    title: 'الخيارات',
+                    icon: Icons.grid_view_rounded,
+                    color: cs.primary,
+                    child: _buildActions(context, textSecondary: textSecondary),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // -------------------- Header --------------------
+
+  Widget _buildHeader(
+    BuildContext context, {
+    required Color textPrimary,
+    required Color textSecondary,
+  }) {
+    final theme = Theme.of(context);
+
+    return Column(
+      children: [
+        ScaleTransition(
+          scale: _scaleAnim,
+          child: Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  _resultColor.withOpacity(_isDark ? 0.20 : 0.14),
+                  _resultColor.withOpacity(_isDark ? 0.08 : 0.05),
+                ],
+              ),
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: _resultColor.withOpacity(_isDark ? 0.22 : 0.18),
+                  blurRadius: 28,
+                  spreadRadius: 4,
+                ),
+              ],
+            ),
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                const SizedBox(height: 20),
-                
-                // Result Icon with Animation
-                _buildResultIcon(),
-                const SizedBox(height: 28),
-                
-                // Title & Message
-                _buildResultMessage(),
-                const SizedBox(height: 40),
-                
-                // Score Card
-                _buildScoreCard(),
-                const SizedBox(height: 24),
-                
-                // Stats Row
-                _buildStatsRow(),
-                const SizedBox(height: 32),
-                
-                // Subject Badge
-                _buildSubjectBadge(),
-                const SizedBox(height: 40),
-                
-                // Action Buttons
-                _buildActionButtons(),
-                const SizedBox(height: 24),
+                Container(
+                  width: 98,
+                  height: 98,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: _resultColor.withOpacity(_isDark ? 0.34 : 0.30),
+                      width: 2,
+                    ),
+                  ),
+                ),
+                Icon(
+                  _passed ? Icons.emoji_events_rounded : Icons.trending_up_rounded,
+                  size: 56,
+                  color: _resultColor,
+                ),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildResultIcon() {
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: Container(
-        width: 120,
-        height: 120,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              _resultColor.withValues(alpha: 0.15),
-              _resultColor.withValues(alpha: 0.05),
-            ],
-          ),
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: _resultColor.withValues(alpha: 0.2),
-              blurRadius: 30,
-              spreadRadius: 5,
-            ),
-          ],
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // Decorative ring
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: _resultColor.withValues(alpha: 0.3),
-                  width: 2,
-                ),
-              ),
-            ),
-            // Icon
-            Icon(
-              _passed ? Icons.emoji_events_rounded : Icons.trending_up_rounded,
-              size: 56,
-              color: _resultColor,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildResultMessage() {
-    return Column(
-      children: [
+        const SizedBox(height: 14),
         Text(
           _passed ? 'مبروك! 🎉' : 'حاول مجدداً 💪',
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+          style: theme.textTheme.displaySmall?.copyWith(
             fontWeight: FontWeight.bold,
-            color: _isDarkMode 
-                ? AppColors.textPrimaryDark 
-                : AppColors.textPrimary,
+            color: textPrimary,
           ),
           textAlign: TextAlign.center,
         ),
+        const SizedBox(height: 10),
+        Text(
+          _passed
+              ? 'اجتزت الاختبار بنجاح، استمر في التألق!'
+              : 'لم تجتز هذه المرة، لكن كل محاولة تقربك من النجاح!',
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: textSecondary,
+            height: 1.6,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  // -------------------- Score Card --------------------
+
+  Widget _buildScoreCard(
+    BuildContext context, {
+    required Color textSecondary,
+  }) {
+    final theme = Theme.of(context);
+
+    return Column(
+      children: [
+        AnimatedBuilder(
+          animation: _scoreAnim,
+          builder: (context, _) {
+            final animatedPercentage = (_percentage * _scoreAnim.value).toInt();
+            final progressValue = (_percentage / 100) * _scoreAnim.value;
+
+            return SizedBox(
+              width: 180,
+              height: 180,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 180,
+                    height: 180,
+                    child: CircularProgressIndicator(
+                      value: 1,
+                      strokeWidth: 14,
+                      strokeCap: StrokeCap.round,
+                      backgroundColor: Colors.transparent,
+                      valueColor: AlwaysStoppedAnimation(
+                        _isDark
+                            ? AppColors.progressBackgroundDark
+                            : AppColors.progressBackground,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 180,
+                    height: 180,
+                    child: Transform.rotate(
+                      angle: -math.pi / 2,
+                      child: CircularProgressIndicator(
+                        value: progressValue,
+                        strokeWidth: 14,
+                        strokeCap: StrokeCap.round,
+                        backgroundColor: Colors.transparent,
+                        valueColor: AlwaysStoppedAnimation(_resultColor),
+                      ),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '$animatedPercentage%',
+                        style: theme.textTheme.displayMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: _resultColor,
+                          fontSize: 48,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _resultColor.withOpacity(_isDark ? 0.18 : 0.10),
+                          borderRadius: BorderRadius.circular(999),
+                          border: Border.all(
+                            color: _resultColor.withOpacity(_isDark ? 0.30 : 0.22),
+                          ),
+                        ),
+                        child: Text(
+                          _passed ? 'ناجح' : 'يحتاج تحسين',
+                          style: TextStyle(
+                            color: _resultColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
         const SizedBox(height: 12),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            _passed
-                ? 'اجتزت الاختبار بنجاح، استمر في التألق!'
-                : 'لم تجتز هذه المرة، لكن كل محاولة تقربك من النجاح!',
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: _isDarkMode 
-                  ? AppColors.textSecondaryDark 
-                  : AppColors.textSecondary,
-              height: 1.6,
-            ),
-            textAlign: TextAlign.center,
+        Text(
+          'درجة النجاح: ${AppConstants.passingScore}%',
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: textSecondary,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildScoreCard() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: _isDarkMode ? AppColors.surfaceDark : Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: _isDarkMode 
-                ? Colors.black.withValues(alpha: 0.3) 
-                : Colors.black.withValues(alpha: 0.08),
-            blurRadius: 30,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          // Animated Score Circle
-          AnimatedBuilder(
-            animation: _scoreAnimation,
-            builder: (context, child) {
-              final animatedPercentage = (_percentage * _scoreAnimation.value).toInt();
-              final progressValue = _percentage / 100 * _scoreAnimation.value;
-              
-              return SizedBox(
-                width: 180,
-                height: 180,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // Background circle
-                    SizedBox(
-                      width: 180,
-                      height: 180,
-                      child: CircularProgressIndicator(
-                        value: 1,
-                        strokeWidth: 14,
-                        strokeCap: StrokeCap.round,
-                        backgroundColor: Colors.transparent,
-                        valueColor: AlwaysStoppedAnimation(
-                          _isDarkMode 
-                              ? AppColors.progressBackgroundDark 
-                              : AppColors.progressBackground,
-                        ),
-                      ),
-                    ),
-                    // Progress circle
-                    SizedBox(
-                      width: 180,
-                      height: 180,
-                      child: Transform.rotate(
-                        angle: -math.pi / 2,
-                        child: CircularProgressIndicator(
-                          value: progressValue,
-                          strokeWidth: 14,
-                          strokeCap: StrokeCap.round,
-                          backgroundColor: Colors.transparent,
-                          valueColor: AlwaysStoppedAnimation(_resultColor),
-                        ),
-                      ),
-                    ),
-                    // Center content
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '$animatedPercentage%',
-                          style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: _resultColor,
-                            fontSize: 48,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _resultColor.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            _passed ? 'ناجح' : 'يحتاج تحسين',
-                            style: TextStyle(
-                              color: _resultColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'درجة النجاح: ${AppConstants.passingScore}%',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: _isDarkMode 
-                  ? AppColors.textSecondaryDark 
-                  : AppColors.textSecondary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // -------------------- Stats --------------------
 
-  Widget _buildStatsRow() {
+  Widget _buildStatsRow(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
     return Row(
       children: [
         Expanded(
-          child: _buildStatCard(
+          child: _StatTile(
             icon: Icons.check_circle_rounded,
             label: 'صحيحة',
             value: '${widget.score}',
@@ -358,7 +390,7 @@ class _ExamResultPageState extends State<ExamResultPage>
         ),
         const SizedBox(width: 12),
         Expanded(
-          child: _buildStatCard(
+          child: _StatTile(
             icon: Icons.cancel_rounded,
             label: 'خاطئة',
             value: '${widget.totalQuestions - widget.score}',
@@ -367,85 +399,42 @@ class _ExamResultPageState extends State<ExamResultPage>
         ),
         const SizedBox(width: 12),
         Expanded(
-          child: _buildStatCard(
+          child: _StatTile(
             icon: Icons.quiz_rounded,
             label: 'الأسئلة',
             value: '${widget.totalQuestions}',
-            color: _isDarkMode ? AppColors.primaryLight : AppColors.primary,
+            color: cs.primary,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildStatCard({
-    required IconData icon,
-    required String label,
-    required String value,
-    required Color color,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-      decoration: BoxDecoration(
-        color: _isDarkMode ? AppColors.surfaceDark : Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: _isDarkMode ? AppColors.borderDark : AppColors.border,
-          width: 1,
-        ),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, color: color, size: 28),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: _isDarkMode 
-                  ? AppColors.textSecondaryDark 
-                  : AppColors.textSecondary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // -------------------- Subject Badge --------------------
 
-  Widget _buildSubjectBadge() {
+  Widget _buildSubjectBadge(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final color = cs.primary;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
       decoration: BoxDecoration(
-        color: (_isDarkMode ? AppColors.primaryLight : AppColors.primary)
-            .withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(30),
+        color: color.withOpacity(_isDark ? 0.16 : 0.10),
+        borderRadius: BorderRadius.circular(999),
         border: Border.all(
-          color: (_isDarkMode ? AppColors.primaryLight : AppColors.primary)
-              .withValues(alpha: 0.3),
-          width: 1,
+          color: color.withOpacity(_isDark ? 0.30 : 0.22),
         ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.school_rounded,
-            size: 20,
-            color: _isDarkMode ? AppColors.primaryLight : AppColors.primary,
-          ),
+          Icon(Icons.school_rounded, size: 20, color: color),
           const SizedBox(width: 8),
           Text(
             _subjectLabel(widget.subject),
             style: TextStyle(
-              color: _isDarkMode ? AppColors.primaryLight : AppColors.primary,
-              fontWeight: FontWeight.w600,
+              color: color,
+              fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
@@ -454,11 +443,19 @@ class _ExamResultPageState extends State<ExamResultPage>
     );
   }
 
-  Widget _buildActionButtons() {
+  // -------------------- Actions --------------------
+
+  Widget _buildActions(BuildContext context, {required Color textSecondary}) {
+    final cs = Theme.of(context).colorScheme;
+
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // Review Answers Button
-        _buildActionButton(
+        _ActionButton(
+          icon: Icons.rate_review_rounded,
+          label: 'مراجعة الإجابات',
+          isPrimary: false,
+          color: AppColors.secondary,
           onPressed: () {
             HapticFeedback.lightImpact();
             context.push('/review-answers', extra: {
@@ -466,102 +463,31 @@ class _ExamResultPageState extends State<ExamResultPage>
               'userAnswers': widget.userAnswers,
             });
           },
-          icon: Icons.rate_review_rounded,
-          label: 'مراجعة الإجابات',
-          isPrimary: false,
-          color: AppColors.secondary,
         ),
         const SizedBox(height: 12),
-        
-        // Retry Button
-        _buildActionButton(
+        _ActionButton(
+          icon: Icons.refresh_rounded,
+          label: 'إعادة الاختبار',
+          isPrimary: true,
+          color: cs.primary,
           onPressed: () {
             HapticFeedback.lightImpact();
             context.go('/exam/${widget.subject}');
           },
-          icon: Icons.refresh_rounded,
-          label: 'إعادة الاختبار',
-          isPrimary: true,
         ),
-        const SizedBox(height: 12),
-        
-        // Home Button
+        const SizedBox(height: 10),
         TextButton.icon(
           onPressed: () {
             HapticFeedback.lightImpact();
             context.go('/home');
           },
-          icon: Icon(
-            Icons.home_rounded,
-            color: _isDarkMode 
-                ? AppColors.textSecondaryDark 
-                : AppColors.textSecondary,
-          ),
+          icon: Icon(Icons.home_rounded, color: textSecondary),
           label: Text(
             'العودة للرئيسية',
-            style: TextStyle(
-              color: _isDarkMode 
-                  ? AppColors.textSecondaryDark 
-                  : AppColors.textSecondary,
-              fontSize: 16,
-            ),
+            style: TextStyle(color: textSecondary, fontSize: 16),
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildActionButton({
-    required VoidCallback onPressed,
-    required IconData icon,
-    required String label,
-    required bool isPrimary,
-    Color? color,
-  }) {
-    final buttonColor = color ?? 
-        (_isDarkMode ? AppColors.primaryLight : AppColors.primary);
-
-    return SizedBox(
-      width: double.infinity,
-      height: 56,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onPressed,
-          borderRadius: BorderRadius.circular(16),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            decoration: BoxDecoration(
-              color: isPrimary 
-                  ? buttonColor 
-                  : buttonColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-              border: isPrimary 
-                  ? null 
-                  : Border.all(color: buttonColor, width: 1.5),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  color: isPrimary ? Colors.white : buttonColor,
-                  size: 22,
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: isPrimary ? Colors.white : buttonColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -576,5 +502,184 @@ class _ExamResultPageState extends State<ExamResultPage>
       default:
         return subject;
     }
+  }
+}
+
+// ===================== Shared components (same design system) =====================
+
+class _ModernSection extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Color color;
+  final Widget child;
+
+  const _ModernSection({
+    required this.title,
+    required this.icon,
+    required this.color,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(isDark ? 0.28 : 0.06),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 18, 20, 10),
+            child: Row(
+              children: [
+                Icon(icon, color: color, size: 24),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white : AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(color: color.withOpacity(0.12), height: 1),
+          Padding(
+            padding: const EdgeInsets.all(18),
+            child: child,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StatTile extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+  final Color color;
+
+  const _StatTile({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface.withOpacity(isDark ? 0.65 : 1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isDark ? AppColors.borderDark : AppColors.border,
+        ),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 28),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final IconData icon;
+  final String label;
+  final bool isPrimary;
+  final Color color;
+
+  const _ActionButton({
+    required this.onPressed,
+    required this.icon,
+    required this.label,
+    required this.isPrimary,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return SizedBox(
+      height: 56,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(16),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              color: isPrimary ? color : color.withOpacity(isDark ? 0.18 : 0.10),
+              borderRadius: BorderRadius.circular(16),
+              border: isPrimary ? null : Border.all(color: color, width: 1.5),
+              boxShadow: isPrimary
+                  ? [
+                      BoxShadow(
+                        color: color.withOpacity(isDark ? 0.20 : 0.18),
+                        blurRadius: 14,
+                        offset: const Offset(0, 8),
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, color: isPrimary ? Colors.white : color, size: 22),
+                const SizedBox(width: 10),
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: isPrimary ? Colors.white : color,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

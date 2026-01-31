@@ -11,6 +11,7 @@ import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
 import 'core/theme/bloc/theme_cubit.dart';
 import 'core/theme/bloc/theme_state.dart';
+import 'core/services/notification_service.dart';
 
 import 'dart:async';
 
@@ -34,6 +35,15 @@ void main() async {
 
       // Initialize dependency injection
       await initializeDependencies();
+
+      // Initialize Notifications
+      // Note: This might fail gracefully if google-services.json isn't present yet,
+      // but keeping it here prepares the app.
+      try {
+        await NotificationService().initialize();
+      } catch (e) {
+        debugPrint("Warning: Notification Service failed to init (likely missing google-services.json): $e");
+      }
 
       // Set preferred orientations
       await SystemChrome.setPreferredOrientations([

@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/di/injection_container.dart';
+
 import '../../domain/entities/question_entity.dart';
 import '../bloc/exam_bloc.dart';
 import '../bloc/exam_event.dart';
@@ -23,12 +25,14 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
   int _currentQuestionIndex = 0;
   final Map<String, int> _answers = {};
   List<QuestionEntity> _questions = [];
-  
-  // Animation controllers
-  late AnimationController _fadeController;
-  late AnimationController _slideController;
+
+  // Animations
+  late final AnimationController _fadeController;
+  late final AnimationController _slideController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+
+  bool get _isDark => Theme.of(context).brightness == Brightness.dark;
 
   @override
   void initState() {
@@ -38,11 +42,11 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
 
   void _initAnimations() {
     _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 260),
       vsync: this,
     );
     _slideController = AnimationController(
-      duration: const Duration(milliseconds: 350),
+      duration: const Duration(milliseconds: 320),
       vsync: this,
     );
 
@@ -50,40 +54,29 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
       parent: _fadeController,
       curve: Curves.easeInOut,
     );
+
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0.05, 0),
+      begin: const Offset(0.04, 0),
       end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _slideController,
-      curve: Curves.easeOutCubic,
-    ));
+    ).animate(
+      CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
+    );
 
     _fadeController.forward();
     _slideController.forward();
   }
 
-  void _animateToNextQuestion({bool reverse = false}) {
+  void _animateToQuestion({required bool reverse}) {
     _fadeController.reset();
     _slideController.reset();
-    
-    if (reverse) {
-      _slideAnimation = Tween<Offset>(
-        begin: const Offset(-0.05, 0),
-        end: Offset.zero,
-      ).animate(CurvedAnimation(
-        parent: _slideController,
-        curve: Curves.easeOutCubic,
-      ));
-    } else {
-      _slideAnimation = Tween<Offset>(
-        begin: const Offset(0.05, 0),
-        end: Offset.zero,
-      ).animate(CurvedAnimation(
-        parent: _slideController,
-        curve: Curves.easeOutCubic,
-      ));
-    }
-    
+
+    _slideAnimation = Tween<Offset>(
+      begin: reverse ? const Offset(-0.04, 0) : const Offset(0.04, 0),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
+    );
+
     _fadeController.forward();
     _slideController.forward();
   }
@@ -95,16 +88,15 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  bool get _isDarkMode => Theme.of(context).brightness == Brightness.dark;
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
     return BlocProvider(
-      create: (_) => getIt<ExamBloc>()
-        ..add(LoadExamQuestionsEvent(widget.subject)),
+      create: (_) => getIt<ExamBloc>()..add(LoadExamQuestionsEvent(widget.subject)),
       child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        appBar: _buildAppBar(),
+        appBar: _buildAppBar(context),
         body: BlocConsumer<ExamBloc, ExamState>(
           listener: (context, state) {
             if (state is ExamSubmitted) {
@@ -123,107 +115,121 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
             }
           },
           builder: (context, state) {
-            if (state is ExamLoading) {
-              return _buildLoadingState();
-            }
-
-            if (state is ExamQuestionsLoaded) {
-              _questions = state.questions;
-              return _buildExamContent(context, state);
-            }
-
-            if (state is ExamError) {
-              return _buildErrorState(context, state);
-            }
-
-            return _buildEmptyState();
+            return Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    theme.scaffoldBackgroundColor,
+                    cs.primary.withOpacity(_isDark ? 0.08 : 0.06),
+                  ],
+                ),
+              ),
+              child: _buildStateBody(context, state),
+            );
           },
         ),
       ),
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      systemOverlayStyle: _isDarkMode 
-          ? SystemUiOverlayStyle.light 
-          : SystemUiOverlayStyle.dark,
+      systemOverlayStyle: _isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
       title: Text(
         'اختبار ${_subjectLabel(widget.subject)}',
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-          fontWeight: FontWeight.w600,
+        style: theme.textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.w800,
         ),
       ),
+      centerTitle: true,
       actions: [
         BlocBuilder<ExamBloc, ExamState>(
           builder: (context, state) {
-            if (state is ExamQuestionsLoaded) {
-              return Container(
-                margin: const EdgeInsets.only(left: 16),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            if (state is! ExamQuestionsLoaded) return const SizedBox.shrink();
+
+            final answered = _answers.length;
+            final total = state.questions.length;
+
+            return Padding(
+              padding: const EdgeInsetsDirectional.only(end: 12),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
                 decoration: BoxDecoration(
-                  color: _isDarkMode 
-                      ? AppColors.surfaceDark 
-                      : AppColors.surfaceLight,
-                  borderRadius: BorderRadius.circular(20),
+                  color: theme.cardColor.withOpacity(_isDark ? 0.72 : 1),
+                  borderRadius: BorderRadius.circular(999),
+                  border: Border.all(
+                    color: cs.primary.withOpacity(_isDark ? 0.22 : 0.16),
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      Icons.check_circle_outline,
+                      Icons.check_circle_outline_rounded,
                       size: 16,
-                      color: _isDarkMode 
-                          ? AppColors.primaryLight 
-                          : AppColors.primary,
+                      color: cs.primary,
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      '${_answers.length}/${state.questions.length}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: _isDarkMode 
-                            ? AppColors.textPrimaryDark 
-                            : AppColors.textPrimary,
+                      '$answered/$total',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
-              );
-            }
-            return const SizedBox();
+              ),
+            );
           },
         ),
-        const SizedBox(width: 16),
       ],
     );
   }
 
-  Widget _buildLoadingState() {
+  Widget _buildStateBody(BuildContext context, ExamState state) {
+    if (state is ExamLoading) return _buildLoadingState(context);
+
+    if (state is ExamQuestionsLoaded) {
+      _questions = state.questions;
+      if (_currentQuestionIndex >= _questions.length) {
+        _currentQuestionIndex = 0;
+      }
+      return _buildExamContent(context, state);
+    }
+
+    if (state is ExamError) return _buildErrorState(context, state);
+
+    return _buildEmptyState(context);
+  }
+
+  Widget _buildLoadingState(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 48,
-            height: 48,
+            width: 46,
+            height: 46,
             child: CircularProgressIndicator(
               strokeWidth: 3,
-              valueColor: AlwaysStoppedAnimation(
-                _isDarkMode ? AppColors.primaryLight : AppColors.primary,
-              ),
+              valueColor: AlwaysStoppedAnimation(cs.primary),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 18),
           Text(
             'جاري تحميل الأسئلة...',
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: _isDarkMode 
-                  ? AppColors.textSecondaryDark 
-                  : AppColors.textSecondary,
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
             ),
           ),
         ],
@@ -236,10 +242,11 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
 
     return Column(
       children: [
-        // Progress Section
-        _buildProgressSection(state),
-        
-        // Main Content
+        _ProgressHeader(
+          currentIndex: _currentQuestionIndex,
+          total: state.questions.length,
+        ),
+
         Expanded(
           child: FadeTransition(
             opacity: _fadeAnimation,
@@ -247,577 +254,118 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
               position: _slideAnimation,
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 14),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Question Card
-                    _buildQuestionCard(question),
-                    const SizedBox(height: 24),
-                    
-                    // Options
+                    _QuestionCard(
+                      question: question,
+                      onImageTap: (url) => _showImageDialog(url),
+                    ),
+                    const SizedBox(height: 14),
+
                     ...List.generate(
                       question.options.length,
                       (index) => Padding(
                         padding: const EdgeInsets.only(bottom: 12),
-                        child: _buildOptionCard(
-                          context,
-                          question,
-                          index,
+                        child: _OptionTile(
+                          labelIndex: index,
+                          text: question.options[index],
+                          isSelected: _answers[question.id] == index,
+                          onTap: () {
+                            HapticFeedback.lightImpact();
+                            setState(() => _answers[question.id] = index);
+                          },
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+
+                    const SizedBox(height: 6),
                   ],
                 ),
               ),
             ),
           ),
         ),
-        
-        // Navigation
-        _buildNavigationSection(context, state, question),
+
+        _BottomNavBar(
+          canGoBack: _currentQuestionIndex > 0,
+          isLast: _currentQuestionIndex >= state.questions.length - 1,
+          hasAnswer: _answers.containsKey(question.id),
+          onBack: () {
+            setState(() => _currentQuestionIndex--);
+            _animateToQuestion(reverse: true);
+          },
+          onNextOrSubmit: () {
+            final isLastQuestion = _currentQuestionIndex >= state.questions.length - 1;
+            if (!isLastQuestion) {
+              setState(() => _currentQuestionIndex++);
+              _animateToQuestion(reverse: false);
+            } else {
+              _submitExam(context);
+            }
+          },
+        ),
       ],
     );
   }
 
-  Widget _buildProgressSection(ExamQuestionsLoaded state) {
-    final progress = (_currentQuestionIndex + 1) / state.questions.length;
-    
-    return Container(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
-      child: Column(
-        children: [
-          // Question Counter
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'السؤال ${_currentQuestionIndex + 1} من ${state.questions.length}',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: _isDarkMode 
-                      ? AppColors.textSecondaryDark 
-                      : AppColors.textSecondary,
-                ),
-              ),
-              Text(
-                '${(progress * 100).toInt()}%',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  color: _isDarkMode 
-                      ? AppColors.primaryLight 
-                      : AppColors.primary,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          
-          // Progress Bar
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0, end: progress),
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeOutCubic,
-              builder: (context, value, child) {
-                return LinearProgressIndicator(
-                  value: value,
-                  minHeight: 8,
-                  backgroundColor: _isDarkMode 
-                      ? AppColors.progressBackgroundDark 
-                      : AppColors.progressBackground,
-                  valueColor: AlwaysStoppedAnimation(
-                    _isDarkMode ? AppColors.primaryLight : AppColors.primary,
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildQuestionCard(QuestionEntity question) {
-    return Container(
-      decoration: BoxDecoration(
-        color: _isDarkMode ? AppColors.surfaceDark : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: _isDarkMode 
-                ? Colors.black.withValues(alpha: 0.3) 
-                : Colors.black.withValues(alpha: 0.06),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Question Image (if any)
-            if (question.imageUrl != null && question.imageUrl!.isNotEmpty)
-              GestureDetector(
-                onTap: () => _showImageDialog(question.imageUrl!),
-                child: Container(
-                  constraints: const BoxConstraints(maxHeight: 220),
-                  child: Image.network(
-                    question.imageUrl!,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Container(
-                        height: 150,
-                        color: _isDarkMode 
-                            ? AppColors.backgroundDark 
-                            : AppColors.surfaceLight,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
-                            strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation(
-                              _isDarkMode 
-                                  ? AppColors.primaryLight 
-                                  : AppColors.primary,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        height: 100,
-                        color: _isDarkMode 
-                            ? AppColors.backgroundDark 
-                            : AppColors.surfaceLight,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.broken_image_outlined,
-                              color: _isDarkMode 
-                                  ? AppColors.textSecondaryDark 
-                                  : AppColors.textSecondary,
-                              size: 32,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'تعذّر تحميل الصورة',
-                              style: TextStyle(
-                                color: _isDarkMode 
-                                    ? AppColors.textSecondaryDark 
-                                    : AppColors.textSecondary,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            
-            // Question Text
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: Text(
-                question.questionText,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  height: 1.6,
-                  fontWeight: FontWeight.w500,
-                  color: _isDarkMode 
-                      ? AppColors.textPrimaryDark 
-                      : AppColors.textPrimary,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOptionCard(
-    BuildContext context,
-    QuestionEntity question,
-    int optionIndex,
-  ) {
-    final isSelected = _answers[question.id] == optionIndex;
-    final optionLabels = ['أ', 'ب', 'ج', 'د', 'هـ', 'و'];
-    final label = optionIndex < optionLabels.length 
-        ? optionLabels[optionIndex] 
-        : String.fromCharCode(65 + optionIndex);
-
-    return GestureDetector(
-      onTap: () {
-        HapticFeedback.lightImpact();
-        setState(() {
-          _answers[question.id] = optionIndex;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOutCubic,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? (_isDarkMode 
-                  ? AppColors.optionSelectedBackgroundDark 
-                  : AppColors.optionSelectedBackground)
-              : (_isDarkMode 
-                  ? AppColors.optionBackgroundDark 
-                  : AppColors.optionBackground),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected
-                ? (_isDarkMode 
-                    ? AppColors.optionSelectedBorderDark 
-                    : AppColors.optionSelectedBorder)
-                : (_isDarkMode 
-                    ? AppColors.optionBorderDark 
-                    : AppColors.optionBorder),
-            width: isSelected ? 2 : 1,
-          ),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: (_isDarkMode 
-                        ? AppColors.primaryLight 
-                        : AppColors.primary)
-                        .withValues(alpha: 0.15),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  ),
-                ]
-              : null,
-        ),
-        child: Row(
-          children: [
-            // Option Label Badge
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isSelected
-                    ? (_isDarkMode 
-                        ? AppColors.primaryLight 
-                        : AppColors.primary)
-                    : (_isDarkMode 
-                        ? AppColors.backgroundDark 
-                        : AppColors.surfaceLight),
-                border: isSelected
-                    ? null
-                    : Border.all(
-                        color: _isDarkMode 
-                            ? AppColors.borderDark 
-                            : AppColors.border,
-                        width: 1,
-                      ),
-              ),
-              child: Center(
-                child: AnimatedDefaultTextStyle(
-                  duration: const Duration(milliseconds: 200),
-                  style: TextStyle(
-                    color: isSelected
-                        ? Colors.white
-                        : (_isDarkMode 
-                            ? AppColors.textSecondaryDark 
-                            : AppColors.textSecondary),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                  child: Text(label),
-                ),
-              ),
-            ),
-            const SizedBox(width: 16),
-            
-            // Option Text
-            Expanded(
-              child: AnimatedDefaultTextStyle(
-                duration: const Duration(milliseconds: 200),
-                style: TextStyle(
-                  color: isSelected
-                      ? (_isDarkMode 
-                          ? AppColors.primaryLight 
-                          : AppColors.primary)
-                      : (_isDarkMode 
-                          ? AppColors.textPrimaryDark 
-                          : AppColors.textPrimary),
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                  fontSize: 16,
-                  height: 1.5,
-                ),
-                child: Text(question.options[optionIndex]),
-              ),
-            ),
-            
-            // Checkmark Icon
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 200),
-              opacity: isSelected ? 1 : 0,
-              child: AnimatedScale(
-                duration: const Duration(milliseconds: 200),
-                scale: isSelected ? 1 : 0.5,
-                child: Container(
-                  width: 28,
-                  height: 28,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _isDarkMode 
-                        ? AppColors.primaryLight 
-                        : AppColors.primary,
-                  ),
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 18,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavigationSection(
-    BuildContext context,
-    ExamQuestionsLoaded state,
-    QuestionEntity question,
-  ) {
-    final hasAnswer = _answers.containsKey(question.id);
-    final isLastQuestion = _currentQuestionIndex >= state.questions.length - 1;
-
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: _isDarkMode ? AppColors.surfaceDark : Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: _isDarkMode 
-                ? Colors.black.withValues(alpha: 0.3) 
-                : Colors.black.withValues(alpha: 0.08),
-            blurRadius: 20,
-            offset: const Offset(0, -4),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        top: false,
-        child: Row(
-          children: [
-            // Previous Button
-            if (_currentQuestionIndex > 0)
-              Expanded(
-                child: _buildNavButton(
-                  onPressed: () {
-                    setState(() {
-                      _currentQuestionIndex--;
-                    });
-                    _animateToNextQuestion(reverse: true);
-                  },
-                  label: 'السابق',
-                  icon: Icons.arrow_forward_ios,
-                  isPrimary: false,
-                ),
-              ),
-            if (_currentQuestionIndex > 0) const SizedBox(width: 12),
-            
-            // Next/Submit Button
-            Expanded(
-              flex: _currentQuestionIndex > 0 ? 1 : 2,
-              child: _buildNavButton(
-                onPressed: hasAnswer
-                    ? () {
-                        if (!isLastQuestion) {
-                          setState(() {
-                            _currentQuestionIndex++;
-                          });
-                          _animateToNextQuestion();
-                        } else {
-                          _submitExam(context);
-                        }
-                      }
-                    : null,
-                label: isLastQuestion ? 'إنهاء الاختبار' : 'التالي',
-                icon: isLastQuestion ? Icons.check_circle : Icons.arrow_back_ios,
-                iconAfter: true,
-                isPrimary: true,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavButton({
-    required VoidCallback? onPressed,
-    required String label,
-    required IconData icon,
-    bool iconAfter = false,
-    required bool isPrimary,
-  }) {
-    final isEnabled = onPressed != null;
-
-    return AnimatedOpacity(
-      duration: const Duration(milliseconds: 200),
-      opacity: isEnabled ? 1 : 0.6,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: isEnabled
-              ? () {
-                  HapticFeedback.lightImpact();
-                  onPressed();
-                }
-              : null,
-          borderRadius: BorderRadius.circular(16),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            height: 56,
-            decoration: BoxDecoration(
-              color: isPrimary
-                  ? (isEnabled
-                      ? (_isDarkMode ? AppColors.primary : AppColors.primary)
-                      : (_isDarkMode 
-                          ? AppColors.surfaceDark.withValues(alpha: 0.5) 
-                          : AppColors.surfaceLight))
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(16),
-              border: isPrimary
-                  ? null
-                  : Border.all(
-                      color: _isDarkMode 
-                          ? AppColors.primaryLight 
-                          : AppColors.primary,
-                      width: 2,
-                    ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (!iconAfter) ...[
-                  Icon(
-                    icon,
-                    size: 18,
-                    color: isPrimary
-                        ? (isEnabled ? Colors.white : Colors.grey)
-                        : (_isDarkMode 
-                            ? AppColors.primaryLight 
-                            : AppColors.primary),
-                  ),
-                  const SizedBox(width: 8),
-                ],
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: isPrimary
-                        ? (isEnabled ? Colors.white : Colors.grey)
-                        : (_isDarkMode 
-                            ? AppColors.primaryLight 
-                            : AppColors.primary),
-                  ),
-                ),
-                if (iconAfter) ...[
-                  const SizedBox(width: 8),
-                  Icon(
-                    icon,
-                    size: 18,
-                    color: isPrimary
-                        ? (isEnabled ? Colors.white : Colors.grey)
-                        : (_isDarkMode 
-                            ? AppColors.primaryLight 
-                            : AppColors.primary),
-                  ),
-                ],
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildErrorState(BuildContext context, ExamError state) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(28),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 80,
-              height: 80,
+              width: 84,
+              height: 84,
               decoration: BoxDecoration(
-                color: AppColors.error.withValues(alpha: 0.1),
+                color: AppColors.error.withOpacity(0.12),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.error_outline,
-                size: 40,
-                color: AppColors.error,
-              ),
+              child: const Icon(Icons.error_outline_rounded,
+                  size: 42, color: AppColors.error),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 18),
             Text(
               'حدث خطأ',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                color: _isDarkMode 
-                    ? AppColors.textPrimaryDark 
-                    : AppColors.textPrimary,
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             Text(
               state.message,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: _isDarkMode 
-                    ? AppColors.textSecondaryDark 
-                    : AppColors.textSecondary,
+              style: theme.textTheme.bodyLarge?.copyWith(
+                color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                height: 1.6,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 22),
             SizedBox(
               width: double.infinity,
               height: 54,
               child: ElevatedButton.icon(
                 onPressed: () {
                   context.read<ExamBloc>().add(
-                    LoadExamQuestionsEvent(widget.subject),
-                  );
+                        LoadExamQuestionsEvent(widget.subject),
+                      );
                 },
-                icon: const Icon(Icons.refresh),
+                icon: const Icon(Icons.refresh_rounded),
                 label: const Text('إعادة المحاولة'),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             TextButton(
               onPressed: () => context.go('/home'),
               child: Text(
                 'العودة للرئيسية',
-                style: TextStyle(
-                  color: _isDarkMode 
-                      ? AppColors.primaryLight 
-                      : AppColors.primary,
-                ),
+                style: TextStyle(color: cs.primary),
               ),
             ),
           ],
@@ -826,7 +374,8 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
+    final theme = Theme.of(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -834,24 +383,21 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
           Icon(
             Icons.quiz_outlined,
             size: 64,
-            color: _isDarkMode 
-                ? AppColors.textSecondaryDark 
-                : AppColors.textSecondary,
+            color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
             'تعذّر تحميل الأسئلة',
-            style: TextStyle(
-              fontSize: 18,
-              color: _isDarkMode 
-                  ? AppColors.textSecondaryDark 
-                  : AppColors.textSecondary,
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
             ),
           ),
         ],
       ),
     );
   }
+
+  // -------------------- Dialogs & Submit --------------------
 
   void _showImageDialog(String imageUrl) {
     showDialog(
@@ -861,28 +407,25 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(18),
               child: InteractiveViewer(
                 child: Image.network(imageUrl),
               ),
             ),
             Positioned(
-              top: 8,
-              right: 8,
-              child: GestureDetector(
+              top: 10,
+              right: 10,
+              child: InkWell(
                 onTap: () => Navigator.pop(context),
+                borderRadius: BorderRadius.circular(999),
                 child: Container(
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.6),
+                    color: Colors.black.withOpacity(0.55),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+                  child: const Icon(Icons.close_rounded, color: Colors.white, size: 20),
                 ),
               ),
             ),
@@ -901,46 +444,34 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
       return;
     }
 
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: _isDarkMode ? AppColors.surfaceDark : Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        backgroundColor: theme.cardColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Row(
           children: [
             Container(
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.1),
+                color: cs.primary.withOpacity(_isDark ? 0.18 : 0.10),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                Icons.send_rounded,
-                color: _isDarkMode ? AppColors.primaryLight : AppColors.primary,
-                size: 20,
-              ),
+              child: Icon(Icons.send_rounded, color: cs.primary, size: 20),
             ),
             const SizedBox(width: 12),
-            Text(
-              'تأكيد الإرسال',
-              style: TextStyle(
-                color: _isDarkMode 
-                    ? AppColors.textPrimaryDark 
-                    : AppColors.textPrimary,
-              ),
-            ),
+            const Text('تأكيد الإرسال'),
           ],
         ),
         content: Text(
           'هل أنت متأكد من رغبتك في إرسال الإجابات؟\nلن تتمكن من تعديلها بعد الإرسال.',
-          style: TextStyle(
-            color: _isDarkMode 
-                ? AppColors.textSecondaryDark 
-                : AppColors.textSecondary,
+          style: theme.textTheme.bodyMedium?.copyWith(
             height: 1.6,
+            color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
           ),
         ),
         actions: [
@@ -949,9 +480,7 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
             child: Text(
               'إلغاء',
               style: TextStyle(
-                color: _isDarkMode 
-                    ? AppColors.textSecondaryDark 
-                    : AppColors.textSecondary,
+                color: _isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
               ),
             ),
           ),
@@ -959,16 +488,11 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
             onPressed: () {
               Navigator.pop(dialogContext);
               context.read<ExamBloc>().add(
-                SubmitExamEvent(
-                  subject: widget.subject,
-                  answers: _answers,
-                ),
-              );
+                    SubmitExamEvent(subject: widget.subject, answers: _answers),
+                  );
             },
             style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
             ),
             child: const Text('إرسال'),
           ),
@@ -988,5 +512,432 @@ class _ExamPageState extends State<ExamPage> with TickerProviderStateMixin {
       default:
         return subject;
     }
+  }
+}
+
+// ====================== Components ======================
+
+class _ProgressHeader extends StatelessWidget {
+  final int currentIndex;
+  final int total;
+
+  const _ProgressHeader({
+    required this.currentIndex,
+    required this.total,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    final progress = (currentIndex + 1) / total;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 6, 20, 14),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'السؤال ${currentIndex + 1} من $total',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                  ),
+                ),
+              ),
+              Text(
+                '${(progress * 100).toInt()}%',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: cs.primary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(999),
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: progress),
+              duration: const Duration(milliseconds: 380),
+              curve: Curves.easeOutCubic,
+              builder: (context, v, _) => LinearProgressIndicator(
+                value: v,
+                minHeight: 8,
+                backgroundColor: isDark
+                    ? AppColors.progressBackgroundDark
+                    : AppColors.progressBackground,
+                valueColor: AlwaysStoppedAnimation(cs.primary),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _QuestionCard extends StatelessWidget {
+  final QuestionEntity question;
+  final ValueChanged<String> onImageTap;
+
+  const _QuestionCard({
+    required this.question,
+    required this.onImageTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(isDark ? 0.28 : 0.06),
+            blurRadius: 16,
+            offset: const Offset(0, 8),
+          ),
+        ],
+        border: Border.all(
+          color: cs.primary.withOpacity(isDark ? 0.16 : 0.10),
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (question.imageUrl != null && question.imageUrl!.isNotEmpty)
+              InkWell(
+                onTap: () => onImageTap(question.imageUrl!),
+                child: Container(
+                  constraints: const BoxConstraints(maxHeight: 220),
+                  child: Image.network(
+                    question.imageUrl!,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, p) {
+                      if (p == null) return child;
+                      return Container(
+                        height: 150,
+                        color: theme.colorScheme.surface.withOpacity(isDark ? 0.6 : 1),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            value: p.expectedTotalBytes != null
+                                ? p.cumulativeBytesLoaded / p.expectedTotalBytes!
+                                : null,
+                          ),
+                        ),
+                      );
+                    },
+                    errorBuilder: (_, __, ___) => Container(
+                      height: 110,
+                      color: theme.colorScheme.surface.withOpacity(isDark ? 0.6 : 1),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.broken_image_outlined,
+                            color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                            size: 32,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'تعذّر تحميل الصورة',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                question.questionText,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  height: 1.6,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OptionTile extends StatelessWidget {
+  final int labelIndex;
+  final String text;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _OptionTile({
+    required this.labelIndex,
+    required this.text,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    final optionLabels = ['أ', 'ب', 'ج', 'د', 'هـ', 'و'];
+    final label = labelIndex < optionLabels.length
+        ? optionLabels[labelIndex]
+        : String.fromCharCode(65 + labelIndex);
+
+    final bg = isSelected
+        ? cs.primary.withOpacity(isDark ? 0.20 : 0.10)
+        : theme.cardColor.withOpacity(isDark ? 0.72 : 1);
+
+    final border = isSelected
+        ? cs.primary.withOpacity(isDark ? 0.60 : 0.45)
+        : (isDark ? AppColors.borderDark : AppColors.border);
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(18),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: bg,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: border, width: isSelected ? 1.6 : 1),
+            boxShadow: isSelected
+                ? [
+                    BoxShadow(
+                      color: cs.primary.withOpacity(isDark ? 0.18 : 0.12),
+                      blurRadius: 14,
+                      offset: const Offset(0, 6),
+                    ),
+                  ]
+                : null,
+          ),
+          child: Row(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isSelected
+                      ? cs.primary
+                      : theme.colorScheme.surface.withOpacity(isDark ? 0.65 : 1),
+                  border: isSelected
+                      ? null
+                      : Border.all(color: isDark ? AppColors.borderDark : AppColors.border),
+                ),
+                child: Center(
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      color: isSelected
+                          ? Colors.white
+                          : (isDark ? AppColors.textSecondaryDark : AppColors.textSecondary),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Text(
+                  text,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    height: 1.5,
+                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                    color: isSelected ? cs.primary : null,
+                  ),
+                ),
+              ),
+              AnimatedOpacity(
+                duration: const Duration(milliseconds: 180),
+                opacity: isSelected ? 1 : 0,
+                child: Container(
+                  width: 28,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    color: cs.primary,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.check_rounded, color: Colors.white, size: 18),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomNavBar extends StatelessWidget {
+  final bool canGoBack;
+  final bool isLast;
+  final bool hasAnswer;
+  final VoidCallback onBack;
+  final VoidCallback onNextOrSubmit;
+
+  const _BottomNavBar({
+    required this.canGoBack,
+    required this.isLast,
+    required this.hasAnswer,
+    required this.onBack,
+    required this.onNextOrSubmit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.cardColor.withOpacity(isDark ? 0.92 : 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(isDark ? 0.30 : 0.10),
+            blurRadius: 18,
+            offset: const Offset(0, -6),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
+          child: Row(
+            children: [
+              if (canGoBack) ...[
+                Expanded(
+                  child: _NavButton(
+                    label: 'السابق',
+                    icon: Icons.arrow_forward_ios_rounded,
+                    isPrimary: false,
+                    enabled: true,
+                    onTap: onBack,
+                  ),
+                ),
+                const SizedBox(width: 12),
+              ],
+              Expanded(
+                flex: canGoBack ? 1 : 2,
+                child: _NavButton(
+                  label: isLast ? 'إنهاء الاختبار' : 'التالي',
+                  icon: isLast ? Icons.check_circle_rounded : Icons.arrow_back_ios_rounded,
+                  isPrimary: true,
+                  enabled: hasAnswer,
+                  onTap: onNextOrSubmit,
+                  primaryColor: cs.primary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NavButton extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final bool isPrimary;
+  final bool enabled;
+  final VoidCallback onTap;
+  final Color? primaryColor;
+
+  const _NavButton({
+    required this.label,
+    required this.icon,
+    required this.isPrimary,
+    required this.enabled,
+    required this.onTap,
+    this.primaryColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    final p = primaryColor ?? cs.primary;
+
+    final bg = isPrimary
+        ? (enabled ? p : theme.disabledColor.withOpacity(isDark ? 0.22 : 0.12))
+        : Colors.transparent;
+
+    final border = isPrimary ? null : BorderSide(color: p, width: 1.6);
+
+    final fg = isPrimary
+        ? (enabled ? Colors.white : (isDark ? Colors.white54 : Colors.black45))
+        : p;
+
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 180),
+      opacity: enabled ? 1 : 0.65,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: enabled
+              ? () {
+                  HapticFeedback.lightImpact();
+                  onTap();
+                }
+              : null,
+          borderRadius: BorderRadius.circular(16),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            height: 56,
+            decoration: BoxDecoration(
+              color: bg,
+              borderRadius: BorderRadius.circular(16),
+              border: border == null ? null : Border.fromBorderSide(border),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, size: 18, color: fg),
+                const SizedBox(width: 8),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: fg,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

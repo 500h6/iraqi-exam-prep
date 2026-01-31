@@ -32,8 +32,17 @@ import {
   activateUserHandler,
   deactivateUserHandler,
 } from "../controllers/user.controller";
+import { sendNotificationHandler } from "../controllers/notification.controller";
 
 export const adminRouter = Router();
+
+// Notification Management
+adminRouter.post(
+  "/notifications/send",
+  authenticate(),
+  requireRole([Role.ADMIN]),
+  sendNotificationHandler,
+);
 
 // Question Management
 adminRouter.post(

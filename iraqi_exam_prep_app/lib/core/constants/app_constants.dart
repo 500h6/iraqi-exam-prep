@@ -43,8 +43,10 @@ class AppConstants {
   static const int passingScore = 60;
 
   // بيانات التواصل عبر تيليغرام
-  static const String telegramUsername = 'h500h5';
-  static const String telegramUrl = 'https://t.me/h500h5';
+  // بيانات التواصل عبر تيليغرام
+  static const String telegramUsername = 'hhhh205';
+  static const String telegramUrl = 'https://t.me/hhhh205';
+  static const String telegramBotUsername = 'IQ1exambot';
 
   // أسماء المواد
   static const String arabicSubject = 'arabic';
@@ -59,3 +61,4 @@ class AppConstants {
   static const String supabaseUrl = String.fromEnvironment('SUPABASE_URL', defaultValue: '');
   static const String supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY', defaultValue: '');
 }
+

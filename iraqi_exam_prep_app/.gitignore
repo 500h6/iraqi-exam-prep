@@ -58,3 +58,6 @@ key.properties
 **/*.jks
 **/*.keystore
 
+# Firebase Secrets
+android/app/google-services.json
+

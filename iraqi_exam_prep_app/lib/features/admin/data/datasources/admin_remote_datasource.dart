@@ -19,6 +19,7 @@ abstract class AdminRemoteDataSource {
   Future<void> demoteFromAdmin(String userId);
   Future<void> activateUser(String userId);
   Future<void> deactivateUser(String userId);
+  Future<void> sendNotification({required String title, required String body});
 }
 
 class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
@@ -252,7 +253,31 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
         final message = responseData['message'] as String?;
         if (message != null) throw Exception(message);
       }
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
       throw Exception('Failed to deactivate user');
+    }
+  }
+
+  @override
+  Future<void> sendNotification({required String title, required String body}) async {
+    try {
+      await dioClient.post(
+        '/admin/notifications/send',
+        data: {
+          'title': title,
+          'body': body,
+        },
+      );
+    } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final message = responseData['message'] as String?;
+        if (message != null) throw Exception(message);
+      }
+      throw Exception('Failed to send notification');
     }
   }
 }

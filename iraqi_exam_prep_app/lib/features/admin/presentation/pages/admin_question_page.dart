@@ -38,7 +38,14 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
     {'value': 'ISLAMIC', 'label': 'التربية الإسلامية'},
   ];
 
+  final List<Map<String, String>> _englishCategories = const [
+    {'value': 'grammar', 'label': 'قواعد (Grammar)'},
+    {'value': 'functions', 'label': 'وظائف (Functions)'},
+    {'value': 'reading', 'label': 'قطعة خارجية (Reading)'},
+  ];
+
   late String _selectedSubject;
+  String? _selectedCategory;
   late int _correctAnswerIndex;
   bool _isUploadingImage = false;
 
@@ -99,10 +106,16 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
           .toList();
       _selectedSubject = widget.question!.subject;
       _correctAnswerIndex = widget.question!.correctAnswer;
+
+      _selectedCategory = widget.question!.category;
+      if (_selectedSubject == 'ENGLISH' && _selectedCategory == null) {
+         _selectedCategory = 'grammar';
+      }
     } else {
       _optionControllers = List.generate(4, (_) => TextEditingController());
       _selectedSubject = 'ARABIC';
       _correctAnswerIndex = 0;
+      _selectedCategory = null;
     }
   }
 
@@ -147,6 +160,7 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
       controller.clear();
     }
     _selectedSubject = 'ARABIC';
+    _selectedCategory = null;
     _correctAnswerIndex = 0;
     setState(() {});
   }
@@ -184,6 +198,7 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
               imageUrl: _imageUrlController.text.trim().isEmpty
                   ? null
                   : _imageUrlController.text.trim(),
+              category: _selectedSubject == 'ENGLISH' ? _selectedCategory : null,
             ),
           );
     } else {
@@ -199,6 +214,7 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
               imageUrl: _imageUrlController.text.trim().isEmpty
                   ? null
                   : _imageUrlController.text.trim(),
+              category: _selectedSubject == 'ENGLISH' ? _selectedCategory : null,
             ),
           );
     }
@@ -281,9 +297,43 @@ class _AdminQuestionPageState extends State<AdminQuestionPage> {
                           if (value == null) return;
                           setState(() {
                             _selectedSubject = value;
+                            if (_selectedSubject == 'ENGLISH') {
+                              _selectedCategory = 'grammar';
+                            } else {
+                              _selectedCategory = null;
+                            }
                           });
                         },
                       ),
+                      if (_selectedSubject == 'ENGLISH') ...[
+                        const SizedBox(height: 16),
+                        DropdownButtonFormField<String>(
+                          value: _selectedCategory,
+                          decoration: const InputDecoration(
+                            labelText: 'تصنيف السؤال',
+                          ),
+                          items: _englishCategories
+                              .map(
+                                (cat) => DropdownMenuItem<String>(
+                                  value: cat['value'],
+                                  child: Text(cat['label']!),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (value) {
+                            if (value == null) return;
+                            setState(() {
+                              _selectedCategory = value;
+                            });
+                          },
+                          validator: (value) {
+                             if (_selectedSubject == 'ENGLISH' && value == null) {
+                               return 'يرجى اختيار التصنيف';
+                             }
+                             return null;
+                          },
+                        ),
+                      ],
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _questionController,

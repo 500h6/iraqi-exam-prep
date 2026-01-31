@@ -14,6 +14,7 @@ class SubmitQuestionEvent extends AdminQuestionEvent {
   final int correctAnswer;
   final String? explanation;
   final String? imageUrl;
+  final String? category;
 
   const SubmitQuestionEvent({
     required this.subject,
@@ -22,6 +23,7 @@ class SubmitQuestionEvent extends AdminQuestionEvent {
     required this.correctAnswer,
     this.explanation,
     this.imageUrl,
+    this.category,
   });
 
   @override
@@ -43,6 +45,7 @@ class UpdateAdminQuestionEvent extends AdminQuestionEvent {
   final int correctAnswer;
   final String? explanation;
   final String? imageUrl;
+  final String? category;
 
   const UpdateAdminQuestionEvent({
     required this.id,
@@ -52,6 +55,7 @@ class UpdateAdminQuestionEvent extends AdminQuestionEvent {
     required this.correctAnswer,
     this.explanation,
     this.imageUrl,
+    this.category,
   });
 
   @override

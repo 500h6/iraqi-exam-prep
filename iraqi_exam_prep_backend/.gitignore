@@ -4,3 +4,5 @@ dist
 *.log
 coverage
 prisma/migrations
+src/config/serviceAccountKey.json
+*.json

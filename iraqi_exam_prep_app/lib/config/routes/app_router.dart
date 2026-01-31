@@ -14,10 +14,12 @@ import '../../features/admin/presentation/pages/admin_question_page.dart';
 import '../../features/admin/presentation/pages/admin_code_page.dart';
 import '../../features/admin/presentation/pages/admin_users_page.dart';
 import '../../features/admin/presentation/pages/question_management_page.dart';
+import '../../features/admin/presentation/pages/send_notification_page.dart';
 import '../../features/admin/presentation/bloc/admin_question_bloc.dart';
 import '../../features/admin/data/datasources/admin_remote_datasource.dart';
 import '../../features/exams/domain/entities/question_entity.dart';
 import '../../features/exams/presentation/pages/review_answers_page.dart';
+import '../../features/settings/presentation/pages/privacy_policy_page.dart';
 import '../../core/di/injection_container.dart';
 
 class AppRouter {
@@ -126,6 +128,16 @@ class AppRouter {
         builder: (context, state) => AdminUsersPage(
           dataSource: getIt<AdminRemoteDataSource>(),
         ),
+      ),
+      GoRoute(
+        path: '/admin/notifications',
+        name: 'إرسال إشعار',
+        builder: (context, state) => const SendNotificationPage(),
+      ),
+      GoRoute(
+        path: '/privacy-policy',
+        name: 'سياسة الخصوصية',
+        builder: (context, state) => const PrivacyPolicyPage(),
       ),
     ],
   );

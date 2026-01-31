@@ -40,6 +40,7 @@ class AdminQuestionBloc extends Bloc<AdminQuestionEvent, AdminQuestionState> {
         correctAnswer: event.correctAnswer,
         explanation: event.explanation,
         imageUrl: event.imageUrl,
+        category: event.category,
       ),
     );
     result.fold(
@@ -62,6 +63,7 @@ class AdminQuestionBloc extends Bloc<AdminQuestionEvent, AdminQuestionState> {
         correctAnswer: event.correctAnswer,
         explanation: event.explanation,
         imageUrl: event.imageUrl,
+        category: event.category,
       ),
     );
     result.fold(

@@ -8,6 +8,7 @@ class QuestionEntity extends Equatable {
   final int correctAnswer; // Index of correct answer (0-3)
   final String? explanation;
   final String? imageUrl;
+  final String? category;
 
   const QuestionEntity({
     required this.id,
@@ -17,6 +18,7 @@ class QuestionEntity extends Equatable {
     required this.correctAnswer,
     this.explanation,
     this.imageUrl,
+    this.category,
   });
 
   @override
@@ -28,5 +30,6 @@ class QuestionEntity extends Equatable {
         correctAnswer,
         explanation,
         imageUrl,
+        category,
       ];
 }
