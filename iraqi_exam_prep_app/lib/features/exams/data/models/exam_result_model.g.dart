@@ -18,6 +18,9 @@ ExamResultModel _$ExamResultModelFromJson(Map<String, dynamic> json) =>
       percentage: (json['percentage'] as num).toDouble(),
       passed: json['passed'] as bool,
       completedAt: DateTime.parse(json['completedAt'] as String),
+      questions: (json['questions'] as List<dynamic>?)
+          ?.map((e) => QuestionModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ExamResultModelToJson(ExamResultModel instance) =>
@@ -32,4 +35,5 @@ Map<String, dynamic> _$ExamResultModelToJson(ExamResultModel instance) =>
       'percentage': instance.percentage,
       'passed': instance.passed,
       'completedAt': instance.completedAt.toIso8601String(),
+      'questions': instance.questions?.map((e) => e.toJson()).toList(),
     };

@@ -4,21 +4,36 @@ import 'question_model.dart';
 
 part 'exam_result_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class ExamResultModel extends ExamResultEntity {
+  @override
+  final List<QuestionModel>? questions;
+
   const ExamResultModel({
-    required super.id,
-    required super.userId,
-    required super.subject,
-    required super.score,
-    required super.totalQuestions,
-    required super.correctAnswers,
-    required super.wrongAnswers,
-    required super.percentage,
-    required super.passed,
-    required super.completedAt,
-    super.questions,
-  });
+    required String id,
+    required String userId,
+    required String subject,
+    required int score,
+    required int totalQuestions,
+    required int correctAnswers,
+    required int wrongAnswers,
+    required double percentage,
+    required bool passed,
+    required DateTime completedAt,
+    this.questions,
+  }) : super(
+          id: id,
+          userId: userId,
+          subject: subject,
+          score: score,
+          totalQuestions: totalQuestions,
+          correctAnswers: correctAnswers,
+          wrongAnswers: wrongAnswers,
+          percentage: percentage,
+          passed: passed,
+          completedAt: completedAt,
+          questions: questions,
+        );
 
 
   factory ExamResultModel.fromJson(Map<String, dynamic> json) {

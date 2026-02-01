@@ -13,21 +13,25 @@
 const IRAQ_COUNTRY_CODE = '964';
 
 export function normalizePhoneNumber(phone: string): string {
-    // Remove all non-digit characters (spaces, dashes, +, etc.)
-    let normalized = phone.replace(/\D/g, '');
+    // 1. Convert Arabic/Persian digits to English digits
+    const arabicDigits = /[٠١٢٣٤٥٦٧٨٩]/g;
+    const persianDigits = /[۰۱۲۳۴۵۶۷۸۹]/g;
 
-    // Handle different formats
+    let normalized = phone
+        .replace(arabicDigits, (d) => (d.charCodeAt(0) - 1632).toString())
+        .replace(persianDigits, (d) => (d.charCodeAt(0) - 1776).toString());
+
+    // 2. Remove all non-digit characters
+    normalized = normalized.replace(/\D/g, '');
+
+    // 3. Handle different formats
     if (normalized.startsWith('00964')) {
-        // 009647810011034 -> 9647810011034
         normalized = normalized.substring(2);
     } else if (normalized.startsWith('964')) {
-        // Already in correct format: 9647810011034
-        // Do nothing
+        // Already correct
     } else if (normalized.startsWith('07')) {
-        // 07810011034 -> 9647810011034
         normalized = IRAQ_COUNTRY_CODE + normalized.substring(1);
     } else if (normalized.startsWith('7') && normalized.length === 10) {
-        // 7810011034 -> 9647810011034
         normalized = IRAQ_COUNTRY_CODE + normalized;
     }
 

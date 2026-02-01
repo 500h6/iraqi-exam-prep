@@ -71,7 +71,8 @@ class OtpiqService {
             throw new AppError(
                 'فشل إرسال كود التحقق. يرجى المحاولة لاحقاً.',
                 status >= 500 ? 503 : 400,
-                'SMS_SEND_FAILED'
+                'SMS_SEND_FAILED',
+                errorData?.error || errorData?.message || error.message
             );
         }
     }
