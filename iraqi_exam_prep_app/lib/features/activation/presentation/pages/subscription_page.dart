@@ -556,6 +556,8 @@ class _SubscriptionPageState extends State<SubscriptionPage>
 
   // -------------------- Steps --------------------
 
+  // -------------------- Steps --------------------
+
   Widget _buildSteps(
     BuildContext context, {
     required ColorScheme cs,
@@ -565,7 +567,7 @@ class _SubscriptionPageState extends State<SubscriptionPage>
     final bodyFontSize = _getBodyFontSize(screenWidth);
 
     const steps = [
-      'تواصل معنا عبر تيليغرام',
+      'تواصل معنا',
       'اختر خطة الاشتراك المناسبة',
       'أتمم عملية الدفع',
       'استلم رمز التفعيل فوراً',
@@ -698,52 +700,6 @@ class _SubscriptionPageState extends State<SubscriptionPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ScaleTransition(
-          scale: _pulseAnimation,
-          child: Container(
-            height: buttonHeight,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF0088CC)
-                      .withOpacity(isDark ? 0.22 : 0.30),
-                  blurRadius: 16,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-              gradient: const LinearGradient(
-                colors: [Color(0xFF0088CC), Color(0xFF24A1DE)],
-              ),
-            ),
-            child: ElevatedButton.icon(
-              onPressed: _launchTelegram,
-              icon: Icon(
-                Icons.telegram,
-                size: screenWidth < 360 ? 24 : 28,
-              ),
-              label: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  'التواصل عبر تيليغرام',
-                  style: TextStyle(
-                    fontSize: screenWidth < 360 ? 16 : 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                foregroundColor: Colors.white,
-                shadowColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: screenWidth < 360 ? 12 : 16),
         SizedBox(
           height: buttonHeight * 0.9,
           child: OutlinedButton.icon(
@@ -779,10 +735,7 @@ class _SubscriptionPageState extends State<SubscriptionPage>
   }
 
   Future<void> _launchTelegram() async {
-    await ExternalLinkService.launchTelegram(
-      AppConstants.telegramUsername,
-      context: context,
-    );
+     // Deprecated
   }
 }
 

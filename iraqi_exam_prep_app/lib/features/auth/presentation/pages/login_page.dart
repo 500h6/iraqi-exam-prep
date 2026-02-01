@@ -619,7 +619,7 @@ class _LoginPageState extends State<LoginPage>
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              'سنرسل لك رمز التحقق عبر رسالة نصية',
+              'سنرسل لك رمز التحقق عبر واتساب (أو رسالة نصية)',
               style: TextStyle(
                 fontSize: fontSize,
                 color: textSecondary,

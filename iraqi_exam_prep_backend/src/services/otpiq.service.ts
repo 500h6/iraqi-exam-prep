@@ -1,18 +1,17 @@
 import axios from 'axios';
+import { AppError } from '../utils/appError';
+import { logger } from '../config/logger';
 
 class OtpiqService {
     private static instance: OtpiqService;
     private readonly apiKey: string;
-    private readonly baseUrl: string = 'https://api.otpiq.com'; // Verified base URL from user snippet context usually
+    private readonly baseUrl: string = 'https://api.otpiq.com/api';
 
     private constructor() {
-        // Use environment variable for security, fallback to hardcoded ONLY for this specific user request context if env not set immediately, but better to enforce env.
-        // The user provided the key in the chat, so I will prioritize using the env var but might default during dev if needed.
-        // Ideally: process.env.OTPIQ_API_KEY
         this.apiKey = process.env.OTPIQ_API_KEY || '';
 
         if (!this.apiKey) {
-            console.warn('⚠️ OTPIQ_API_KEY is not set. OTP sending will fail.');
+            logger.warn('⚠️ OTPIQ_API_KEY is not set. OTP sending will fail.');
         }
     }
 
@@ -30,8 +29,8 @@ class OtpiqService {
      */
     public async sendOtp(phone: string, otp: string): Promise<void> {
         if (!this.apiKey) {
-            console.error('❌ OTPIQ API Key missing.');
-            return;
+            logger.error('❌ OTPIQ API Key missing.');
+            throw new AppError('Verfication service not configured', 500, 'SMS_SERVICE_CONFIG_ERROR');
         }
 
         try {
@@ -43,14 +42,13 @@ class OtpiqService {
             // Usually: { sender: "Verify", destination: "...", text: "..." }
 
             const payload = {
-                sender: "OTPIQ", // Default sender ID, might need adjustment
-                mobile: cleanPhone,
-                content: `كود التحقق الخاص بك هو: ${otp}\nYour verification code is: ${otp}`
+                phoneNumber: cleanPhone,
+                smsType: "verification",
+                verificationCode: otp,
+                provider: "auto"
             };
 
-            // Note: Endpoints might be /sms/send or /messages
-            // User snippet said "Messaging & SMS Endpoints -> POST Send SMS"
-            await axios.post(`${this.baseUrl}/sms/send`, payload, {
+            await axios.post(`${this.baseUrl}/sms`, payload, {
                 headers: {
                     'Authorization': `Bearer ${this.apiKey}`,
                     'Content-Type': 'application/json',
@@ -58,12 +56,23 @@ class OtpiqService {
                 }
             });
 
-            console.log(`✅ OTP sent to ${cleanPhone} via OTPIQ`);
+            logger.info({ phone: cleanPhone }, `✅ OTP sent via OTPIQ`);
         } catch (error: any) {
-            console.error('❌ Failed to send OTP via OTPIQ:', error.response?.data || error.message);
-            // Don't crash the auth flow, just log. 
-            // In production, might want to throw to alert the user.
-            throw new Error('Failed to send verification code.');
+            const errorData = error.response?.data;
+            const status = error.response?.status || 500;
+
+            logger.error({
+                err: error.message,
+                data: errorData,
+                status
+            }, '❌ Failed to send OTP via OTPIQ');
+
+            // Provide a user-friendly message but keep the technical details in the logs
+            throw new AppError(
+                'فشل إرسال كود التحقق. يرجى المحاولة لاحقاً.',
+                status >= 500 ? 503 : 400,
+                'SMS_SEND_FAILED'
+            );
         }
     }
 }

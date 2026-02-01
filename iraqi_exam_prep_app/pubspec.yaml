@@ -1,7 +1,7 @@
 name: iraqi_exam_prep_app
 description: A professional exam preparation app for Iraqi Master's degree students
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: '>=3.0.0 <4.0.0'

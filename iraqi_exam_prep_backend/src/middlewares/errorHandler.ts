@@ -19,14 +19,26 @@ export const errorHandler = (
       ? err.message
       : "Internal server error";
 
-  logger.error({ err }, "Unhandled error");
+  const code = err instanceof AppError ? err.code : "INTERNAL_SERVER_ERROR";
+
+  logger.error(
+    {
+      err: {
+        message: err.message,
+        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined,
+        code,
+        status
+      }
+    },
+    "Unhandled error"
+  );
 
   res.status(status).json({
     success: false,
     error: {
       message,
-      code: err instanceof AppError ? err.code : "INTERNAL_SERVER_ERROR",
-      details: err instanceof AppError ? err.details : undefined,
+      code,
+      details: err instanceof AppError ? err.details : (process.env.NODE_ENV === 'development' ? err.stack : undefined),
     },
   });
 };

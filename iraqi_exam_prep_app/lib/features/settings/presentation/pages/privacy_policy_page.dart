@@ -88,26 +88,9 @@ class PrivacyPolicyPage extends StatelessWidget {
     return _buildSection(
       context,
       title: '7. اتصل بنا',
-      content: 'إذا كان لديك أي أسئلة أو استفسارات حول سياسة الخصوصية هذه، يرجى التواصل معنا عبر تيليغرام:',
+      content: 'إذا كان لديك أي أسئلة أو استفسارات حول سياسة الخصوصية هذه، يرجى التواصل معنا.',
       icon: Icons.contact_support_rounded,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: Center(
-          child: TextButton.icon(
-            onPressed: () => _launchContact(context),
-            icon: const Icon(Icons.telegram),
-            label: Text(
-              '@${AppConstants.telegramUsername}',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              backgroundColor: const Color(0xFF0088CC).withOpacity(0.1),
-              foregroundColor: const Color(0xFF0088CC),
-            ),
-          ),
-        ),
-      ),
+      child: const SizedBox.shrink(),
     );
   }
 
@@ -173,11 +156,5 @@ class PrivacyPolicyPage extends StatelessWidget {
     );
   }
 
-  Future<void> _launchContact(BuildContext context) async {
-    // Clean Code: Use centralized service
-    await ExternalLinkService.launchTelegram(
-      AppConstants.telegramUsername,
-      context: context,
-    );
-  }
+
 }

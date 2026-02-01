@@ -1,0 +1,27 @@
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
+dist/
+build/
+.env
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+iraqi_exam_prep_app/ios/Flutter/Generated.xcconfig
+iraqi_exam_prep_app/ios/Flutter/flutter_export_environment.sh
+
+# Binaries
+*.apk
+*.aab
+app-release.apk
+iraqi_exam_prep_v1.0.1.apk
+
+# Others
+.firebase/

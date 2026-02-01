@@ -514,61 +514,11 @@ class NationalExamPage extends StatelessWidget {
   // -------------------- Telegram Button --------------------
 
   Widget _buildTelegramButton(BuildContext context, double screenWidth) {
-    final borderRadius = _getBorderRadius(screenWidth, base: 18);
-    final buttonHeight = screenWidth < 360 ? 56.0 : (screenWidth < 600 ? 60.0 : 64.0);
-    final buttonFontSize = screenWidth < 360 ? 15.0 : (screenWidth < 600 ? 18.0 : 19.0);
-    final iconSize = screenWidth < 360 ? 24.0 : (screenWidth < 600 ? 28.0 : 30.0);
-
-    return Container(
-      height: buttonHeight,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF0088CC).withOpacity(0.3),
-            blurRadius: screenWidth < 360 ? 12 : 16,
-            offset: Offset(0, screenWidth < 360 ? 6 : 8),
-          ),
-        ],
-        gradient: const LinearGradient(
-          colors: [Color(0xFF0088CC), Color(0xFF24A1DE)],
-        ),
-      ),
-      child: ElevatedButton.icon(
-        onPressed: () => _launchTelegram(context),
-        icon: Icon(Icons.telegram, size: iconSize),
-        label: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            'التسجيل الفوري عبر تليكرام',
-            style: TextStyle(
-              fontSize: buttonFontSize,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
-          shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: screenWidth < 360 ? 16 : (screenWidth < 600 ? 24 : 32),
-            vertical: screenWidth < 360 ? 12 : 16,
-          ),
-        ),
-      ),
-    );
+    // Placeholder or Contact Support button
+    return Container();
   }
 
   Future<void> _launchTelegram(BuildContext context) async {
-    // Clean Code: Use the centralized service for external links management
-    // This ensures consistent behavior (opening native app first) and error handling
-    await ExternalLinkService.launchTelegram(
-      AppConstants.telegramUsername,
-      context: context,
-    );
+     // Deprecated
   }
 }

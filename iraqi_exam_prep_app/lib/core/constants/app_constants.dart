@@ -43,10 +43,7 @@ class AppConstants {
   static const int passingScore = 60;
 
   // بيانات التواصل عبر تيليغرام
-  // بيانات التواصل عبر تيليغرام
-  static const String telegramUsername = 'hhhh205';
-  static const String telegramUrl = 'https://t.me/hhhh205';
-  static const String telegramBotUsername = 'IQ1exambot';
+
 
   // أسماء المواد
   static const String arabicSubject = 'arabic';

@@ -180,12 +180,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
     }
   }
 
-  Future<void> _openTelegramBot() async {
-    await ExternalLinkService.launchTelegram(
-      AppConstants.telegramBotUsername,
-      context: context,
-    );
-  }
+
 
   void _resend() {
     if (_secondsLeft != 0) return;
@@ -274,7 +269,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
                                   SizedBox(height: isSmallPhone ? 12 : 16),
 
                                   Text(
-                                    'أدخل الرمز الذي وصلك عبر تيليكرام',
+                                    'أدخل الرمز الذي وصلك عبر واتساب',
                                     style: theme.textTheme.headlineSmall?.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: textPrimary,
@@ -325,13 +320,13 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
                                   if (state is AuthUnlinked) ...[
                                     ModernSection(
                                       title: 'تنبيه',
-                                      icon: Icons.link_off_rounded,
-                                      color: AppColors.warning,
+                                      icon: Icons.person_off_rounded,
+                                      color: AppColors.error,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.stretch,
                                         children: [
                                           Text(
-                                            'حسابك غير مربوط بالبوت!',
+                                            'رقم الهاتف غير مسجل',
                                             style: theme.textTheme.titleMedium?.copyWith(
                                               fontWeight: FontWeight.bold,
                                               color: textPrimary,
@@ -347,7 +342,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
                                           ),
                                           SizedBox(height: isSmallPhone ? 6 : 8),
                                           Text(
-                                            'افتح البوت، اضغط Start وشارك جهة الاتصال حتى يصلك الرمز.',
+                                            'هذا الرقم غير مرتبط بأي حساب. يرجى التأكد من الرقم أو الاتصال بالدعم.',
                                             style: theme.textTheme.bodyMedium?.copyWith(
                                               height: 1.5,
                                               color: textSecondary,
@@ -362,28 +357,13 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           SizedBox(height: isSmallPhone ? 10 : 12),
-                                          _PrimaryGradientButton(
-                                            label: 'فتح البوت في تيليكرام',
-                                            icon: Icons.telegram,
-                                            onPressed: _openTelegramBot,
-                                            gradient: const LinearGradient(colors: [
-                                              Color(0xFF0088CC),
-                                              Color(0xFF24A1DE),
-                                            ]),
-                                            isSmallPhone: isSmallPhone,
-                                            isTablet: isTablet,
-                                          ),
-                                          SizedBox(height: isSmallPhone ? 8 : 10),
                                           _OutlineButton(
-                                            label: 'تم الربط، أرسل الرمز',
-                                            icon: Icons.refresh_rounded,
+                                            label: 'العودة لتسجيل الدخول',
+                                            icon: Icons.arrow_back,
                                             color: cs.primary,
                                             onPressed: () {
                                               HapticFeedback.lightImpact();
-                                              context.read<AuthBloc>().add(
-                                                    LoginWithPhoneEvent(widget.phone),
-                                                  );
-                                              _startTimer();
+                                              context.pop();
                                             },
                                             isSmallPhone: isSmallPhone,
                                             isTablet: isTablet,
