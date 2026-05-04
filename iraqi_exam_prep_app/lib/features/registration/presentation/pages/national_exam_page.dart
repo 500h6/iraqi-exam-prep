@@ -138,7 +138,7 @@ class NationalExamPage extends StatelessWidget {
                           SizedBox(height: verticalSpacing * 1.8),
 
                           // Premium CTA Button
-                          _buildTelegramButton(context, screenWidth),
+                          _buildWhatsAppButton(context, screenWidth),
                           SizedBox(height: verticalSpacing),
 
                           Padding(
@@ -511,14 +511,45 @@ class NationalExamPage extends StatelessWidget {
     );
   }
 
-  // -------------------- Telegram Button --------------------
+  // -------------------- WhatsApp Button --------------------
 
-  Widget _buildTelegramButton(BuildContext context, double screenWidth) {
-    // Placeholder or Contact Support button
-    return Container();
+  Widget _buildWhatsAppButton(BuildContext context, double screenWidth) {
+    final borderRadius = _getBorderRadius(screenWidth);
+    final buttonHeight = screenWidth < 360 ? 56.0 : 60.0;
+
+    return SizedBox(
+      height: buttonHeight,
+      child: ElevatedButton.icon(
+        onPressed: () => _launchWhatsApp(context),
+        icon: Icon(
+          Icons.chat_rounded,
+          size: screenWidth < 360 ? 20 : 24,
+        ),
+        label: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            'تواصل معنا عبر واتساب',
+            style: TextStyle(
+              fontSize: screenWidth < 360 ? 16 : 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF25D366), // WhatsApp color
+          foregroundColor: Colors.white,
+          elevation: 4,
+          shadowColor: const Color(0xFF25D366).withOpacity(0.4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+        ),
+      ),
+    );
   }
 
-  Future<void> _launchTelegram(BuildContext context) async {
-     // Deprecated
+  Future<void> _launchWhatsApp(BuildContext context) async {
+    const url = 'https://wa.me/9647810011034?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D9%88%D8%B1%D8%AD%D9%85%D8%A9%20%D8%A7%D9%84%D9%84%D9%87%20%D9%88%D8%A8%D8%B1%D9%83%D8%A7%D8%AA%D9%87%D8%8C%0A%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%A7%D8%B4%D8%AA%D8%B1%D8%A7%D9%83%20%D9%81%D9%8A%20%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%20%D8%A7%D9%84%D8%A7%D9%85%D8%AA%D8%AD%D8%A7%D9%86%20%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%8C%20%D9%88%D8%A3%D9%88%D8%AF%20%D9%85%D8%B9%D8%B1%D9%81%D8%A9%20%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D8%A7%D9%84%D8%A8%D8%A7%D9%82%D8%A7%D8%AA%20%D9%88%D8%A2%D9%84%D9%8A%D8%A9%20%D8%A7%D9%84%D8%AA%D9%81%D8%B9%D9%8A%D9%84.%0A%D8%B4%D8%A7%D9%83%D8%B1%D9%8A%D9%86%20%D8%AA%D8%B9%D8%A7%D9%88%D9%86%D9%83%D9%85.';
+    await ExternalLinkService.launchExternalUrl(url, context: context);
   }
 }

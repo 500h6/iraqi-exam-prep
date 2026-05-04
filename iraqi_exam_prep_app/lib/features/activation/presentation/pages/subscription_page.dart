@@ -685,8 +685,6 @@ class _SubscriptionPageState extends State<SubscriptionPage>
     );
   }
 
-  // -------------------- CTA Buttons --------------------
-
   Widget _buildCTAButtons(
     BuildContext context, {
     required ColorScheme cs,
@@ -700,6 +698,36 @@ class _SubscriptionPageState extends State<SubscriptionPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        SizedBox(
+          height: buttonHeight,
+          child: ElevatedButton.icon(
+            onPressed: _launchWhatsApp,
+            icon: Icon(
+              Icons.chat_rounded,
+              size: screenWidth < 360 ? 20 : 24,
+            ),
+            label: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                'تواصل معنا عبر واتساب',
+                style: TextStyle(
+                  fontSize: screenWidth < 360 ? 16 : 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF25D366), // WhatsApp color
+              foregroundColor: Colors.white,
+              elevation: 4,
+              shadowColor: const Color(0xFF25D366).withOpacity(0.4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: screenWidth < 360 ? 12 : 16),
         SizedBox(
           height: buttonHeight * 0.9,
           child: OutlinedButton.icon(
@@ -734,8 +762,9 @@ class _SubscriptionPageState extends State<SubscriptionPage>
     );
   }
 
-  Future<void> _launchTelegram() async {
-     // Deprecated
+  Future<void> _launchWhatsApp() async {
+    const url = 'https://wa.me/9647810011034?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D9%88%D8%B1%D8%AD%D9%85%D8%A9%20%D8%A7%D9%84%D9%84%D9%87%20%D9%88%D8%A8%D8%B1%D9%83%D8%A7%D8%AA%D9%87%D8%8C%0A%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%A7%D8%B4%D8%AA%D8%B1%D8%A7%D9%83%20%D9%81%D9%8A%20%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%20%D8%A7%D9%84%D8%A7%D9%85%D8%AA%D8%AD%D8%A7%D9%86%20%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%8C%20%D9%88%D8%A3%D9%88%D8%AF%20%D9%85%D8%B9%D8%B1%D9%81%D8%A9%20%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D8%A7%D9%84%D8%A8%D8%A7%D9%82%D8%A7%D8%AA%20%D9%88%D8%A2%D9%84%D9%8A%D8%A9%20%D8%A7%D9%84%D8%AA%D9%81%D8%B9%D9%8A%D9%84.%0A%D8%B4%D8%A7%D9%83%D8%B1%D9%8A%D9%86%20%D8%AA%D8%B9%D8%A7%D9%88%D9%86%D9%83%D9%85.';
+    await ExternalLinkService.launchExternalUrl(url);
   }
 }
 
