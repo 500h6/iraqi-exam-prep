@@ -1,0 +1,16 @@
+# Ignore root JSON files
+/*.json
+
+# Ignore APKs and Binaries
+*.apk
+*.aab
+*.ipa
+
+# Flutter ignores
+iraqi_exam_prep_app/build/
+iraqi_exam_prep_app/.dart_tool/
+
+# Backend ignores
+iraqi_exam_prep_backend/node_modules/
+iraqi_exam_prep_backend/.env
+iraqi_exam_prep_backend/__pycache__/
