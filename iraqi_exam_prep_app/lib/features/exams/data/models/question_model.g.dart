@@ -16,6 +16,7 @@ QuestionModel _$QuestionModelFromJson(Map<String, dynamic> json) =>
       correctAnswer: (json['correctAnswer'] as num).toInt(),
       explanation: json['explanation'] as String?,
       imageUrl: json['imageUrl'] as String?,
+      category: json['category'] as String?,
     );
 
 Map<String, dynamic> _$QuestionModelToJson(QuestionModel instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$QuestionModelToJson(QuestionModel instance) =>
       'correctAnswer': instance.correctAnswer,
       'explanation': instance.explanation,
       'imageUrl': instance.imageUrl,
+      'category': instance.category,
     };

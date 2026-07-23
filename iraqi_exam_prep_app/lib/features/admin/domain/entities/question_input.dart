@@ -5,6 +5,7 @@ class QuestionInput {
   final int correctAnswer;
   final String? explanation;
   final String? imageUrl;
+  final String? category;
 
   const QuestionInput({
     required this.subject,
@@ -13,6 +14,7 @@ class QuestionInput {
     required this.correctAnswer,
     this.explanation,
     this.imageUrl,
+    this.category,
   });
 
   Map<String, dynamic> toJson() => {
@@ -24,5 +26,7 @@ class QuestionInput {
           'explanation': explanation,
         if (imageUrl != null && imageUrl!.isNotEmpty)
           'imageUrl': imageUrl,
+        if (category != null && category!.isNotEmpty)
+          'category': category,
       };
 }

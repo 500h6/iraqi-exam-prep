@@ -1,16 +1,36 @@
 # Ignore root JSON files
 /*.json
 
-# Ignore APKs and Binaries
-*.apk
-*.aab
-*.ipa
+# IDE
+.vscode/
+.idea/
 
-# Flutter ignores
-iraqi_exam_prep_app/build/
-iraqi_exam_prep_app/.dart_tool/
+# Node
+node_modules/
+dist/
+build/
+.env
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+iraqi_exam_prep_app/ios/Flutter/Generated.xcconfig
+iraqi_exam_prep_app/ios/Flutter/flutter_export_environment.sh
 
 # Backend ignores
 iraqi_exam_prep_backend/node_modules/
 iraqi_exam_prep_backend/.env
 iraqi_exam_prep_backend/__pycache__/
+
+# Binaries
+*.apk
+*.aab
+*.ipa
+app-release.apk
+iraqi_exam_prep_v1.0.1.apk
+
+# Others
+.firebase/

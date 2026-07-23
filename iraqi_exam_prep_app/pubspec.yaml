@@ -1,7 +1,7 @@
 name: iraqi_exam_prep_app
 description: A professional exam preparation app for Iraqi Master's degree students
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -26,7 +26,7 @@ dependencies:
   # HTTP & API
   dio: ^5.4.0
   retrofit: ^4.0.3
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   pretty_dio_logger: ^1.3.1
 
   # Dependency Injection
@@ -53,6 +53,9 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   image_picker: ^1.2.1
   supabase_flutter: ^2.12.0
+  firebase_core: ^4.4.0
+  firebase_messaging: ^16.1.1
+  flutter_local_notifications: ^17.0.0
 
 dev_dependencies:
   flutter_test:

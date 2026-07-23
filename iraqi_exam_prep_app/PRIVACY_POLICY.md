@@ -14,14 +14,12 @@ This Privacy Policy describes how the "الامتحان الوطني" (Iraqi Exa
 When you register for an account, we may collect:
 *   Name
 *   Phone Number
-*   Email Address (if provided)
-*   Role (Student/Admin)
+
 
 عند قيامك بإنشاء حساب، قد نقوم بجمع:
 *   الاسم
 *   رقم الهاتف
-*   البريد الإلكتروني (في حال توفره)
-*   الدور (طالب/مشرف)
+
 
 ### 2.2 Usage Data | بيانات الاستخدام
 We may collect information about your interaction with the app, including:
