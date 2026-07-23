@@ -360,13 +360,14 @@ class HomePage extends StatelessWidget {
 
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
-        bool hasAccess = isFree;
+        bool hasAccess = false;
         bool isPremiumUser = false;
 
         if (authState is AuthAuthenticated) {
           isPremiumUser = authState.user.isPremium;
-          hasAccess = isFree ||
+          hasAccess = authState.user.role.toUpperCase() == 'ADMIN' ||
               authState.user.isPremium ||
+              isFree ||
               authState.user.unlockedSubjects.contains(subject);
         }
 
@@ -379,7 +380,7 @@ class HomePage extends StatelessWidget {
             if (hasAccess) {
               context.push('/exam/$subject');
             } else {
-              context.push('/subscription', extra: subject);
+              context.push('/activation', extra: subject);
             }
           },
           borderRadius: BorderRadius.circular(24),

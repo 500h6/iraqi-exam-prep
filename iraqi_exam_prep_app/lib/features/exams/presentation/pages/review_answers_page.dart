@@ -695,30 +695,32 @@ class _OptionReviewTile extends StatelessWidget {
         index < optionLabels.length ? optionLabels[index] : '${index + 1}';
 
     Color border = isDark ? AppColors.borderDark : AppColors.border;
-    Color bg = theme.colorScheme.surface.withOpacity(isDark ? 0.65 : 1);
-    Color txt = isDark ? AppColors.textPrimaryDark : AppColors.textPrimary;
+    Color bg = isDark ? AppColors.surfaceDark : theme.colorScheme.surface;
+    Color txt = isDark ? Colors.white : AppColors.textPrimary;
+    
     IconData? trailingIcon;
-    Color trailingColor = Colors.transparent;
+    Color statusColor = Colors.transparent;
 
     if (isSelected && isCorrectOption) {
-      bg = AppColors.success.withOpacity(isDark ? 0.18 : 0.10);
-      border = AppColors.success.withOpacity(isDark ? 0.55 : 0.45);
-      txt = AppColors.success;
+      bg = AppColors.success.withOpacity(isDark ? 0.15 : 0.08);
+      border = AppColors.success.withOpacity(isDark ? 0.6 : 0.4);
+      statusColor = AppColors.success;
       trailingIcon = Icons.check_circle_rounded;
-      trailingColor = AppColors.success;
     } else if (isSelected && !isCorrectOption) {
-      bg = AppColors.error.withOpacity(isDark ? 0.18 : 0.10);
-      border = AppColors.error.withOpacity(isDark ? 0.55 : 0.45);
-      txt = AppColors.error;
+      bg = AppColors.error.withOpacity(isDark ? 0.15 : 0.08);
+      border = AppColors.error.withOpacity(isDark ? 0.6 : 0.4);
+      statusColor = AppColors.error;
       trailingIcon = Icons.cancel_rounded;
-      trailingColor = AppColors.error;
     } else if (showCorrectHint) {
-      bg = AppColors.success.withOpacity(isDark ? 0.14 : 0.06);
-      border = AppColors.success.withOpacity(isDark ? 0.40 : 0.30);
-      txt = AppColors.success;
+      bg = AppColors.success.withOpacity(isDark ? 0.08 : 0.04);
+      border = AppColors.success.withOpacity(isDark ? 0.4 : 0.25);
+      statusColor = AppColors.success;
       trailingIcon = Icons.check_circle_outline_rounded;
-      trailingColor = AppColors.success;
     }
+
+    final circleColor = statusColor == Colors.transparent
+        ? (isDark ? Colors.white54 : AppColors.textSecondary)
+        : statusColor;
 
     return Container(
       padding: const EdgeInsets.all(14),
@@ -727,7 +729,7 @@ class _OptionReviewTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: border,
-          width: isSelected || showCorrectHint ? 1.4 : 1,
+          width: isSelected || showCorrectHint ? 1.5 : 1.0,
         ),
       ),
       child: Row(
@@ -736,16 +738,18 @@ class _OptionReviewTile extends StatelessWidget {
             width: 34,
             height: 34,
             decoration: BoxDecoration(
-              color: txt.withOpacity(isDark ? 0.16 : 0.10),
+              color: circleColor.withOpacity(isDark ? 0.15 : 0.1),
               shape: BoxShape.circle,
-              border: Border.all(color: txt.withOpacity(isDark ? 0.25 : 0.18)),
+              border: Border.all(
+                color: circleColor.withOpacity(isDark ? 0.3 : 0.2),
+              ),
             ),
             child: Center(
               child: Text(
                 label,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: txt,
+                  color: circleColor,
                 ),
               ),
             ),
@@ -765,7 +769,7 @@ class _OptionReviewTile extends StatelessWidget {
           ),
           if (trailingIcon != null) ...[
             const SizedBox(width: 10),
-            Icon(trailingIcon, color: trailingColor, size: 22),
+            Icon(trailingIcon, color: statusColor, size: 24),
           ],
         ],
       ),
