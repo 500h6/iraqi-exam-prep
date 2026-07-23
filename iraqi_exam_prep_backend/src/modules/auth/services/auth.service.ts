@@ -61,14 +61,15 @@ export const authService = {
     // For now, let's keep it simple: Send OTP to provided phone.
 
     // 2. Generate & Store OTP
+    const testNumbers = ["9647810011034", "9647765972402"];
     let code = generateOtp();
-    if (normalizedPhone === "9647810011034") {
+    if (testNumbers.includes(normalizedPhone)) {
       code = "123456";
     }
     storeOtp(normalizedPhone, code);
 
     // 3. Send via WhatsApp (OTPIQ)
-    if (normalizedPhone !== "9647810011034") {
+    if (!testNumbers.includes(normalizedPhone)) {
       await otpiqService.sendOtp(normalizedPhone, code);
     }
 
