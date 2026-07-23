@@ -88,20 +88,8 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
   }
 
   void _setupClipboardListener() async {
-    try {
-      final data = await Clipboard.getData(Clipboard.kTextPlain);
-      if (data?.text != null && mounted) {
-        final text = data!.text!;
-        final digitsOnly = text.replaceAll(RegExp(r'[^0-9]'), '');
-        
-        // لصق تلقائي بدون dialog
-        if (digitsOnly.length == _otpLength) {
-          _pasteCode(digitsOnly);
-        }
-      }
-    } catch (e) {
-      // تجاهل الأخطاء
-    }
+    // تم إيقاف اللصق التلقائي لأنه يزعج المستخدم إذا كان لديه رقم منسوخ مسبقاً
+    // المستخدم يمكنه الضغط على زر "لصق" يدوياً
   }
 
   void _pasteCode(String code) {

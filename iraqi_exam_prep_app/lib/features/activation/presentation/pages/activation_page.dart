@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/di/injection_container.dart';
+import '../../../../core/services/external_link_service.dart';
 
 import '../bloc/activation_bloc.dart';
 import '../bloc/activation_event.dart';
@@ -264,33 +265,8 @@ class _ActivationPageState extends State<ActivationPage>
                                       ),
                                     ),
 
-                                    const SizedBox(height: 16),
-
-                                    _buildModernCard(
-                                      context,
-                                      title: 'معلومة',
-                                      icon: Icons.info_outline_rounded,
-                                      color: AppColors.info,
-                                      child: Text(
-                                        'إذا لم تحصل على رمز التفعيل بعد، تواصل معنا عبر تيليغرام لشراء الاشتراك والحصول على الرمز.',
-                                        style:
-                                            theme.textTheme.bodyMedium?.copyWith(
-                                          height: 1.7,
-                                          color: textSecondary,
-                                        ),
-                                      ),
-                                    ),
-
+                                    _buildWhatsAppBanner(context),
                                     const SizedBox(height: 14),
-
-                                    Text(
-                                      'سيتم الرد على طلباتكم بأقرب وقت',
-                                      textAlign: TextAlign.center,
-                                      style: theme.textTheme.bodySmall?.copyWith(
-                                        color: theme.hintColor,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ),
@@ -479,5 +455,88 @@ class _ActivationPageState extends State<ActivationPage>
               ),
       ),
     );
+  }
+
+  Widget _buildWhatsAppBanner(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF128C7E), Color(0xFF25D366)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF25D366).withOpacity(isDark ? 0.2 : 0.4),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => _launchWhatsApp(context),
+          borderRadius: BorderRadius.circular(24),
+          child: Padding(
+            padding: const EdgeInsets.all(22),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.chat_bubble_outline_rounded,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'تواصل معنا عبر واتساب',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'للحصول على رمز التفعيل أو لأي استفسار',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white.withOpacity(0.9),
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Colors.white,
+                  size: 16,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchWhatsApp(BuildContext context) async {
+    const url = 'https://wa.me/9647810011034?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D9%88%D8%B1%D8%AD%D9%85%D8%A9%20%D8%A7%D9%84%D9%84%D9%87%20%D9%88%D8%A8%D8%B1%D9%83%D8%A7%D8%AA%D9%87%D8%8C%0A%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%A7%D8%B4%D8%AA%D8%B1%D8%A7%D9%83%20%D9%81%D9%8A%20%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%20%D8%A7%D9%84%D8%A7%D9%85%D8%AA%D8%AD%D8%A7%D9%86%20%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%8C%20%D9%88%D8%A3%D9%88%D8%AF%20%D9%85%D8%B9%D8%B1%D9%81%D8%A9%20%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D8%A7%D9%84%D8%A8%D8%A7%D9%82%D8%A7%D8%AA%20%D9%88%D8%A2%D9%84%D9%8A%D8%A9%20%D8%A7%D9%84%D8%AA%D9%81%D8%B9%D9%8A%D9%84.%0A%D8%B4%D8%A7%D9%83%D8%B1%D9%8A%D9%86%20%D8%AA%D8%B9%D8%A7%D9%88%D9%86%D9%83%D9%85.';
+    await ExternalLinkService.launchExternalUrl(url, context: context);
   }
 }

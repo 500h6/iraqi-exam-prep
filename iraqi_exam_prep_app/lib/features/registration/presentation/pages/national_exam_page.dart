@@ -514,34 +514,77 @@ class NationalExamPage extends StatelessWidget {
   // -------------------- WhatsApp Button --------------------
 
   Widget _buildWhatsAppButton(BuildContext context, double screenWidth) {
-    final borderRadius = _getBorderRadius(screenWidth);
-    final buttonHeight = screenWidth < 360 ? 56.0 : 60.0;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
-    return SizedBox(
-      height: buttonHeight,
-      child: ElevatedButton.icon(
-        onPressed: () => _launchWhatsApp(context),
-        icon: Icon(
-          Icons.chat_rounded,
-          size: screenWidth < 360 ? 20 : 24,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF128C7E), Color(0xFF25D366)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        label: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            'تواصل معنا عبر واتساب',
-            style: TextStyle(
-              fontSize: screenWidth < 360 ? 16 : 18,
-              fontWeight: FontWeight.bold,
-            ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF25D366).withOpacity(isDark ? 0.2 : 0.4),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
           ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF25D366), // WhatsApp color
-          foregroundColor: Colors.white,
-          elevation: 4,
-          shadowColor: const Color(0xFF25D366).withOpacity(0.4),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => _launchWhatsApp(context),
+          borderRadius: BorderRadius.circular(24),
+          child: Padding(
+            padding: const EdgeInsets.all(22),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.chat_bubble_outline_rounded,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'تواصل معنا عبر واتساب',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: screenWidth < 360 ? 16 : 18,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'للحصول على الاشتراك المميز',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white.withOpacity(0.9),
+                          fontSize: screenWidth < 360 ? 12 : 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Colors.white,
+                  size: 16,
+                ),
+              ],
+            ),
           ),
         ),
       ),

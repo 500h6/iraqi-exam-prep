@@ -135,70 +135,58 @@ class HomePage extends StatelessWidget {
                     builder: (context, state) {
                       if (state is! AuthAuthenticated) return const SizedBox();
 
-                      return ModernSection(
-                        title: 'مرحباً',
-                        icon: Icons.waving_hand_rounded,
-                        color: cs.primary,
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'أهلاً بعودتك،',
-                                    style: theme.textTheme.bodyLarge?.copyWith(
-                                      color: textSecondary,
-                                    ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'مرحباً بك 👋',
+                                        style: theme.textTheme.titleMedium?.copyWith(
+                                          color: textSecondary,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(height: 6),
+                                  const SizedBox(height: 4),
                                   Text(
                                     state.user.name,
-                                    style: theme.textTheme.displaySmall?.copyWith(
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.bold,
+                                    style: theme.textTheme.headlineMedium?.copyWith(
+                                      fontWeight: FontWeight.w900,
                                       color: textPrimary,
+                                      letterSpacing: -0.5,
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  const SizedBox(height: 10),
-                                  if (state.user.isPremium)
-                                    _StatusPill(
-                                      icon: Icons.verified_rounded,
-                                      label: 'مشترك مميز',
-                                      color: AppColors.success,
-                                      isDark: isDark,
-                                    )
-                                  else
-                                    _StatusPill(
-                                      icon: Icons.lock_outline_rounded,
-                                      label: 'حساب مجاني',
-                                      color: AppColors.warning,
-                                      isDark: isDark,
-                                    ),
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 12),
-                            Container(
-                              width: 54,
-                              height: 54,
-                              decoration: BoxDecoration(
-                                color: cs.primary.withOpacity(isDark ? 0.18 : 0.12),
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: cs.primary.withOpacity(isDark ? 0.28 : 0.18),
-                                ),
+                            const SizedBox(width: 16),
+                            if (state.user.isPremium)
+                              _StatusPill(
+                                icon: Icons.verified_rounded,
+                                label: 'مشترك مميز',
+                                color: AppColors.success,
+                                isDark: isDark,
+                                dense: true,
+                              )
+                            else
+                              _StatusPill(
+                                icon: Icons.lock_outline_rounded,
+                                label: 'حساب مجاني',
+                                color: AppColors.warning,
+                                isDark: isDark,
+                                dense: true,
                               ),
-                              child: Icon(
-                                state.user.isPremium
-                                    ? Icons.workspace_premium_rounded
-                                    : Icons.person_rounded,
-                                color: cs.primary,
-                              ),
-                            ),
                           ],
                         ),
                       );
