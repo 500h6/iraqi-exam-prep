@@ -112,49 +112,88 @@ class HomePage extends StatelessWidget {
               BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
                   if (state is AuthAuthenticated) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'أهلاً بعودتك،',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                    final isDark = Theme.of(context).brightness == Brightness.dark;
+                    return Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: isDark ? AppColors.surfaceDark : AppColors.cardBackground,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(isDark ? 0.2 : 0.05),
+                            blurRadius: 15,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                        border: Border.all(
+                          color: isDark ? AppColors.borderDark : AppColors.border.withOpacity(0.5),
                         ),
-                        Text(
-                          state.user.name,
-                          style: Theme.of(context).textTheme.displaySmall,
-                        ),
-                        const SizedBox(height: 8),
-                        if (state.user.isPremium)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'مرحباً بك 👋',
+                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  state.user.name,
+                                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
+                              horizontal: 14,
+                              vertical: 8,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColors.success.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: AppColors.success),
+                              color: state.user.isPremium
+                                  ? AppColors.success.withOpacity(0.15)
+                                  : AppColors.primary.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(
-                                  Icons.verified,
-                                  size: 16,
-                                  color: AppColors.success,
+                                  state.user.isPremium
+                                      ? Icons.verified
+                                      : Icons.account_circle,
+                                  size: 18,
+                                  color: state.user.isPremium
+                                      ? AppColors.success
+                                      : AppColors.primary,
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 6),
                                 Text(
-                                  'مشترك مميز',
+                                  state.user.isPremium ? 'مشترك مميز' : 'حساب مجاني',
                                   style: TextStyle(
-                                    color: AppColors.success,
-                                    fontWeight: FontWeight.w600,
+                                    color: state.user.isPremium
+                                        ? AppColors.success
+                                        : AppColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                      ],
+                        ],
+                      ),
                     );
                   }
                   return const SizedBox();
@@ -315,7 +354,7 @@ class HomePage extends StatelessWidget {
               if (hasAccess) {
                 context.push('/exam/$subject');
               } else {
-                context.push('/subscription', extra: subject);
+                context.push('/activation');
               }
             },
             borderRadius: BorderRadius.circular(16),

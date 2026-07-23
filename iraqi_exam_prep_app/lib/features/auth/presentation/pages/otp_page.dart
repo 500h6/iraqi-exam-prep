@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/services/external_link_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
@@ -39,12 +40,10 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   void _openTelegramBot() async {
-    const botUrl = "https://t.me/IQ1exambot"; // Replace with actual bot User
-    if (await canLaunchUrlString(botUrl)) {
-      await launchUrlString(botUrl, mode: LaunchMode.externalApplication);
-    } else {
-      Fluttertoast.showToast(msg: "Could not open Telegram");
-    }
+    await ExternalLinkService.launchTelegram(
+      AppConstants.telegramBotUsername,
+      context: context,
+    );
   }
 
   @override

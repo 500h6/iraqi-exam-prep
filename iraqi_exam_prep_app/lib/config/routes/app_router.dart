@@ -7,7 +7,6 @@ import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/exams/presentation/pages/home_page.dart';
 import '../../features/exams/presentation/pages/exam_page.dart';
 import '../../features/exams/presentation/pages/exam_result_page.dart';
-import '../../features/activation/presentation/pages/subscription_page.dart';
 import '../../features/activation/presentation/pages/activation_page.dart';
 import '../../features/registration/presentation/pages/national_exam_page.dart';
 import '../../features/admin/presentation/pages/admin_question_page.dart';
@@ -85,14 +84,6 @@ class AppRouter {
             questions: extra['questions'] as List<QuestionEntity>,
             userAnswers: extra['userAnswers'] as Map<String, int>,
           );
-        },
-      ),
-      GoRoute(
-        path: '/subscription',
-        name: 'الاشتراك',
-        builder: (context, state) {
-          final subject = state.extra as String;
-          return SubscriptionPage(subject: subject);
         },
       ),
       GoRoute(

@@ -45,6 +45,7 @@ class AppConstants {
   // بيانات التواصل عبر تيليغرام
   static const String telegramUsername = 'h500h5';
   static const String telegramUrl = 'https://t.me/h500h5';
+  static const String telegramBotUsername = 'IQ1exambot';
 
   // أسماء المواد
   static const String arabicSubject = 'arabic';
